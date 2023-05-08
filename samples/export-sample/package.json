@@ -1,0 +1,40 @@
+{
+    "name": "export-sample",
+    "version": "1.0.0",
+    "description": "Adobe Creative Cloud Web Add-on.",
+    "type": "module",
+    "scripts": {
+        "clean": "ccweb-add-on-scripts clean",
+        "build": "ccweb-add-on-scripts build --use webpack",
+        "start": "ccweb-add-on-scripts start --use webpack"
+    },
+    "dependencies": {
+        "@spectrum-web-components/button": "^0.19.0",
+        "@spectrum-web-components/divider": "^0.6.6",
+        "@spectrum-web-components/field-label": "^0.8.0",
+        "@spectrum-web-components/menu": "^0.16.0",
+        "@spectrum-web-components/number-field": "^0.5.12",
+        "@spectrum-web-components/picker": "^0.13.0",
+        "@spectrum-web-components/styles": "^0.16.0",
+        "@spectrum-web-components/tabs": "^0.11.0",
+        "@spectrum-web-components/textfield": "^0.13.0",
+        "@spectrum-web-components/theme": "0.13.0",
+        "@spectrum-web-components/toast": "^0.11.15"
+    },
+    "keywords": [
+        "Adobe",
+        "Creative Cloud Web",
+        "Add-on",
+        "panel"
+    ],
+    "devDependencies": {
+        "@adobe-ccwebext/ccweb-add-on-scripts": "^1.2.0",
+        "copy-webpack-plugin": "^9.1.0",
+        "css-loader": "^6.5.1",
+        "html-webpack-plugin": "5.5.0",
+        "mini-css-extract-plugin": "^2.7.5",
+        "rimraf": "3.0.2",
+        "webpack": "^5.64.1",
+        "webpack-cli": "^4.9.1"
+    }
+}

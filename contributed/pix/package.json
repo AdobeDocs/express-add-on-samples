@@ -1,0 +1,53 @@
+{
+    "name": "pix",
+    "version": "1.0.0",
+    "description": "Pixel Art Editor for Adobe Express",
+    "scripts": {
+        "clean": "ccweb-add-on-scripts clean",
+        "build": "ccweb-add-on-scripts build --use webpack",
+        "start": "ccweb-add-on-scripts start --use webpack"
+    },
+    "keywords": [
+        "Adobe",
+        "Adobe Express",
+        "Add-on",
+        "pixel art"
+    ],
+    "dependencies": {
+        "@spectrum-web-components/action-button": "^0.10.9",
+        "@spectrum-web-components/action-group": "^0.12.5",
+        "@spectrum-web-components/button": "^0.19.9",
+        "@spectrum-web-components/color-slider": "^0.4.7",
+        "@spectrum-web-components/divider": "^0.6.4",
+        "@spectrum-web-components/field-label": "^0.10.4",
+        "@spectrum-web-components/icon": "^0.12.6",
+        "@spectrum-web-components/icons": "^0.9.5",
+        "@spectrum-web-components/icons-workflow": "^0.9.6",
+        "@spectrum-web-components/menu": "^0.16.10",
+        "@spectrum-web-components/number-field": "^0.5.9",
+        "@spectrum-web-components/overlay": "^0.18.10",
+        "@spectrum-web-components/overlay-trigger": "^0.1.7",
+        "@spectrum-web-components/picker": "^0.13.10",
+        "@spectrum-web-components/popover": "^0.12.10",
+        "@spectrum-web-components/swatch": "^0.3.4",
+        "@spectrum-web-components/tabs": "^0.10.5",
+        "@spectrum-web-components/textfield": "^0.13.9",
+        "@spectrum-web-components/theme": "^0.14.9",
+        "react": "18.2.0",
+        "react-dom": "18.2.0"
+    },
+    "devDependencies": {
+        "@adobe-ccwebext/ccweb-add-on-scripts": "^1.2.0",
+        "@babel/core": "7.18.13",
+        "@babel/preset-env": "7.18.10",
+        "@babel/preset-react": "7.18.6",
+        "babel-loader": "8.2.5",
+        "babel-preset-react-app": "10.0.1",
+        "copy-webpack-plugin": "11.0.0",
+        "css-loader": "6.7.1",
+        "html-webpack-plugin": "5.5.0",
+        "style-loader": "3.3.1",
+        "webpack": "5.77.0",
+        "webpack-cli": "5.0.1"
+    }
+}

@@ -1,0 +1,26 @@
+{
+    "name": "use-client-storage",
+    "version": "1.0.0",
+    "description": "Adobe CCWeb Add-on",
+    "scripts": {
+        "clean": "ccweb-add-on-scripts clean",
+        "build": "ccweb-add-on-scripts build --use webpack",
+        "start": "ccweb-add-on-scripts start --use webpack"
+    },
+    "keywords": [
+        "adobe",
+        "ccweb",
+        "add-on",
+        "panel"
+    ],
+    "devDependencies": {
+        "@adobe-ccwebext/ccweb-add-on-scripts": "^1.2.0",
+        "copy-webpack-plugin": "11.0.0",
+        "html-webpack-plugin": "5.5.0",
+        "prettier": "2.6.0",
+        "ts-loader": "9.4.2",
+        "typescript": "4.9.4",
+        "webpack": "5.77.0",
+        "webpack-cli": "5.0.1"
+    }
+}

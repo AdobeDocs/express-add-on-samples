@@ -1,0 +1,21 @@
+{
+    "testId": "giphy",
+    "name": "Giphy",
+    "version": "1.0.0",
+    "manifestVersion": 2,
+    "requirements": {
+        "apps": [
+            {
+                "name": "Express",
+                "apiVersion": 1
+            }
+        ]
+    },
+    "entryPoints": [
+        {
+            "type": "panel",
+            "id": "giphy.entrypoint1",
+            "main": "index.html"
+        }
+    ]
+}

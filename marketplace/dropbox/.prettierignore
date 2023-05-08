@@ -1,0 +1,6 @@
+.rush/
+dist/
+node_modules/
+.generated
+.log
+.env

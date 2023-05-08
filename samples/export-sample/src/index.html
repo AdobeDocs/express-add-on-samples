@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  <body>
+    <sp-tabs selected="1" size="m" id="tabs">
+      <sp-tab label="Export" value="1"></sp-tab>
+      <sp-tab label="Import" value="2"></sp-tab>
+    </sp-tabs>
+    <div id="export" style="display: block">
+      <sp-field-label for="mimeType" size="l">Format</sp-field-label>
+      <sp-picker name="mimeType" id="mimeType" value="application/pdf">
+        <sp-menu-item value="image/jpeg" selected>JPEG</sp-menu-item>
+        <sp-menu-item value="image/png">PNG</sp-menu-item>
+        <sp-menu-item value="application/pdf">PDF</sp-menu-item>
+        <sp-menu-item value="video/mp4">MP4</sp-menu-item>
+      </sp-picker>
+      <sp-field-label for="range" size="l" style="margin-top: 5%"
+        >Pages(s)</sp-field-label
+      >
+      <sp-picker name="range" id="range" value="currentPage">
+        <sp-menu-item value="currentPage">Current Page</sp-menu-item>
+        <sp-menu-item value="entireDocument">Whole Document</sp-menu-item>
+      </sp-picker>
+      <sp-field-label id="config" style="display: none; margin-top: 7%" size="l"
+        >Configurations</sp-field-label
+      >
+      <sp-divider
+        size="m"
+        style="height: 2px; background: lightgray; display: none"
+        id="line"
+      ></sp-divider>
+
+      <sp-field-label
+        for="backgroundColor"
+        size="l"
+        id="background"
+        style="display: none; margin-top: 2%"
+        >Background Color</sp-field-label
+      >
+      <sp-number-field
+        style="width: 200px; display: none"
+        id="backgroundColor"
+        min="0"
+        max="4294967295"
+        step="1"
+        placeholder
+      ></sp-number-field>
+      <sp-field-label
+        for="quality"
+        size="l"
+        id="quality-text"
+        style="display: none; margin-top: 5%"
+        >Quality</sp-field-label
+      >
+      <sp-number-field
+        placeholder
+        style="width: 200px; display: none"
+        min="0"
+        max="1"
+        step="0.1"
+        id="quality"
+      ></sp-number-field>
+      <div style="margin-bottom: 7%"></div>
+      <a href="#" download="download" id="anchor" style="text-decoration: none">
+        <sp-button id="download-button" style="display: none"
+          >Download</sp-button
+        >
+      </a>
+      <sp-button id="preview-button" treatment="fill" variant="secondary"
+        >Preview</sp-button
+      >
+      <div
+        style="
+          height: 275px;
+          width: 275px;
+          border: 1px solid;
+          border-color: lightgray;
+          text-align: center;
+          overflow-y: scroll;
+          display: block;
+          margin-top: 10%;
+        "
+        id="square"
+      >
+        <sp-field-label
+          style="padding-top: 45%; padding-bottom: 50%; display: block"
+          id="prev"
+          size="l"
+          >PREVIEW</sp-field-label
+        >
+      </div>
+    </div>
+    <div id="import" style="display: none">
+      <sp-field-label for="range" size="l">Format</sp-field-label>
+      <sp-picker value="image/jpeg" name="format" id="format">
+        <sp-menu-item value="image/jpeg">JPG</sp-menu-item>
+        <sp-menu-item value="image/png" size="m">PNG</sp-menu-item>
+        <sp-menu-item value="video/mp4" size="m">MP4</sp-menu-item>
+      </sp-picker>
+      <br /><br />
+      <sp-button>
+        <label for="files-input">
+          Upload & Preview
+          <input
+            type="file"
+            id="files-input"
+            accept="image/jpeg"
+            style="display: none; position: relative; z-index: 999"
+          />
+        </label>
+      </sp-button>
+      <sp-button
+        id="add-button"
+        treatment="fill"
+        variant="secondary"
+        for="files-input"
+        >Add to Express</sp-button
+      >
+
+      <div
+        style="
+          height: 275px;
+          width: 275px;
+          border: 1px solid;
+          border-color: lightgray;
+          text-align: center;
+          overflow-y: scroll;
+          display: block;
+          margin-top: 10%;
+        "
+        id="square-2"
+      >
+        <sp-field-label
+          style="padding-top: 45%; padding-bottom: 50%; display: block"
+          id="prev-2"
+          size="l"
+          >PREVIEW</sp-field-label
+        >
+      </div>
+    </div>
+    <br /><br />
+    <sp-toast
+      open
+      variant="negative"
+      style="
+        background-color: red;
+        color: white;
+        padding: 10px;
+        display: none;
+        margin-top: 7%;
+        align-self: baseline;
+      "
+      id="error"
+    >
+      Error
+    </sp-toast>
+    <script type="module" defer>
+      //Importing Add-On SDK
+      import AddOnSDKAPI from "https://new.express.adobe.com/static/add-on-sdk/sdk.js";
+
+      try {
+        await AddOnSDKAPI.ready;
+        console.log(AddOnSDKAPI);
+      } catch (e) {
+        console.log(e);
+        console.log("SDK init failed!");
+      }
+      setupEventListeners(AddOnSDKAPI);
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.js"></script>
+    <script src="vendors-node_modules_focus-visible_dist_focus-visible_js.bundle.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js"></script>
+  </body>
+</html>

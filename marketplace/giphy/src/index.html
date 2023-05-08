@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="description" content="Hello World" />
+        <meta name="keywords" content="Adobe, Express, Add-on, Hello World" />
+        <meta name="author" content="Adobe" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        
+        <script src="https://unpkg.com/react@15/dist/react.js"></script>
+        <script src="https://unpkg.com/react-dom@15/dist/react-dom.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="./main.bundle.js"></script>
+        <script src="./index.js"></script>
+        <script type="module">
+            import AddOnStore from "https://new.express.adobe.com/static/add-on-sdk/sdk.js";
+
+export function add_image(url) {
+  AddOnStore.ready.then(() => {
+    async function callWhenReady() {
+      const blob = await fetch(url).then(r => r.blob());
+      AddOnStore.app.document.addImage(blob);
+    }
+    callWhenReady();
+  });
+};
+
+function previewCallback(element) {
+  return new URL(element.src);
+}
+
+
+export function enableDragOnImage(element) {
+  AddOnStore.ready.then(() => {
+    AddOnStore.app.enableDragToDocument(element, {previewCallback, completionCallback:  async (element) => {
+    const blob = await fetch(element.src).then(r => r.blob());
+    return [{blob}]
+  }
+});
+  });
+}
+            window.add_image = add_image;
+            window.enableDragOnImage = enableDragOnImage;
+        </script>
+
+        <style>
+            body {
+                font-family: 'adobe-clean';
+            }
+            #root {
+                margin-top: 25px;
+                text-align: center;
+            }
+
+            #textfielddiv {
+                /*border: 0.5px #656363 solid;
+                border-radius: 3px;*/
+                color: #555;
+                display: flex;
+                padding: 2px;
+                border: 1px solid currentColor;
+                border-radius: 5px;
+                text-indent: 30px;
+                background: transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' class='bi bi-search' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'%3E%3C/path%3E%3C/svg%3E") no-repeat 10px center;
+            }
+
+            #searchquery {
+                text-align: left;
+                display: block;
+                width: 100%;
+            }
+
+            #addbuttondiv {
+                margin: 0 auto;
+                text-align: center;
+            } 
+
+            .disabledbutton {
+                pointer-events: none;
+                opacity: 0.4;
+            }
+
+            #addbutton {
+                top: 10px;
+                align-items: center;
+                appearance: none;
+                background-color: #3e71b7;
+                background-image: linear-gradient(1deg, #575de8, #575de8 99%);
+                background-size: calc(100% + 20px) calc(100% + 20px);
+                border-radius: 100px;
+                border-width: 0;
+                box-shadow: none;
+                box-sizing: border-box;
+                color: #FFFFFF;
+                cursor: pointer;
+                display: inline-flex;
+                font-family: CircularStd,sans-serif;
+                font-weight: bold;
+                font-size: .9rem;
+                height: auto;
+                justify-content: center;
+                line-height: 1.5;
+                padding: 6px 20px;
+                position: center;
+                text-align: center;
+                text-decoration: none;
+                transition: background-color .2s,background-position .2s;
+                user-select: none;
+                -webkit-user-select: none;
+                touch-action: manipulation;
+                vertical-align: top;
+                white-space: nowrap;
+            }
+
+            #addbutton:active,
+            #addbutton:focus {
+                outline: none;
+            }
+
+            #addbutton:hover {
+                background-position: -20px -20px;
+            }
+
+            #addbutton:focus:not(:active) {
+                box-shadow: rgba(40, 170, 255, 0.25) 0 0 0 .125em;
+            } 
+
+            .gif_td {
+                position: relative;
+                width: 50%;
+            }
+
+            .gif_add {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                -ms-transform: translate(-50%, -50%);
+                background-color: #585de8;
+                color: white;
+                font-size: 30px;
+                padding: 2px 10px;
+                border: none;
+                cursor: pointer;
+                border-radius: 20px;
+                opacity: 80%;
+            }
+
+            .gif_add {
+                display: none;
+            }
+
+            img:hover + .gif_add, .gif_add:hover {
+                display: inline-block;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="textfielddiv">
+            <sp-textfield
+                        id="searchquery"
+                        type="text"
+                        placeholder="Search..."
+                        onkeydown='onNameKeydown(this)'>
+                    </sp-textfield>
+
+        </div>
+        <div id="addbuttondiv">
+            <!--<button id="addbutton" role="button" onclick='searchGiphy()'>Search</button>
+        </div>-->
+        <sp-action-button id="addbutton" role="button" onclick="searchGiphy()">
+            Search
+        </sp-action-button>
+    </div>
+        <div id="root"> 
+</body>
+</html>

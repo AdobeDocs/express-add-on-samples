@@ -1,0 +1,98 @@
+@import "@spectrum-web-components/styles/typography.css";
+
+html * {
+    box-sizing: border-box;
+}
+
+body {
+    padding: 0;
+    margin: 0;
+
+    --panel-width: 280px; /* 100vw */ /* TEMPORARY */
+}
+
+#root {
+    margin: auto 20px;   /* TEMPORARY UNTIL PANEL IS ON RIGHT HAND */
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    height: 100%;
+    width: var(--panel-width);
+}
+
+sp-theme {
+    flex: 1 1 auto;
+    gap: var(--spectrum-global-dimension-size-100);
+    display: flex;
+    flex-direction: column;
+}
+
+
+.pixel-grid {
+    border: 1px solid var(--spectrum-gray-100);
+    display: grid;
+    grid-template-columns: repeat(16, calc( (var(--panel-width) - (var(--spectrum-global-dimension-size-300) * 2) - 16px) / 16));
+    grid-template-rows: repeat(16, calc( (var(--panel-width) - (var(--spectrum-global-dimension-size-300) * 2) - 16px) / 16));
+    gap: 1px;
+    margin: 0 auto;
+}
+.pixel {
+    border-top: 1px solid rgba(255,255,255,0.125);
+    border-left: 1px solid rgba(255,255,255,0.125);
+    border-right: 1px solid rgba(0,0,0,0.125);
+    border-bottom: 1px solid rgba(0,0,0,0.125);
+    border-radius: 3px;
+}
+
+.preview {
+    text-align: center;
+    border-radius: 4px;
+    border: 1px solid var(--spectrum-gray-400);
+    background-color: var(--spectrum-gray-100);
+    margin: 0 auto;
+    line-height: 0;
+}
+
+.editorPanel, .previewPanel {
+    display: flex;
+    flex-direction: column;
+    padding: var(--spectrum-global-dimension-size-100) 0;
+    gap: var(--spectrum-global-dimension-size-100);
+    width: 100%;
+}
+
+.file-manager {
+    padding: var(--spectrum-global-dimension-size-100) var(--spectrum-global-dimension-size-300);
+}
+.panel-tabs {
+    margin: var(--spectrum-global-dimension-size-100) var(--spectrum-global-dimension-size-300);
+}
+
+.previewPanel {
+    flex-direction: row;
+}
+
+.editorToolbar {
+    display: flex;
+    justify-content: space-between;
+}
+
+.stackedColorPickers {
+    position: relative;
+    display: flex;
+}
+
+.stackedColorPickers overlay-trigger:first-child {
+    z-index: 2;
+}
+.stackedColorPickers overlay-trigger:last-child {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+}
+
+.saveAsButton {
+    display: flex;
+    flex-direction: column;
+    margin-top: var(--spectrum-global-dimension-size-300);
+}

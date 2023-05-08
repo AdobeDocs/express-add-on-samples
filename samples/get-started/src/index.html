@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="description" content="Hello World" />
+        <meta name="keywords" content="Adobe, Express, Add-on, Hello World" />
+        <meta name="author" content="Adobe" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <style>
+            @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+            * {
+                background-color: #fff;
+                font-family: "Poppins", sans-serif;
+                margin: 0;
+                padding: 0;
+            }
+
+            body {
+                font-size: small;
+                padding: 8px;
+            }
+
+            input[type="text"] {
+                margin-bottom: 10px;
+                padding: 5px;
+                width: 90%;
+                vertical-align: middle;
+                outline: none !important;
+                border: 0;
+                box-shadow: 0 0 10px #cbd1cf;
+            }
+
+            button {
+                margin-bottom: 10px;
+                padding: 5px;
+                width: 50%;
+                vertical-align: middle;
+                outline: none !important;
+                border: 0;
+                box-shadow: 0 0 10px #cbd1cf;
+                cursor: pointer;
+            }
+
+            .container {
+                display: grid;
+                text-align: justify;
+            }
+
+            #greeting {
+                margin-top: 10px;
+                padding: 5px;
+                font-size: medium;
+                font-weight: 500;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <input type="text" maxlength="50" id="name" placeholder="Enter your name ..." />
+            <button onclick="greet()">Greet</button>
+            <div id="greeting"></div>
+        </div>
+
+        <script>
+            // Get the elements from the DOM.
+            const nameInput = document.getElementById("name");
+            const greeting = document.getElementById("greeting");
+
+            // Focus on the text-box.
+            nameInput.focus();
+
+            /**
+             * Greet the user.
+             */
+            function greet() {
+                const name = nameInput.value;
+                if (name.trim().length === 0) {
+                    return;
+                }
+
+                greeting.innerHTML = `Hello, ${name} !!`;
+            }
+        </script>
+    </body>
+</html>

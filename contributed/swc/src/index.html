@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="description" content="Get started with Add-on development using JavaScript" />
+        <meta name="keywords" content="Adobe, Express, Add-On, JavaScript" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Hello World</title>
+        <style>
+            body {
+                margin: 0;
+            }
+            sp-theme {
+                /* hide our UI until Spectrum components are loaded */
+                transition: opacity 300ms ease-in-out;
+                opacity: 0;
+
+                /* provide some good margins */
+                margin: 0 var(--spectrum-global-dimension-size-200);
+            }
+
+            /* just some sample code for the purposes of this demo */
+            .vertical-form {
+                display: flex;
+                flex-direction: column;
+                gap: var(--spectrum-global-dimension-size-100);
+                margin: var(--spectrum-global-dimension-size-100) 0;
+                width: 100%;
+            }
+
+            .vertical-form sp-textfield {
+                width: 100%;
+            }
+        </style>
+    </head>
+    <body>
+        <sp-theme scale="medium" color="light" theme="express">
+            <!-- Insert content requiring theme application here. -->
+            <!-- End content requiring theme application. -->
+            <sp-tabs selected="generate">
+                <sp-tab value="generate">Generate</sp-tab>
+                <sp-tab value="history">History</sp-tab>
+                <sp-tab value="settings">Settings</sp-tab>
+                <sp-tab-panel value="generate">
+                    <div class="vertical-form">
+                        <p class="spectrum-Body spectrum-Body--sizeS">Rapidly generate images for your creations by describing a scene and then click "Generate".</p>
+                        <sp-field-label required for="txtPrompt">Prompt:</sp-field-label>
+                        <sp-textfield multiline grows id="txtPrompt" placeholder="A watercolor painting of a fluffy bird singing in a tree"></sp-textfield>
+                        <sp-button>Create</sp-button>
+                    </div>
+                </sp-tab-panel>
+                <sp-tab-panel value="history">
+                </sp-tab-panel>
+                <sp-tab-panel value="settings">
+                </sp-tab-panel>
+        </sp-theme>
+
+        <script type="module">
+            import AddOnSdk from "https://new.express.adobe.com/static/add-on-sdk/sdk.js";
+            window.AddOnSdk = AddOnSdk;
+            AddOnSdk.ready.then(async () => {
+                console.log("AddOnSdk is ready for use.");
+            });
+        </script>
+    </body>
+</html>
