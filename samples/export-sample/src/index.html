@@ -172,16 +172,16 @@ governing permissions and limitations under the License.
     </sp-toast>
     <script type="module" defer>
       //Importing Add-On SDK
-      import AddOnSDKAPI from "https://new.express.adobe.com/static/add-on-sdk/sdk.js";
+      import AddOnSdk from "https://new.express.adobe.com/static/add-on-sdk/sdk.js";
 
       try {
-        await AddOnSDKAPI.ready;
-        console.log(AddOnSDKAPI);
+        await AddOnSdk.ready;
+        console.log(AddOnSdk);
       } catch (e) {
         console.log(e);
         console.log("SDK init failed!");
       }
-      setupEventListeners(AddOnSDKAPI);
+      setupEventListeners(AddOnSdk);
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.js"></script>

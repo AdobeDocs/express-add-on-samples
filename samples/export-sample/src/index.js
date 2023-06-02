@@ -31,7 +31,7 @@ import "@spectrum-web-components/styles/typography.css";
 import * as exportUtils from "./exportUtils.js";
 import * as importUtils from "./importUtils.js";
 
-window.setupEventListeners = (AddOnSDKAPI) => {
+window.setupEventListeners = (AddOnSdk) => {
   //It denotes initial value of parameters
   let initialState = {
     urls: [],
@@ -65,7 +65,7 @@ window.setupEventListeners = (AddOnSDKAPI) => {
   document
     .getElementById("files-input")
     .addEventListener("change", function (event) {
-      importUtils.inputChange(event, AddOnSDKAPI);
+      importUtils.inputChange(event, AddOnSdk);
     });
 
   document.getElementById("tabs").addEventListener("change", tabsChange);
@@ -106,10 +106,10 @@ window.setupEventListeners = (AddOnSDKAPI) => {
     //Converting input file to blob in order to call import APIs
     var blob = new Blob([file], { type: file.type });
     if (file.type === "video/mp4") {
-      await AddOnSDKAPI.app.document.addVideo(blob);
+      await AddOnSdk.app.document.addVideo(blob);
     } else {
       try {
-        await AddOnSDKAPI.app.document.addImage(blob);
+        await AddOnSdk.app.document.addImage(blob);
       } catch (e) {
         error.textContent = e.message;
         error.style.display = "";
@@ -141,12 +141,12 @@ window.setupEventListeners = (AddOnSDKAPI) => {
       !exportUtils.getValue("backgroundColor") &&
       !exportUtils.getValue("quality")
     ) {
-      response = await AddOnSDKAPI.app.document.createRenditions({
+      response = await AddOnSdk.app.document.createRenditions({
         range: initialState.rangeValue,
         format: initialState.valueMimeType,
       });
     } else if (!exportUtils.getValue("backgroundColor")) {
-      response = await AddOnSDKAPI.app.document.createRenditions({
+      response = await AddOnSdk.app.document.createRenditions({
         range: initialState.rangeValue,
         format: initialState.valueMimeType,
         transparency: true,
@@ -157,7 +157,7 @@ window.setupEventListeners = (AddOnSDKAPI) => {
       /*Calling export APIs for images with export configurations
        * Background Color field is in decimal, convert RGB for JPEG and ARGB for PNG to decimal, for example - https://www.checkyourmath.com/convert/color/rgb_decimal.php
        */
-      response = await AddOnSDKAPI.app.document.createRenditions({
+      response = await AddOnSdk.app.document.createRenditions({
         range: initialState.rangeValue,
         format: initialState.valueMimeType,
         backgroundColor: exportUtils.getValue("backgroundColor"),
@@ -168,7 +168,7 @@ window.setupEventListeners = (AddOnSDKAPI) => {
       /*Calling export APIs for images with export configurations
        * Background Color field is in decimal, convert RGB for JPEG and ARGB for PNG to decimal, for example - https://www.checkyourmath.com/convert/color/rgb_decimal.php
        */
-      response = await AddOnSDKAPI.app.document.createRenditions({
+      response = await AddOnSdk.app.document.createRenditions({
         range: initialState.rangeValue,
         format: initialState.valueMimeType,
         backgroundColor: exportUtils.getValue("backgroundColor"),
@@ -191,7 +191,7 @@ window.setupEventListeners = (AddOnSDKAPI) => {
       exportUtils.addVid(response);
     }
     if (initialState.valueMimeType === "application/pdf") {
-      const preview = await AddOnSDKAPI.app.document.createRenditions({
+      const preview = await AddOnSdk.app.document.createRenditions({
         range: initialState.rangeValue,
         format: "image/jpeg",
       });

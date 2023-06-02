@@ -14,7 +14,7 @@ export function formatChange(event) {
   input.accept = event.target.value;
 }
 
-export function inputChange(event, AddOnSDKAPI) {
+export function inputChange(event, AddOnSdk) {
   //Removing previous preview image or video
   if (
     document.getElementById("square-2").lastChild.localName === "img" ||
@@ -26,12 +26,12 @@ export function inputChange(event, AddOnSDKAPI) {
   }
   document.getElementById("prev-2").style.display = "none";
   if (document.getElementById("format").value === "video/mp4") {
-    return addImportedVideo(event, AddOnSDKAPI);
+    return addImportedVideo(event, AddOnSdk);
   }
-  return addImportedImage(event, AddOnSDKAPI);
+  return addImportedImage(event, AddOnSdk);
 }
 
-function addImportedImage(event, AddOnSDKAPI) {
+function addImportedImage(event, AddOnSdk) {
   //Adding image to the preview box
   const image = document.createElement("img");
   const file = event.target.files[0];
@@ -50,7 +50,7 @@ function addImportedImage(event, AddOnSDKAPI) {
 
   var blob = new Blob([file], { type: file.type });
   image.addEventListener("click", function () {
-    AddOnSDKAPI.app.document.addImage(blob);
+    AddOnSdk.app.document.addImage(blob);
   });
 
   const dragCallbacks = {
@@ -65,13 +65,13 @@ function addImportedImage(event, AddOnSDKAPI) {
     },
   };
   try {
-    AddOnSDKAPI.app.enableDragToDocument(image, dragCallbacks);
+    AddOnSdk.app.enableDragToDocument(image, dragCallbacks);
   } catch (error) {
     console.log("Failed to enable DragToDocument:", error);
   }
 }
 
-function addImportedVideo(event, AddOnSDKAPI) {
+function addImportedVideo(event, AddOnSdk) {
   //Adding video to preview box
   const file = event.target.files[0];
   //const result = event.target.result;
@@ -89,6 +89,6 @@ function addImportedVideo(event, AddOnSDKAPI) {
 
   var blob = new Blob([file], { type: file.type });
   video.addEventListener("click", function () {
-    AddOnSDKAPI.app.document.addVideo(blob);
+    AddOnSdk.app.document.addVideo(blob);
   });
 }
