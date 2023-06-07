@@ -47,8 +47,9 @@ AddOnSdk.ready.then(async () => {
         gallery.appendChild(image);
     });
 
-    // Register event handler for the 'dragend' event
-    // so that the image gets added to the document once dragged.
+    // Register event handler for "dragstart" event
+    AddOnSdk.app.on("dragstart", startDrag);
+     // Register event handler for 'dragend' event
     AddOnSdk.app.on("dragend", endDrag);
 
     document.body.appendChild(gallery);
@@ -64,13 +65,20 @@ async function addToDocument(event) {
 }
 
 /**
- * Add image to the document on drag end.
+ * Handle "dragstart" event
+ */
+function startDrag(eventData) {
+    console.log("The drag event has started for", eventData.element.id);
+}
+
+/**
+ * Handle "dragend" event
  */
 function endDrag(eventData) {
     if (!eventData.dropCancelled) {
-        console.log("The drag event has ended for", eventData.element);
+        console.log("The drag event has ended for", eventData.element.id);
     } else {
-        console.log("The drag event was cancelled for", eventData.element);
+        console.log("The drag event was cancelled for", eventData.element.id);
     }
 }
 

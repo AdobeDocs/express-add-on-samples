@@ -23,10 +23,6 @@ const Assets = ({ accessToken, assets, updateAssets }) => {
     const [path, setPath] = useState("");
 
     useEffect(() => {
-        addOnSdk.app.on("dragend", handleDragEnd);
-    }, []);
-
-    useEffect(() => {
         if (!isNullOrWhiteSpace(accessToken)) {
             navigateTo(path);
         }
@@ -40,22 +36,11 @@ const Assets = ({ accessToken, assets, updateAssets }) => {
             previewCallback: element => {
                 return new URL(element.src);
             },
-            completionCallback: element => {
-                return Promise.resolve([
-                    { blob: fetch(element.src).then(response => response.blob()) }
-                ]);
+            completionCallback: async element => {
+                const blob = await fetch(element.src).then(response => response.blob());
+                return [{ blob }];
             }
         });
-    }
-
-    /**
-     * Handle dragend event of an image.
-     */
-    async function handleDragEnd(eventData) {
-        const blob = await fetch(eventData.element.src).then(response => response.blob());
-        if (!eventData.dropCancelled) {
-            addOnSdk.app.document.addImage(blob, { position: eventData.position });
-        }
     }
 
     /**

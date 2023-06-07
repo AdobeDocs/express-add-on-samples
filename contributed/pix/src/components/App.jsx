@@ -116,14 +116,14 @@ const App = ({ addOnSdk, store }) => {
 
     async function importPixels() {
         const Range = {
-            currentPage: 0,
-            entireDOcument: 1
+            currentPage: "currentPage",
+            entireDocument: "entireDocument"
         };
         const RenditionFormat = {
             png: "image/png",
             jpg: "image/jpg",
             mp4: "video/mp4",
-            pdf: "appilcation/pdf"
+            pdf: "application/pdf"
         };
         try {
             const renditionOptions = {range: Range.currentPage, format: RenditionFormat.png, backgroundColor: 0x00000000};

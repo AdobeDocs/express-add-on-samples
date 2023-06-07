@@ -149,8 +149,6 @@ window.setupEventListeners = (AddOnSdk) => {
       response = await AddOnSdk.app.document.createRenditions({
         range: initialState.rangeValue,
         format: initialState.valueMimeType,
-        transparency: true,
-        bitDepth: 32,
         quality: exportUtils.getValue("quality"),
       });
     } else if (!exportUtils.getValue("quality")) {
@@ -161,8 +159,6 @@ window.setupEventListeners = (AddOnSdk) => {
         range: initialState.rangeValue,
         format: initialState.valueMimeType,
         backgroundColor: exportUtils.getValue("backgroundColor"),
-        transparency: true,
-        bitDepth: 32,
       });
     } else {
       /*Calling export APIs for images with export configurations
@@ -172,8 +168,6 @@ window.setupEventListeners = (AddOnSdk) => {
         range: initialState.rangeValue,
         format: initialState.valueMimeType,
         backgroundColor: exportUtils.getValue("backgroundColor"),
-        transparency: true,
-        bitDepth: 32,
         quality: exportUtils.getValue("quality"),
       });
     }
