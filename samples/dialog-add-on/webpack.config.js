@@ -22,38 +22,41 @@ module.exports = {
     entry: "./src/components/index.jsx",
     devtool: "source-map",
     experiments: {
-        outputModule: true,
+        outputModule: true
     },
     output: {
         path: path.resolve(__dirname, "dist"),
         module: true,
-        filename: "index.js",
+        filename: "index.js"
     },
     externalsType: "module",
     externalsPresets: { web: true },
     plugins: [
         new HtmlWebpackPlugin({
             template: "src/index.html",
-            scriptLoading: "module",
+            scriptLoading: "module"
         }),
         new CopyWebpackPlugin({
-            patterns: [{ from: "src/*.json", to: "[name][ext]" }],
-        }),
+            patterns: [
+                { from: "src/*.json", to: "[name][ext]" },
+                { from: "src/dialog.html", to: "[name][ext]" }
+            ]
+        })
     ],
     module: {
         rules: [
             {
                 test: /\.(js|jsx)$/,
                 exclude: /node_modules/,
-                use: ["babel-loader"],
+                use: ["babel-loader"]
             },
             {
                 test: /(\.css)$/,
-                use: ["style-loader", "css-loader"],
-            },
-        ],
+                use: ["style-loader", "css-loader"]
+            }
+        ]
     },
     resolve: {
-        extensions: [".jsx", ".js", ".css"],
-    },
+        extensions: [".jsx", ".js", ".css"]
+    }
 };

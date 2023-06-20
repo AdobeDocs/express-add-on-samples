@@ -10,7 +10,7 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 import React, { createContext, useState } from "react";
-import { Button, Flex, lightTheme, Provider } from "@adobe/react-spectrum";
+import { Button, Flex, lightTheme, NumberField, Provider } from "@adobe/react-spectrum";
 import { TextField } from "@adobe/react-spectrum";
 import { Checkbox } from "@adobe/react-spectrum";
 import { Picker, Item, Section } from "@adobe/react-spectrum";
@@ -39,6 +39,11 @@ const App = ({ addOnSdk }) => {
 
   const [placeholderValue, setPlaceholderValue] =
     useState("Sample Placeholder");
+
+
+  const [widthValue, setWidthValue] = useState("100");
+
+  const [heightValue, setHeightValue] = useState("100");
 
   //Showing Secondary Button Text only on selection
   function showSecondaryButton() {
@@ -87,6 +92,14 @@ const App = ({ addOnSdk }) => {
     setPlaceholderValue(e);
   }
 
+  function setWidth(e) {
+    setWidthValue(e);
+  }
+
+  function setHeight(e) {
+    setHeightValue(e);
+  }
+
   //Function to show dialog
   async function showDialog() {
     var data;
@@ -112,7 +125,15 @@ const App = ({ addOnSdk }) => {
           fieldType: "text",
         },
       };
-    } else {
+    } if (variantValue === "custom") {
+      data = {
+        variant: variantValue,
+        title: titleValue,
+        src: "dialog.html",
+        size: { width: widthValue, height: heightValue }
+      }
+    }
+    else {
       data = {
         title: titleValue,
         description: [descValue],
@@ -156,6 +177,7 @@ const App = ({ addOnSdk }) => {
             description="Enter Description"
             onChange={setDesc}
             marginBottom="7%"
+            isDisabled={variantValue === "custom"}
           />
           <TextField
             label="Primary Button Text"
@@ -164,12 +186,13 @@ const App = ({ addOnSdk }) => {
             description="Enter Primary Button Text"
             onChange={setPrimaryButton}
             marginBottom="7%"
+            isDisabled={variantValue === "custom"}
           />
           <Flex direction="row" marginBottom="7%">
-            <Checkbox id="sec" onChange={showSecondaryButton}>
+            <Checkbox id="sec" onChange={showSecondaryButton} isDisabled={variantValue === "custom"}>
               Add Secondary Button
             </Checkbox>
-            <Checkbox id="can" onChange={showCancelButton}>
+            <Checkbox id="can" onChange={showCancelButton} isDisabled={variantValue === "custom"}>
               Add Cancel Button
             </Checkbox>
           </Flex>
@@ -203,6 +226,7 @@ const App = ({ addOnSdk }) => {
             <Item key="destructive">Destructive</Item>
             <Item key="error">Error</Item>
             <Item key="input">Input</Item>
+            <Item key="custom">Custom</Item>
           </Picker>
           <TextField
             label="Label"
@@ -223,6 +247,28 @@ const App = ({ addOnSdk }) => {
             onChange={setPlaceholder}
             value={placeholderValue}
             marginBottom="7%"
+          />
+          <NumberField
+            label="Width"
+            id="width"
+            defaultValue="100"
+            isHidden={variantValue != "custom"}
+            description="Enter Width"
+            onChange={setWidth}
+            value={widthValue}
+            marginBottom="7%"
+            minValue={0}
+          />
+          <NumberField
+            label="Height"
+            id="height"
+            defaultValue="100"
+            isHidden={variantValue != "custom"}
+            description="Enter Height"
+            onChange={setHeight}
+            value={heightValue}
+            marginBottom="7%"
+            minValue={0}
           />
           <Button
             variant="accent"
