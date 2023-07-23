@@ -1,0 +1,22 @@
+{
+    "testId": "855981a9-a34b-4e3e-8c0c-24ccaf65db06",
+    "name": "Communication APIs",
+    "version": "1.0.0",
+    "manifestVersion": 2,
+    "requirements": {
+        "apps": [
+            {
+                "name": "Express",
+                "apiVersion": 1
+            }
+        ]
+    },
+    "entryPoints": [
+        {
+            "type": "panel",
+            "id": "panel1",
+            "main": "index.html",
+            "script": "code.js"
+        }
+    ]
+}

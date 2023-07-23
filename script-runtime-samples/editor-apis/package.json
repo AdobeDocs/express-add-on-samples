@@ -1,0 +1,19 @@
+{
+    "name": "test_addon2",
+    "version": "1.0.0",
+    "description": "Adobe Creative Cloud Web Add-on.",
+    "scripts": {
+        "clean": "ccweb-add-on-scripts clean",
+        "build": "ccweb-add-on-scripts build",
+        "start": "ccweb-add-on-scripts start"
+    },
+    "keywords": [
+        "Adobe",
+        "Creative Cloud Web",
+        "Add-on",
+        "panel"
+    ],
+    "devDependencies": {
+        "@adobe-ccwebext/ccweb-add-on-scripts": "^1.2.0"
+    }
+}
