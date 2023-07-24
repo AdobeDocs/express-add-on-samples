@@ -14,6 +14,7 @@ import AddOnSdk, {
     // @ts-ignore Import module
 } from "https://new.express.adobe.com/static/add-on-sdk/sdk.js";
 
+
 let todoList: HTMLUListElement;
 let todoItemInput: HTMLInputElement;
 let clearAllButton: HTMLButtonElement;
