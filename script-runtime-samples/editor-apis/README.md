@@ -1,6 +1,6 @@
 ## About
 
-This project has been created with _@adobe-ccwebext/create-ccweb-add-on_. This add-on sample demonstrates how to get started using the Editor APIs provided with the script runtime. 
+This add-on sample demonstrates how to get started using the Editor APIs provided with the script runtime.
 
 ## Tools
 

@@ -1,6 +1,6 @@
 ## About
 
-This project has been created with _@adobe-ccwebext/create-ccweb-add-on_. As an example, this Add-on demonstrates how to get started using the script runtime add-ons to communicate between the iframe running your add-on and the script runtime. 
+This Add-on demonstrates how to get started using the script runtime add-ons and communicate between the iframe (index.html) running your add-on and the script runtime (code.js). 
 
 ## Tools
 

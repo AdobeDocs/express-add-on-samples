@@ -1,6 +1,6 @@
 ## About
 
-This project has been created with _@adobe-ccwebext/create-ccweb-add-on_. As an example, this Add-on demonstrates how to get started with Add-on development using JavaScript.
+This Add-on demonstrates creation of new page, creation of shapes and images using the Editor APIs.
 
 ## Tools
 

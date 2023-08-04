@@ -10,24 +10,24 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 import { AddOnSdkApi } from "AddOnSdkApi";
-import { editor } from "express";
+import { editor, utils, Constants } from "express";
+
 const { runtime } = AddOnSdkApi.instance;
 
 async function start() {
     const scriptApi = {
         addPage: function (size = { width: 400, height: 600 }) {
-            const { artboard } = editor.addTemporalArtboardContainerWithArtboard(size);
-            editor.documentRoot.selection = [artboard];
+            editor.documentRoot.pages.addPage(size);
         },
         clearArtboard: function () {
-            const artboardNode = editor.documentRoot.currentContext;
-            if (artboardNode.children.length > 0) {
-                artboardNode.children.clear();
+            const insertionParent = editor.context.insertionParent;
+            if (insertionParent.children.length > 0) {
+                insertionParent.children.clear();
             }
             return "**** Artboard cleared successfully ****";
         },
         createShapes: function() {
-            const artboardNode = editor.documentRoot.currentContext;
+            const insertionParent = editor.context.insertionParent;
 
             const rectangle = editor.createRectangle();
             rectangle.width = 200;
@@ -45,40 +45,20 @@ async function start() {
             text.text = "A Text Node";
             text.translateX = 20;
             text.translateY = 400;
-            text.textAlignment = 3;
-            text.characterStyleRanges.setStyleRanges([
-                {
-                    length: 2,
-                    style: {
-                        color: { red: Math.random(), green: Math.random(), blue: Math.random(), alpha: 1 }
-                    }
-                },
-                {
-                    length: 5,
-                    style: {
-                        color: { red: Math.random(), green: Math.random(), blue: Math.random(), alpha: 1 }
-                    }
-                },
-                {
-                    length: 4,
-                    style: {
-                        color: { red: Math.random(), green: Math.random(), blue: Math.random(), alpha: 1 }
-                    }
-                }
-            ]);
+            text.textAlignment = Constants.TextAlignmentValue.right;
 
-            const rectFill = editor.createColorFill({ red: Math.random(), green: Math.random(), blue: Math.random(), alpha: Math.random() });
-            const ellipseFill = editor.createColorFill({ red: Math.random(), green: Math.random(), blue: Math.random(), alpha: Math.random() });
+            const rectFill = editor.createColorFill(utils.createColor(Math.random(), Math.random(), Math.random(), Math.random()));
+            const ellipseFill = editor.createColorFill(utils.createColor(Math.random(), Math.random(), Math.random(), Math.random()));
             rectangle.fills.append(rectFill);
             ellipse.fills.append(ellipseFill);
-            artboardNode.children.append(rectangle);
-            artboardNode.children.append(ellipse);
-            artboardNode.children.append(text);
+            insertionParent.children.append(rectangle);
+            insertionParent.children.append(ellipse);
+            insertionParent.children.append(text);
 
             return "**** Shapes created successfully ****";
         },
         createImage: async function(blob, size = {}) {
-            const artboardNode = editor.documentRoot.currentContext;
+            const insertionParent = editor.context.insertionParent;
             const bitmapImage = await editor.loadBitmapImage(blob);
             let { width, height } = size;
             if (!width || !height) {
@@ -86,7 +66,7 @@ async function start() {
                 height = bitmapImage.height;
             }
             const mediaContainerNode = editor.createImageContainer(bitmapImage, { initialSize: { width, height } });
-            artboardNode.children.append(mediaContainerNode);
+            insertionParent.children.append(mediaContainerNode);
             return "**** Image created successfully ****"
         }
     }
