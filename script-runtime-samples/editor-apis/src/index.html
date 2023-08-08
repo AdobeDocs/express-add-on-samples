@@ -42,7 +42,7 @@ governing permissions and limitations under the License.
                 flex-direction: row;
                 margin-bottom: 20px;
             }
-            #createShapesText {
+            .buttonText {
                 color: white;
                 font-size: 14px;
             }
@@ -53,7 +53,13 @@ governing permissions and limitations under the License.
                 background-color: rgb(43, 99, 213);
                 width: 152px;
             }
-            button:hover {
+            button:disabled > span {
+                color: rgb(112, 112, 112);;
+            }
+            button:disabled {
+                background-color: rgb(63, 63, 63);
+            }
+            button:not([disabled]):hover {
                 background-color: rgb(43, 99, 180);
             }
             button,button {
@@ -65,8 +71,8 @@ governing permissions and limitations under the License.
     <body>
         <img src="./smiley.png" id="smileyImg"></img>
         <div class="flexContainer">
-            <button id="createShapesButton">
-                <span id="createShapesText">Create Shapes</span>
+            <button id="createShapesButton" disabled>
+                <span class="buttonText">Create Shapes</span>
             </button>
         </div>
         <script type="module">
@@ -85,8 +91,8 @@ governing permissions and limitations under the License.
                     } catch (exc) {
                         console.error(exc.message, exc.stack);
                     }
-                    
                 });
+                createShapesButton.disabled = false;
             });
         </script>
     </body>

@@ -53,7 +53,13 @@ governing permissions and limitations under the License.
                 background-color: rgb(43, 99, 213);
                 width: 172px;
             }
-            button:hover {
+            button:disabled > span {
+                color: rgb(112, 112, 112);;
+            }
+            button:disabled {
+                background-color: rgb(63, 63, 63);
+            }
+            button:not([disabled]):hover {
                 background-color: rgb(43, 99, 180);
             }
             button,button {
@@ -65,16 +71,16 @@ governing permissions and limitations under the License.
     <body>
         <img src="./smiley.png" id="smileyImg"></img>
         <div class="flexContainer">
-            <button id="clearArtboardButton">
+            <button id="clearArtboardButton" disabled>
                 <span class="buttonText">Clear Artboard</span>
             </button>
-            <button id="addPageButton">
+            <button id="addPageButton" disabled>
                 <span class="buttonText">Add Page</span>
             </button>
-            <button id="createShapesButton">
+            <button id="createShapesButton" disabled>
                 <span class="buttonText">Create Shapes</span>
             </button>
-            <button id="createImageButton">
+            <button id="createImageButton" disabled>
                 <span class="buttonText">Create Random Image</span>
             </button>
         </div>
@@ -123,20 +129,16 @@ governing permissions and limitations under the License.
                     console.log(result);
                 }
 
-                document.getElementById("clearArtboardButton").addEventListener("click", async (e) => {
-                    await callScriptApi(e.currentTarget.id);
-                });
+                const clearArtboardButton = document.getElementById("clearArtboardButton");
+                const addPageButton = document.getElementById("addPageButton");
+                const createShapesButton = document.getElementById("createShapesButton");
+                const createImageButton = document.getElementById("createImageButton");
 
-                document.getElementById("addPageButton").addEventListener("click", async (e) => {
-                    await callScriptApi(e.currentTarget.id);
-                });
-
-                document.getElementById("createShapesButton").addEventListener("click", async (e) => {
-                    await callScriptApi(e.currentTarget.id); 
-                });
-
-                document.getElementById("createImageButton").addEventListener("click", async (e) => {
-                    await callScriptApi(e.currentTarget.id);
+                [clearArtboardButton, addPageButton, createShapesButton, createImageButton].forEach(button => {
+                    button.addEventListener("click", async (e) => {
+                        await callScriptApi(e.currentTarget.id);
+                    });
+                    button.disabled = false;
                 });
             });
         </script>

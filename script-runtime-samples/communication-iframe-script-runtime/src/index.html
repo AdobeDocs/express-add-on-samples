@@ -37,6 +37,10 @@ governing permissions and limitations under the License.
                 flex-direction: row;
                 margin-bottom: 20px;
             }
+            .buttonText {
+                color: white;
+                font-size: 14px;
+            }
             button {
                 height: 32px;
                 border: 1px solid transparent;
@@ -44,23 +48,25 @@ governing permissions and limitations under the License.
                 background-color: rgb(43, 99, 213);
                 width: 152px;
             }
-            button:hover {
+            button:disabled > span {
+                color: rgb(112, 112, 112);;
+            }
+            button:disabled {
+                background-color: rgb(63, 63, 63);
+            }
+            button:not([disabled]):hover {
                 background-color: rgb(43, 99, 180);
             }
             button,button {
                 margin-left: 10px;
                 margin-bottom: 10px;
             }
-            #startCommunicationText {
-                color: white;
-                font-size: 14px;
-            }
         </style>
     </head>
     <body>
         <div class="flexContainer">
-            <button id="startCommunication">
-                <span id="startCommunicationText">Start Communication</span>
+            <button id="startCommunication" disabled>
+                <span class="buttonText">Start Communication</span>
             </button>
         </div>
         <script type="module">
@@ -104,6 +110,7 @@ governing permissions and limitations under the License.
                     const result = await scriptApis.getDataFromDocument();
                     console.log("Data from document: " + result);
                 });
+                startCommunication.disabled = false;
             });
         </script>
     </body>
