@@ -4,14 +4,25 @@ This project has been created with _@adobe-ccwebext/create-ccweb-add-on_. As an 
 
 ## Important Notes
 ### SWC-React Note
-For the SWC-React use, please note that you only need to include the `swc-react` package for the component you want to use in your `package.json`, though you need to import both components when actually using it in the `App.jsx`.
+For the [SWC-React](https://opensource.adobe.com/spectrum-web-components/using-swc-react/) implementation, please note that you only need to include the `swc-react` package for the component you want to use in your `package.json`, as the corresponding Spectrum Web Component module is automatically brought in when you specify it's related `swc-react` component. However, you will need to import both components when actually using it in the `App.jsx`. For instance, to use the Button component, in `package.json` you would include:
+
+`"@swc-react/button": "^0.34.0",`
+
+and in your `*.jsx` file, you would import both and use it like in the following:
 
 ```js
 import '@spectrum-web-components/button/sp-button.js';
 import { Button } from "@swc-react/button";
 ```
 
-The corresponding Spectrum Web Component module is automatically brought in when you specify it's related `swc-react` component in your `package.json`.
+and use it with:
+```html
+<Button variant="primary">
+    Primary Button
+</Button>
+```
+
+You can find the related Spectrum Web Component `import` statement you need by referring to the Spectrum Web Component itself (ie: [Button](https://opensource.adobe.com/spectrum-web-components/components/button/).
 
 ### Theme Note
 Currently Express only supports the light theme, but a dark theme will be coming in the future so you should be considering that when designing your add-on.
