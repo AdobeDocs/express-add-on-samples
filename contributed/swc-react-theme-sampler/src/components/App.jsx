@@ -11,7 +11,8 @@ governing permissions and limitations under the License.
 */
 import React, {useState, useEffect} from "react";
 
-// Import spectrum theme components
+// Import the Spectrum typography and theme components to apply styles and theme appearance
+import "@spectrum-web-components/styles/typography.css";
 import "@spectrum-web-components/theme/theme-light.js";
 import '@spectrum-web-components/theme/express/theme-light.js';
 import "@spectrum-web-components/theme/theme-dark.js";
@@ -22,7 +23,8 @@ import "@spectrum-web-components/theme/scale-large.js";
 import '@spectrum-web-components/theme/express/scale-large.js';
 import { Theme } from "@swc-react/theme";
 
-// Import UI components
+// UI component imports. NOTE: Each requires both the base spectrum-web-component import
+// and the swc-react wrapper component import.
 import '@spectrum-web-components/button/sp-button.js';
 import { Button } from "@swc-react/button";
 import '@spectrum-web-components/checkbox/sp-checkbox.js';
@@ -45,12 +47,10 @@ import { ProgressBar } from '@swc-react/progress-bar';
 import '@spectrum-web-components/progress-bar/sp-progress-bar.js';
 
 const App = ({ addOnSdk}) => {
-    let [scale, setScale] = useState("medium");
-    const currentTheme = addOnSdk.app.ui.theme;
+    const [scale, setScale] = useState("medium");
+    const currentTheme = addOnSdk.app.ui.theme;    
     const [theme, setTheme] = useState(currentTheme);
     const [mainTheme, setMainTheme] = useState("express");
-    const darkBackground = "var(--spectrum-global-color-gray-400)";
-    const lightBackground = "var(--spectrum-global-color-gray-50)"     
         
     useEffect(() => {
         addOnSdk.app.on("themechange", (data) => { setTheme(data.theme); });
@@ -65,9 +65,8 @@ const App = ({ addOnSdk}) => {
         }
     }
 
-    function changeColor(e) { 
-        console.log("Color "+ e.target.value);
-        if (e.target.value==="Dark Theme" || e.target.selected==="Dark Theme") {            
+    function changeColor(e) {         
+        if (e.target.selected==="dark") {            
             setTheme("dark");                
         }
         else {                         
@@ -75,31 +74,30 @@ const App = ({ addOnSdk}) => {
         }
     }
 
-    function changeScale(e) {         
-        if (!e.srcElement.checked) {
+    function changeScale(e) {    
+        if (!e.target.checked && e.target.innerText==="Large Scale" || scale=="medium") {
             setScale("large");             
         }
-        else {                        
-            setScale("medium");             
-        }                
+        else setScale("medium");                     
     }    
     
-    return <div className="vertical-form">        
-        <Theme theme={mainTheme} color={theme} scale={scale} style={theme==="light"?{backgroundColor: darkBackground}:{backgroundColor: lightBackground}}>
+    return <div className="vertical-form">                
+        <Theme theme={mainTheme} color={theme} scale={scale} style={{backgroundColor: "var(--spectrum-global-color-gray-50)"}}>        
             <div className="vertical-form">   
-                <h2 className="spectrum-Heading spectrum-Heading--sizeL">Theme Sampler</h2>                     
+                <h3 className="spectrum-Heading spectrum-Heading--sizeM">Theme Sampler</h3>                     
                 <SplitButton onchange={changeTheme}>
                     <MenuItem>Express Theme</MenuItem>
                     <MenuItem>Spectrum Theme</MenuItem>
                 </SplitButton>
-                <Checkbox emphasized onclick={changeScale}>Large Scale</Checkbox>
-                <RadioGroup onchange={changeColor}>                    
-                    <Radio emphasized value="Light Theme">Light Theme</Radio>
-                    <Radio emphasized value="Dark Theme">Dark Theme</Radio>                
-                </RadioGroup>                                
-                <FieldLabel for="txt">Color</FieldLabel>
-                <Textfield id="txt" placeholder="What is your favorite color?"></Textfield>                                            
+                <Checkbox emphasized onclick={changeScale} checked={scale=="medium"}>Medium Scale</Checkbox>
+                <Checkbox emphasized onclick={changeScale} checked={scale=="large"}>Large Scale</Checkbox>
                 <Switch emphasized onclick={changeScale}>Toggle Scale</Switch>    
+                <RadioGroup onchange={changeColor} selected={theme}>                    
+                    <Radio emphasized value="light">Light Theme</Radio>
+                    <Radio emphasized value="dark">Dark Theme</Radio>                
+                </RadioGroup>                                
+                <FieldLabel for="txt" side-aligned="start" size="l" style={{width: "100px"}}>Textfield Label</FieldLabel>
+                <Textfield id="txt" placeholder="Textfield placeholder"></Textfield>                                                            
                 <ProgressBar label="% Complete" progress="70"></ProgressBar>
                 
                 <h3 className="spectrum-Heading spectrum-Heading--sizeM">Buttons</h3>
