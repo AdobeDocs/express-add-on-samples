@@ -96,7 +96,7 @@ const App = ({ addOnSdk}) => {
                     <Radio emphasized value="light">Light Theme</Radio>
                     <Radio emphasized value="dark">Dark Theme</Radio>                
                 </RadioGroup>                                
-                <FieldLabel for="txt" side-aligned="start" size="l" style={{width: "100px"}}>Textfield Label</FieldLabel>
+                <FieldLabel for="txt" side-aligned="start" size="l" style={{width: "90px"}}>Text Label</FieldLabel>
                 <Textfield id="txt" placeholder="Textfield placeholder"></Textfield>                                                            
                 <ProgressBar label="% Complete" progress="70"></ProgressBar>
                 

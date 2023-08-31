@@ -22,12 +22,15 @@ and use it with:
 </Button>
 ```
 
-You can find the related Spectrum Web Component `import` statement you need by referring to the Spectrum Web Component itself (ie: [Button](https://opensource.adobe.com/spectrum-web-components/components/button/).
+You can find the related Spectrum Web Component `import` statement you need by referring to the Spectrum Web Component itself (ie: [Button](https://opensource.adobe.com/spectrum-web-components/components/button/)).
 
 ### Theme Note
 Currently Express only supports the light theme, but a dark theme will be coming in the future so you should be considering that when designing your add-on.
 
+#### Light theme - medium scale screenshot
 ![light theme screenshot](./light-theme.png)
+
+#### Dark theme - large scale screenshot
 ![dark theme screenshot](./dark-theme-large.png)
 
 ## Tools
