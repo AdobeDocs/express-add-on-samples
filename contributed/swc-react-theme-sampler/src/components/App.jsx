@@ -11,7 +11,8 @@ governing permissions and limitations under the License.
 */
 import React, {useState, useEffect} from "react";
 
-// Import the Spectrum typography and theme components to apply styles and theme appearance
+// Import the Spectrum typography and theme components to use styles and 
+// theme properties
 import "@spectrum-web-components/styles/typography.css";
 import "@spectrum-web-components/theme/theme-light.js";
 import '@spectrum-web-components/theme/express/theme-light.js';
@@ -23,28 +24,16 @@ import "@spectrum-web-components/theme/scale-large.js";
 import '@spectrum-web-components/theme/express/scale-large.js';
 import { Theme } from "@swc-react/theme";
 
-// UI component imports. NOTE: Each requires both the base spectrum-web-component import
-// and the swc-react wrapper component import.
-import '@spectrum-web-components/button/sp-button.js';
+// UI component imports
 import { Button } from "@swc-react/button";
-import '@spectrum-web-components/checkbox/sp-checkbox.js';
 import { Checkbox } from "@swc-react/checkbox";
-import '@spectrum-web-components/switch/sp-switch.js';
 import { Switch } from "@swc-react/switch";
-import '@spectrum-web-components/split-button/sp-split-button.js';
 import { SplitButton } from '@swc-react/split-button';
-import '@spectrum-web-components/menu/sp-menu.js';
 import { Menu, MenuItem } from '@swc-react/menu';
-import '@spectrum-web-components/menu/sp-menu-item.js';
-import '@spectrum-web-components/radio/sp-radio.js';
-import '@spectrum-web-components/radio/sp-radio-group.js';
 import { Radio, RadioGroup } from '@swc-react/radio';
-import '@spectrum-web-components/textfield/sp-textfield.js';
 import { Textfield } from '@swc-react/textfield';
-import '@spectrum-web-components/field-label/sp-field-label.js';
 import { FieldLabel } from '@swc-react/field-label';
 import { ProgressBar } from '@swc-react/progress-bar';
-import '@spectrum-web-components/progress-bar/sp-progress-bar.js';
 
 const App = ({ addOnSdk}) => {
     const [scale, setScale] = useState("medium");
