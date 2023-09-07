@@ -1,0 +1,22 @@
+{
+    "testId": "8bbe3f3e-35a2-4c6c-aefa-bcf3b08ebd73",
+    "name": "Theme Sampler",
+    "version": "1.0.0",
+    "manifestVersion": 2,
+    "requirements": {
+        "apps": [
+            {
+                "name": "Express",
+                "apiVersion": 1
+            }
+        ],
+        "experimentalApis": true
+    },
+    "entryPoints": [
+        {
+            "type": "panel",
+            "id": "panel1",
+            "main": "index.html"
+        }
+    ]
+}

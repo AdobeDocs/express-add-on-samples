@@ -1,0 +1,25 @@
+{
+    "testId": "70ee799d-dc4c-4baa-af3b-ce948c3f08ff",
+    "name": "Licensed Add On",
+    "version": "1.0.0",
+    "manifestVersion": 2,
+    "requirements": {
+        "apps": [
+            {
+                "name": "Express",
+                "apiVersion": 1
+            }
+        ],
+        "experimentalApis": true
+    },
+    "entryPoints": [
+        {
+            "type": "panel",
+            "id": "panel1",
+            "main": "index.html",
+            "permissions": {
+                "sandbox": ["allow-popups", "allow-popups-to-escape-sandbox"]
+            }
+        }
+    ]
+}

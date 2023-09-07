@@ -1,0 +1,34 @@
+{
+    /**
+     * Use IntelliSense to learn about possible attributes.
+     * Hover to view descriptions of existing attributes.
+     * For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+     */
+    "version": "0.1.0",
+    "configurations": [
+        {
+            "type": "chrome",
+            "request": "launch",
+            "name": "Debug(Chrome) Add-On",
+            "webRoot": "${workspaceFolder}",
+
+            /**
+             * This will be the link of the document where the add-on is hosted
+             * or the url of the new document where you want to load the add-on
+             */
+            "url": "https://new.express.adobe.com/new/"
+        },
+        {
+            "type": "msedge",
+            "request": "launch",
+            "name": "Debug(MS Edge) Add-On",
+            "webRoot": "${workspaceFolder}",
+
+            /**
+             * This will be the link of the document where the add-on is hosted
+             * or the url of the new document where you want to load the add-on
+             */
+            "url": "https://new.express.adobe.com/new/"
+        }
+    ]
+}
