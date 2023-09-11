@@ -10,20 +10,25 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-import { ProgressCircle } from "@swc-react/progress-circle";
+import { FieldLabel } from "@swc-react/field-label";
+import { Textfield } from "@swc-react/textfield";
 import React from "react";
-import "./Loading.css";
+import "./TextInputGroup.css";
 
-/**
- * React component for displaying a loading animation.
- */
-const Loading = ({ text }) => {
+const TextInputGroup = ({ id, value, placeholder, label, onChange, multiline = undefined, disabled = undefined }) => {
     return (
-        <div className="loading-container">
-            <ProgressCircle label={text} size="l" indeterminate />
-            <div style={{ margin: "1.5em" }}>{text}</div>
+        <div className="text-input-group">
+            <FieldLabel for={id}>{label}</FieldLabel>
+            <Textfield
+                id={id}
+                value={value}
+                placeholder={placeholder}
+                onChange={onChange}
+                multiline={multiline}
+                disabled={disabled}
+            />
         </div>
     );
 };
 
-export default Loading;
+export default TextInputGroup;

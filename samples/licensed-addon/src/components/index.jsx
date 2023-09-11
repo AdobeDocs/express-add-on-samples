@@ -10,10 +10,24 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
+<<<<<<< HEAD
+import "@spectrum-web-components/theme/express/scale-medium.js";
+import "@spectrum-web-components/theme/express/theme-light.js";
+import "@spectrum-web-components/theme/scale-medium.js";
+import "@spectrum-web-components/theme/theme-light.js";
+
+=======
+>>>>>>> eaed1fedccbeab0a22cea0cb65eb918189c3e527
 import AddOnSdk from "https://new.express.adobe.com/static/add-on-sdk/sdk.js";
 import React from "react";
 import { createRoot } from "react-dom/client";
 import App from "./App";
+<<<<<<< HEAD
+
+AddOnSdk.ready.then(() => {
+    const root = createRoot(document.getElementById("root"));
+    root.render(<App addOnSdk={AddOnSdk} />);
+=======
 import "./index.css";
 
 AddOnSdk.ready.then(() => {
@@ -21,4 +35,5 @@ AddOnSdk.ready.then(() => {
     console.log(AddOnSdk);
     const root = createRoot(document.getElementById("root"));
     root.render(<App AddOnSDKAPI={AddOnSdk} />);
+>>>>>>> eaed1fedccbeab0a22cea0cb65eb918189c3e527
 });

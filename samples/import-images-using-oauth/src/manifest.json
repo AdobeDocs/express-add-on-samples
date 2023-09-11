@@ -1,6 +1,6 @@
 {
     "testId": "import-images-using-oauth",
-    "name": "Import Images Using Oauth",
+    "name": "Import Images Using OAuth",
     "version": "1.0.0",
     "manifestVersion": 2,
     "requirements": {
@@ -10,7 +10,6 @@
                 "apiVersion": 1
             }
         ]
-    
     },
     "entryPoints": [
         {

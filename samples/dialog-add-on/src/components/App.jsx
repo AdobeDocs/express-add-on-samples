@@ -9,279 +9,188 @@ the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTA
 OF ANY KIND, either express or implied. See the License for the specific language
 governing permissions and limitations under the License.
 */
-import React, { createContext, useState } from "react";
-import { Button, Flex, lightTheme, NumberField, Provider } from "@adobe/react-spectrum";
-import { TextField } from "@adobe/react-spectrum";
-import { Checkbox } from "@adobe/react-spectrum";
-import { Picker, Item, Section } from "@adobe/react-spectrum";
-import { TextArea } from "@adobe/react-spectrum";
 
-export const AddOnSdkContext = createContext();
+import { Button } from "@swc-react/button";
+import { Checkbox } from "@swc-react/checkbox";
+import { Radio, RadioGroup } from "@swc-react/radio";
+import { Theme } from "@swc-react/theme";
+import React, { useState } from "react";
+import "./App.css";
+import TextInputGroup from "./text-input-group/TextInputGroup";
+
 const App = ({ addOnSdk }) => {
-  //Setting Initial States
-  const [buttons, setButtons] = useState({
-    sec: true,
-    can: true,
-  });
-  const [variantValue, setVariantValue] = useState("confirmation");
+    const [variant, setVariant] = useState("confirmation");
 
-  const [titleValue, setTitleValue] = useState("Sample Title");
+    const [title, setTitle] = useState("Example");
+    const [description, setDescription] = useState("This is an example demonstrating the usage of Dialog API.");
 
-  const [descValue, setDescValue] = useState("Sample Description");
+    // Input section of the form is hidden by default
+    // It is made visible when the user chooses the "Input" variant.
+    const [inputVisibility, setInputVisibility] = useState("hidden");
+    const [inputLabel, setInputLabel] = useState("Name");
+    const [inputPlaceholder, setInputPlaceholder] = useState("Enter your name");
 
-  const [primaryButtonTextValue, setPrimaryButtonTextValue] = useState("Ok");
+    const [primaryButtonLabel, setPrimaryButtonLabel] = useState("Ok");
 
-  const [secondaryButtonTextValue, setSecondaryButtonTextValue] = useState("");
+    // Secondary button label input is disabled by default.
+    // It is enabled when the user chooses to "Add Secondary Button".
+    const [secondaryButtonDisabled, setSecondaryButtonDisabled] = useState(true);
+    const [secondaryButtonLabel, setSecondaryButtonLabel] = useState("Maybe");
 
-  const [cancelButtonTextValue, setCancelButtonTextValue] = useState("");
+    // Cancel button label input is disabled by default.
+    // It is enabled when the user chooses to "Add Cancel Button".
+    const [cancelButtonDisabled, setCancelButtonDisabled] = useState(true);
+    const [cancelButtonTextValue, setCancelButtonLabel] = useState("Cancel");
 
-  const [labelValue, setLabelValue] = useState("Sample Label");
+    /**
+     * Handle variant selection change.
+     */
+    function handleVariantChange(event) {
+        const selectedVariant = event.target.selected;
+        setVariant(selectedVariant);
 
-  const [placeholderValue, setPlaceholderValue] =
-    useState("Sample Placeholder");
-
-
-  const [widthValue, setWidthValue] = useState("100");
-
-  const [heightValue, setHeightValue] = useState("100");
-
-  //Showing Secondary Button Text only on selection
-  function showSecondaryButton() {
-    setButtons({ sec: !buttons.sec, can: buttons.can });
-    setSecondaryButtonTextValue("");
-  }
-
-  //Showing Cancel Button Text only on selection
-  function showCancelButton() {
-    setButtons({ sec: buttons.sec, can: !buttons.can });
-    setCancelButtonTextValue("");
-  }
-
-  //Setting state values on change event
-  function setVariant(e) {
-    setVariantValue(e);
-    setLabelValue("Sample Label");
-    setPlaceholderValue("Sample Placeholder");
-  }
-
-  function setTitle(e) {
-    setTitleValue(e);
-  }
-
-  function setDesc(e) {
-    setDescValue(e);
-  }
-
-  function setPrimaryButton(e) {
-    setPrimaryButtonTextValue(e);
-  }
-
-  function setSecondaryButton(e) {
-    setSecondaryButtonTextValue(e);
-  }
-
-  function setCancelButton(e) {
-    setCancelButtonTextValue(e);
-  }
-
-  function setLabel(e) {
-    setLabelValue(e);
-  }
-
-  function setPlaceholder(e) {
-    setPlaceholderValue(e);
-  }
-
-  function setWidth(e) {
-    setWidthValue(e);
-  }
-
-  function setHeight(e) {
-    setHeightValue(e);
-  }
-
-  //Function to show dialog
-  async function showDialog() {
-    var data;
-    //Generating dialog for input field with label and placeholder
-    if (variantValue === "input") {
-      data = {
-        title: titleValue,
-        description: [descValue],
-        buttonLabels: {
-          primary:
-            primaryButtonTextValue != "" ? primaryButtonTextValue : undefined,
-          secondary:
-            secondaryButtonTextValue != ""
-              ? secondaryButtonTextValue
-              : undefined,
-          cancel:
-            cancelButtonTextValue != "" ? cancelButtonTextValue : undefined,
-        },
-        variant: variantValue,
-        field: {
-          label: labelValue,
-          placeholder: placeholderValue,
-          fieldType: "text",
-        },
-      };
-    } if (variantValue === "custom") {
-      data = {
-        variant: variantValue,
-        title: titleValue,
-        src: "dialog.html",
-        size: { width: widthValue, height: heightValue }
-      }
-    }
-    else {
-      data = {
-        title: titleValue,
-        description: [descValue],
-        buttonLabels: {
-          primary:
-            primaryButtonTextValue != "" ? primaryButtonTextValue : undefined,
-          secondary:
-            secondaryButtonTextValue != ""
-              ? secondaryButtonTextValue
-              : undefined,
-          cancel:
-            cancelButtonTextValue != "" ? cancelButtonTextValue : undefined,
-        },
-        variant: variantValue,
-      };
+        // If the selected variant is "input",
+        // Show the Input section in UI.
+        if (selectedVariant === "input") {
+            setInputVisibility("visible");
+        } else {
+            setInputVisibility("hidden");
+        }
     }
 
-    try {
-      const response = await addOnSdk.app.showModalDialog(data);
-    } catch (error) {
-      console.log(error);
+    /**
+     * Show dialog in Express.
+     */
+    async function showDialog() {
+        // Dialog API payload.
+        let payload = {
+            title: title,
+            description: [description],
+            buttonLabels: {
+                primary: primaryButtonLabel != "" ? primaryButtonLabel : undefined,
+                secondary: !secondaryButtonDisabled && secondaryButtonLabel != "" ? secondaryButtonLabel : undefined,
+                cancel: !cancelButtonDisabled && cancelButtonTextValue != "" ? cancelButtonTextValue : undefined
+            },
+            variant: variant
+        };
+
+        // If the user chooses the "Input" variant,
+        // include the input "field" in the payload.
+        if (variant === "input") {
+            payload = {
+                ...payload,
+                field: {
+                    label: inputLabel,
+                    placeholder: inputPlaceholder,
+                    fieldType: "text"
+                }
+            };
+        }
+
+        try {
+            const result = await addOnSdk.app.showModalDialog(payload);
+
+            // Log the "result" on console.
+            // "result" represents the action that was taken by the user on the opened dialog.
+            console.log("Dialog result", result);
+        } catch (error) {
+            console.log("An error occurred while showing the dialog.", error);
+        }
     }
-  }
-  return (
-    <AddOnSdkContext.Provider value={addOnSdk}>
-      <Provider theme={lightTheme} colorScheme="light">
-        <Flex direction="column" height="size-100">
-          <TextField
-            label="Title"
-            id="title"
-            description="Enter Title"
-            defaultValue="Sample Title"
-            onChange={setTitle}
-            marginBottom="7%"
-            flexGrow="1"
-          />
-          <TextArea
-            label="Description"
-            defaultValue="Sample Description"
-            id="desc"
-            description="Enter Description"
-            onChange={setDesc}
-            marginBottom="7%"
-            isDisabled={variantValue === "custom"}
-          />
-          <TextField
-            label="Primary Button Text"
-            defaultValue="Ok"
-            id="primary"
-            description="Enter Primary Button Text"
-            onChange={setPrimaryButton}
-            marginBottom="7%"
-            isDisabled={variantValue === "custom"}
-          />
-          <Flex direction="row" marginBottom="7%">
-            <Checkbox id="sec" onChange={showSecondaryButton} isDisabled={variantValue === "custom"}>
-              Add Secondary Button
-            </Checkbox>
-            <Checkbox id="can" onChange={showCancelButton} isDisabled={variantValue === "custom"}>
-              Add Cancel Button
-            </Checkbox>
-          </Flex>
-          <TextField
-            label="Secondary Button Text"
-            id="secondary"
-            isHidden={buttons.sec}
-            description="Enter Secondary Button Text"
-            onChange={setSecondaryButton}
-            value={secondaryButtonTextValue}
-            marginBottom="7%"
-          />
-          <TextField
-            label="Cancel Button Text"
-            id="cancel"
-            isHidden={buttons.can}
-            description="Enter Cancel Button Text"
-            onChange={setCancelButton}
-            value={cancelButtonTextValue}
-            marginBottom="7%"
-          />
-          <Picker
-            label="Variant"
-            defaultSelectedKey="confirmation"
-            onSelectionChange={setVariant}
-            marginBottom="7%"
-          >
-            <Item key="confirmation">Confirm</Item>
-            <Item key="information">Informative</Item>
-            <Item key="warning">Warning</Item>
-            <Item key="destructive">Destructive</Item>
-            <Item key="error">Error</Item>
-            <Item key="input">Input</Item>
-            <Item key="custom">Custom</Item>
-          </Picker>
-          <TextField
-            label="Label"
-            id="label"
-            defaultValue="Sample Label"
-            isHidden={variantValue != "input"}
-            description="Enter Label"
-            onChange={setLabel}
-            value={labelValue}
-            marginBottom="7%"
-          />
-          <TextField
-            label="Placeholder"
-            id="placeholder"
-            defaultValue="Sample Placeholder"
-            isHidden={variantValue != "input"}
-            description="Enter Placeholder"
-            onChange={setPlaceholder}
-            value={placeholderValue}
-            marginBottom="7%"
-          />
-          <NumberField
-            label="Width"
-            id="width"
-            defaultValue="100"
-            isHidden={variantValue != "custom"}
-            description="Enter Width"
-            onChange={setWidth}
-            value={widthValue}
-            marginBottom="7%"
-            minValue={0}
-          />
-          <NumberField
-            label="Height"
-            id="height"
-            defaultValue="100"
-            isHidden={variantValue != "custom"}
-            description="Enter Height"
-            onChange={setHeight}
-            value={heightValue}
-            marginBottom="7%"
-            minValue={0}
-          />
-          <Button
-            variant="accent"
-            style="fill"
-            onPress={showDialog}
-            width="50%"
-          >
-            Generate Dialog
-          </Button>
-        </Flex>
-      </Provider>
-    </AddOnSdkContext.Provider>
-  );
+
+    return (
+        <Theme theme="express" scale="medium" color="light">
+            <div className="container">
+                <h3>Variant</h3>
+                <RadioGroup selected={variant} change={event => handleVariantChange(event)}>
+                    <Radio size="m" value="confirmation">
+                        Confirm
+                    </Radio>
+                    <Radio size="m" value="information">
+                        Informative
+                    </Radio>
+                    <Radio size="m" value="warning">
+                        Warning
+                    </Radio>
+                    <Radio size="m" value="destructive">
+                        Destructive
+                    </Radio>
+                    <Radio size="m" value="error">
+                        Error
+                    </Radio>
+                    <Radio size="m" value="input">
+                        Input
+                    </Radio>
+                </RadioGroup>
+                <h3>Labels</h3>
+                <TextInputGroup
+                    id="title"
+                    value={title}
+                    placeholder="Enter a title"
+                    label="Title"
+                    onChange={event => setTitle(event.target.value)}
+                />
+                <TextInputGroup
+                    multiline
+                    id="description"
+                    value={description}
+                    placeholder="Enter a description"
+                    label="Description"
+                    onChange={event => setDescription(event.target.value)}
+                />
+                <div className={inputVisibility}>
+                    <h3>Input</h3>
+                    <TextInputGroup
+                        id="inputLabel"
+                        value={inputLabel}
+                        placeholder="Enter the input label"
+                        label="Label"
+                        onChange={event => setInputLabel(event.target.value)}
+                    />
+                    <TextInputGroup
+                        id="inputPlaceholder"
+                        value={inputPlaceholder}
+                        placeholder="Enter the input placeholder"
+                        label="Placeholder"
+                        onChange={event => setInputPlaceholder(event.target.value)}
+                    />
+                </div>
+                <h3>Buttons</h3>
+                <TextInputGroup
+                    id="primary"
+                    value={primaryButtonLabel}
+                    placeholder="Enter primary button label"
+                    label="Primary button label"
+                    onChange={event => setPrimaryButtonLabel(event.target.value)}
+                />
+                <Checkbox size="m" change={() => setSecondaryButtonDisabled(!secondaryButtonDisabled)}>
+                    Add Secondary Button
+                </Checkbox>
+                <TextInputGroup
+                    id="secondary"
+                    value={secondaryButtonLabel}
+                    placeholder="Enter secondary button label"
+                    label="Secondary button label"
+                    disabled={secondaryButtonDisabled}
+                    onChange={event => setSecondaryButtonLabel(event.target.value)}
+                />
+                <Checkbox size="m" change={() => setCancelButtonDisabled(!cancelButtonDisabled)}>
+                    Add Cancel Button
+                </Checkbox>
+                <TextInputGroup
+                    id="cancel"
+                    value={cancelButtonTextValue}
+                    placeholder="Enter cancel button label"
+                    label="Cancel button label"
+                    disabled={cancelButtonDisabled}
+                    onChange={event => setCancelButtonLabel(event.target.value)}
+                />
+                <Button size="m" style={{ marginTop: "16px" }} onClick={showDialog}>
+                    Create
+                </Button>
+            </div>
+        </Theme>
+    );
 };
 
 export default App;

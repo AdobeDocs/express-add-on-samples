@@ -9,7 +9,8 @@ the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTA
 OF ANY KIND, either express or implied. See the License for the specific language
 governing permissions and limitations under the License.
 */
-import { Flex, lightTheme, Provider } from "@adobe/react-spectrum";
+
+import { Theme } from "@swc-react/theme";
 import React, { createContext, useState } from "react";
 import "./App.css";
 import Assets from "./Assets";
@@ -31,19 +32,12 @@ const App = ({ addOnSdk }) => {
 
     return (
         <AddOnSdkContext.Provider value={addOnSdk}>
-            <Provider theme={lightTheme} colorScheme="light">
-                <Flex direction="column" gap="size-200">
-                    <Connection
-                        accessToken={accessToken}
-                        updateAccessToken={updateAccessToken}
-                    ></Connection>
-                    <Assets
-                        accessToken={accessToken}
-                        assets={assets}
-                        updateAssets={updateAssets}
-                    ></Assets>
-                </Flex>
-            </Provider>
+            <Theme theme="express" scale="medium" color="light">
+                <div className="container">
+                    <Connection accessToken={accessToken} updateAccessToken={updateAccessToken}></Connection>
+                    <Assets accessToken={accessToken} assets={assets} updateAssets={updateAssets}></Assets>
+                </div>
+            </Theme>
         </AddOnSdkContext.Provider>
     );
 };

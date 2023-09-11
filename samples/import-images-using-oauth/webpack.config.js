@@ -9,6 +9,7 @@ the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTA
 OF ANY KIND, either express or implied. See the License for the specific language
 governing permissions and limitations under the License.
 */
+
 const path = require("path");
 const ESLintPlugin = require("eslint-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
@@ -20,7 +21,7 @@ process.env.NODE_ENV = "development";
 // Webpack wire up.
 module.exports = {
     mode: "development",
-    entry: "./src/index.jsx",
+    entry: "./src/components/index.jsx",
     devtool: "source-map",
     experiments: {
         outputModule: true

@@ -9,52 +9,34 @@ the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTA
 OF ANY KIND, either express or implied. See the License for the specific language
 governing permissions and limitations under the License.
 */
-.breadcrumb {
-    cursor: pointer;
+
+.folders {
+    padding: 0 24px;
 }
 
-.breadcrumb:hover {
-    text-decoration: underline;
-}
-
-.gallery {
-    box-sizing: border-box;
-    margin: 0;
-}
-
-.gallery .row {
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
-    padding: 0 4px;
-}
-
-.gallery .column {
-    -ms-flex: 98%;
-    flex: 98%;
-    max-width: 98%;
-    padding: 0 2px;
-}
-
-.gallery .column img {
-    margin-top: 8px;
-    vertical-align: middle;
+.folders h2 {
+    text-align: left;
     width: 100%;
 }
 
-@media screen and (max-width: 800px) {
-    .column {
-        -ms-flex: 100%;
-        flex: 100%;
-        max-width: 100%;
-    }
+.folders .picker {
+    text-align: left;
+    width: 100%;
+    margin-bottom: 8px;
 }
 
-@media screen and (max-width: 600px) {
-    .column {
-        -ms-flex: 100%;
-        flex: 100%;
-        max-width: 100%;
-    }
+.gallery {
+    padding: 0 16px;
+    display: flex;
+    flex-direction: row;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+
+.gallery img {
+    margin: 8px;
+    width: 128px;
+    height: 128px;
+    border-radius: 8px;
+    cursor: pointer;
 }

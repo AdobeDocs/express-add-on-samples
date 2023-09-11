@@ -9,12 +9,7 @@ the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTA
 OF ANY KIND, either express or implied. See the License for the specific language
 governing permissions and limitations under the License.
 */
-import AddOnSdk from "https://new.express.adobe.com/static/add-on-sdk/sdk.js";
-import React from "react";
-import { createRoot } from "react-dom/client";
-import App from "./components/App";
 
-AddOnSdk.ready.then(() => {
-    const root = createRoot(document.getElementById("root"));
-    root.render(<App addOnSdk={AddOnSdk} />);
-});
+.text-input-group {
+    margin-bottom: 8px;
+}

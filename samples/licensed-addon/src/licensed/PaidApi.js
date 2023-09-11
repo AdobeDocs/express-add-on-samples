@@ -9,17 +9,21 @@ the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTA
 OF ANY KIND, either express or implied. See the License for the specific language
 governing permissions and limitations under the License.
 */
-import "@spectrum-web-components/theme/express/scale-medium.js";
-import "@spectrum-web-components/theme/express/theme-light.js";
-import "@spectrum-web-components/theme/scale-medium.js";
-import "@spectrum-web-components/theme/theme-light.js";
 
-import AddOnSdk from "https://new.express.adobe.com/static/add-on-sdk/sdk.js";
-import React from "react";
-import { createRoot } from "react-dom/client";
-import App from "./App";
+const API_URL = "https://www.greetingsapi.com/random";
 
-AddOnSdk.ready.then(() => {
-    const root = createRoot(document.getElementById("root"));
-    root.render(<App addOnSdk={AddOnSdk} />);
-});
+/**
+ * This class handles requests to the paid API.
+ */
+export class PaidApi {
+    /**
+     * Get greeting.
+     * @returns Greeting in a randomly chosen language.
+     */
+    static async greet() {
+        const response = await fetch(API_URL, { method: "GET" });
+        const responseJson = await response.json();
+
+        return `${responseJson.greeting} [${responseJson.language}]`;
+    }
+}
