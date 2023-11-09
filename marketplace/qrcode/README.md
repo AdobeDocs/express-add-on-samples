@@ -1,6 +1,6 @@
 ## About
 
-This project has been created with _@adobe-ccwebext/create-ccweb-add-on_.
+This project has been created with _@adobe/create-ccweb-add-on_.
 
 ## Setup
 

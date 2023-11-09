@@ -1,6 +1,6 @@
 ## About
 
-This project has been created with _@adobe-ccwebext/create-ccweb-add-on_. As an example, this Add-on demonstrates how to use the client storage to persist user generated data through a ToDo List.
+This project has been created with _@adobe/create-ccweb-add-on_. As an example, this Add-on demonstrates how to use the client storage to persist user generated data through a ToDo List.
 
 ## Technology Used
 

@@ -1,6 +1,6 @@
 ## About
 
-This Add-on project has been created with _@adobe-ccwebext/create-ccweb-add-on_. As an example, this Add-on demonstrates how to use the Add-on SDK's OAuth API to allow its users to connect their Dropbox account.
+This Add-on project has been created with _@adobe/create-ccweb-add-on_. As an example, this Add-on demonstrates how to use the Add-on SDK's OAuth API to allow its users to connect their Dropbox account.
 
 Besides the OAuth API, this Add-On also makes use of the other Add-on SDK APIs, such as the:
 

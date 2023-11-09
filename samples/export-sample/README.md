@@ -1,6 +1,6 @@
 ## About
 
-This project has been created with _@adobe-ccwebext/create-ccweb-add-on_. 
+This project has been created with _@adobe/create-ccweb-add-on_. 
 This add-on demonstrates how to use the Export APIs to export content in various formats including jpeg, png, pdf and mp4.
 
 ## Tools

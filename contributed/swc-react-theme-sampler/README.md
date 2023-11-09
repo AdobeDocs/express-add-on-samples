@@ -1,6 +1,6 @@
 ## About
 
-This project has been created with _@adobe-ccwebext/create-ccweb-add-on_. As an example, this add-on demonstrates the use of the [SWC-React](https://opensource.adobe.com/spectrum-web-components/using-swc-react/), (React wrapper components for the Spectrum Web Components (SWC) library), as well as how to set the various theme properties provided with Spectrum (ie: main theme, scale, color and style). 
+This project has been created with _@adobe/create-ccweb-add-on_. As an example, this add-on demonstrates the use of the [SWC-React](https://opensource.adobe.com/spectrum-web-components/using-swc-react/), (React wrapper components for the Spectrum Web Components (SWC) library), as well as how to set the various theme properties provided with Spectrum (ie: main theme, scale, color and style). 
 
 ## Important Notes
 ### SWC-React Implementation
