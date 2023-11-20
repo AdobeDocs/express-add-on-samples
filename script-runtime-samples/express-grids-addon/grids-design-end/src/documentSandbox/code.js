@@ -10,12 +10,12 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-import addOnScriptSdk from "AddOnScriptSdk";
+import addOnSandboxSdk from "AddOnScriptSdk";
 import { editor } from "express";
 import { addColumns, addRows } from "./shapeUtils";
 
 // Get the Authoring Sandbox.
-const { runtime } = addOnScriptSdk.instance;
+const { runtime } = addOnSandboxSdk.instance;
 
 let gridRef = null;
 

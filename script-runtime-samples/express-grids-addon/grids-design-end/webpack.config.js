@@ -18,7 +18,7 @@ module.exports = {
   mode: process.env.NODE_ENV || "development",
   entry: {
     index: "./src/ui/index.js",
-    code: "./src/script/code.js",
+    code: "./src/documentSandbox/code.js",
   },
   devtool: "source-map",
   experiments: {
