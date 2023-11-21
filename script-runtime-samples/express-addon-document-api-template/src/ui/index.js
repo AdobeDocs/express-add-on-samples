@@ -26,11 +26,11 @@ addOnUISdk.ready.then(async () => {
 
   // Get the Authoring Sandbox.
   const { runtime } = addOnUISdk.instance;
-  const scriptApi = await runtime.apiProxy("script");
+  const sandboxProxy = await runtime.apiProxy("script");
 
   const docApiButton = document.getElementById("docApi");
   docApiButton.addEventListener("click", () => {
-    scriptApi.log("Script runtime up and running.");
+    sandboxProxy.log("Script runtime up and running.");
   });
 
   // Enabling CTA elements only when the addOnUISdk is ready
