@@ -50,17 +50,17 @@ addOnUISdk.ready.then(async () => {
   // the addOnUISdk is ready, so we can now toggle the status light
   iframeApi.toggleStatus("iframe");
 
-  // Get the Authoring Sandbox.
+  // Get the Document Sandbox.
   const { runtime } = addOnUISdk.instance;
-  // Importing the Authoring Sandbox API.
-  const authoringApi = await runtime.apiProxy("script");
-  // Exposing the iframe API to the Authoring Sandbox.
+  // Importing the Document Sandbox API.
+  const sandboxProxy = await runtime.apiProxy("script");
+  // Exposing the iframe API to the Document Sandbox.
   runtime.exposeApi(iframeApi);
 
   const statsButton = document.getElementById("stats");
 
   statsButton.addEventListener("click", async () => {
-    await authoringApi.getDocumentData();
+    await sandboxProxy.getDocumentData();
   });
   // Enabling the button only when the addOnUISdk is ready
   statsButton.disabled = false;
