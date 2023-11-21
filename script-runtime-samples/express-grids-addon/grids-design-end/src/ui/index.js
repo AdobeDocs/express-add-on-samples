@@ -32,7 +32,7 @@ addOnUISdk.ready.then(async () => {
 
   // Get the Authoring Sandbox.
   const { runtime } = addOnUISdk.instance;
-  const scriptApi = await runtime.apiProxy("script");
+  const sandboxProxy = await runtime.apiProxy("script");
 
   // Input fields -------------------------------------------
 
@@ -78,7 +78,7 @@ addOnUISdk.ready.then(async () => {
   const deleteGridBtn = document.getElementById("deleteGrid");
 
   deleteGridBtn.onclick = async (event) => {
-    const res = await scriptApi.deleteGrid();
+    const res = await sandboxProxy.deleteGrid();
     if (res) {
       // When there's been an error deleting the grid, you may want to handle it here
     }
@@ -86,7 +86,7 @@ addOnUISdk.ready.then(async () => {
   };
 
   createGridBtn.onclick = async (event) => {
-    await scriptApi.addGrid({
+    await sandboxProxy.addGrid({
       columns: colsInput.value,
       rows: rowsInput.value,
       gutter: gutterInput.value,

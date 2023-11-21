@@ -28,8 +28,8 @@ addOnUISdk.ready.then(async () => {
 
   // Get the UI runtime.
   const { runtime } = addOnUISdk.instance;
-  const scriptApi = await runtime.apiProxy("script");
-  scriptApi.log("Script runtime up and running.");
+  const sandboxProxy = await runtime.apiProxy("script");
+  sandboxProxy.log("Script runtime up and running.");
 
   // Enabling CTA elements only when the addOnUISdk is ready
   createShapeButton.disabled = false;
