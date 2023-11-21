@@ -10,8 +10,8 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-import addOnScriptSdk from "AddOnScriptSdk";
-const { runtime } = addOnScriptSdk.instance;
+import addOnSandboxSdk from "AddOnScriptSdk";
+const { runtime } = addOnSandboxSdk.instance;
 
 function start() {
   runtime.exposeApi({
