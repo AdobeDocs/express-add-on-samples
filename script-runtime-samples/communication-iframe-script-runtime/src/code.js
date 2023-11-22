@@ -9,24 +9,28 @@ the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTA
 OF ANY KIND, either express or implied. See the License for the specific language
 governing permissions and limitations under the License.
 */
-import AddOnScriptSdk from "AddOnScriptSdk";
-const { runtime } = AddOnScriptSdk.instance;
+import addOnSandboxSdk from "add-on-sdk-document-sandbox";
+const { runtime } = addOnSandboxSdk.instance;
 
 async function callUIApis() {
-    const uiApis = await runtime.apiProxy("panel");
-    await uiApis.performWorkOnUI({
+    // Get the proxy object, which is required
+    // to call the APIs defined in the UI runtime code
+    // i.e., in the `index.html` file of this add-on.
+    const panelUIProxy = await runtime.apiProxy("panel");
+    await panelUIProxy.performWorkOnUI({
         buttonTextFont: 20,
         buttonColor: "Green"
     }, true);
 
-    const result = await uiApis.getDataFromUI();
+    const result = await panelUIProxy.getDataFromUI();
     console.log("Data from UI: " + result);
 }
 
 async function start() {
-    const scriptApi = {
+    // APIs to be exposed to the UI runtime
+    const sandboxApi = {
         performWorkOnDocument: function (data, someFlag) {
-            // call content authoring APIs
+            // call the Document APIs
         },
         getDataFromDocument: async function() {
             let resolver = undefined;
@@ -41,8 +45,8 @@ async function start() {
         }
     }
 
-    // expose the script apis 
-    runtime.exposeApi(scriptApi);
+    // Expose `sandboxApi` to the UI runtime.
+    runtime.exposeApi(sandboxApi);
 }
 
 start();

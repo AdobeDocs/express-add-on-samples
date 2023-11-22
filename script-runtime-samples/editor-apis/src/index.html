@@ -84,9 +84,9 @@ governing permissions and limitations under the License.
     
                 let createShapesButton = document.getElementById("createShapesButton");
                 createShapesButton.addEventListener("click", async (e) => {
-                    const scriptApis = await runtime.apiProxy("script");
+                    const sandboxProxy = await runtime.apiProxy("documentSandbox");
                     try {
-                        let result = await scriptApis.createShapes();
+                        let result = await sandboxProxy.createShapes();
                         console.log(result);
                     } catch (exc) {
                         console.error(exc.message, exc.stack);

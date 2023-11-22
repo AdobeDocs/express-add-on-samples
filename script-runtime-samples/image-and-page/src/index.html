@@ -94,24 +94,24 @@ governing permissions and limitations under the License.
             AddOnSdk.ready.then(async () => {
                 console.log("AddOnSdk is ready for use.");
                 const { runtime } = AddOnSdk.instance;
-                const scriptApis = await runtime.apiProxy("script");
+                const sandboxProxy = await runtime.apiProxy("documentSandbox");
 
                 const callScriptApi = async (id) => {
                     let result;
                     try {
                         switch (id) {
                             case "clearArtboardButton": {
-                                result = await scriptApis.clearArtboard();
+                                result = await sandboxProxy.clearArtboard();
                             }
                             break;
                             case "addPageButton": {
                                 const width = random(300, 400);
                                 const height = random(500, 600);
-                                result = await scriptApis.addPage({ width, height });
+                                result = await sandboxProxy.addPage({ width, height });
                             }
                             break;
                             case "createShapesButton": {
-                                result = await scriptApis.createShapes();
+                                result = await sandboxProxy.createShapes();
                             }
                             break;
                             case "createImageButton": {
@@ -119,7 +119,7 @@ governing permissions and limitations under the License.
                                 const height = random(200, 600);
                                 const response = await fetch(`https://picsum.photos/${width}/${height}`);
                                 const blob = await response.blob();
-                                result = await scriptApis.createImage(blob, { width, height });
+                                result = await sandboxProxy.createImage(blob, { width, height });
                             }
                             break;
                         }

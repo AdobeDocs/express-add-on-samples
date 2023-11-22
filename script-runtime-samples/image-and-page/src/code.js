@@ -9,13 +9,13 @@ the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTA
 OF ANY KIND, either express or implied. See the License for the specific language
 governing permissions and limitations under the License.
 */
-import AddOnScriptSdk from "AddOnScriptSdk";
-import { editor, utils, Constants } from "express";
+import addOnSandboxSdk from "add-on-sdk-document-sandbox";
+import { editor, utils, constants } from "express-document-sdk";
 
-const { runtime } = AddOnScriptSdk.instance;
+const { runtime } = addOnSandboxSdk.instance;
 
 async function start() {
-    const scriptApi = {
+    const sandboxApi = {
         addPage: function (size = { width: 400, height: 600 }) {
             editor.documentRoot.pages.addPage(size);
         },
@@ -45,7 +45,7 @@ async function start() {
             text.text = "A Text Node";
             text.translateX = 20;
             text.translateY = 400;
-            text.textAlignment = Constants.TextAlignmentValue.right;
+            text.textAlignment = constants.TextAlignment.right;
 
             const rectFill = editor.createColorFill(utils.createColor(Math.random(), Math.random(), Math.random(), Math.random()));
             const ellipseFill = editor.createColorFill(utils.createColor(Math.random(), Math.random(), Math.random(), Math.random()));
@@ -71,8 +71,8 @@ async function start() {
         }
     }
 
-    // expose the script apis 
-    runtime.exposeApi(scriptApi);
+    // Expose `sandboxApi` to the UI runtime.
+    runtime.exposeApi(sandboxApi);
 }
 
 start();
