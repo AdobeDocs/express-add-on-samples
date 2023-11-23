@@ -87,9 +87,7 @@ governing permissions and limitations under the License.
                         const promise = new Promise(resolve => {
                             resolver = resolve;
                         });
-                        setTimeout(() => {
-                            resolver("button_color_blue");
-                        }, 10);
+                        resolver("button_color_blue");
                         return await promise;
                     }
                 }

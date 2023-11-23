@@ -38,9 +38,7 @@ async function start() {
                 resolver = resolve;
             });
             await callUIApis();
-            setTimeout(() => {
-                resolver("Page Title: XYZ");
-            }, 100);
+            resolver("Page Title: XYZ");
             return await promise;
         }
     }
