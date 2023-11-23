@@ -83,11 +83,9 @@ governing permissions and limitations under the License.
                         // Do some ui operation
                     },
                     getDataFromUI: async function() {
-                        let resolver = undefined;
                         const promise = new Promise(resolve => {
-                            resolver = resolve;
+                            resolve("button_color_blue");
                         });
-                        resolver("button_color_blue");
                         return await promise;
                     }
                 }
