@@ -60,13 +60,15 @@ async function start() {
         createImage: async function(blob, size = {}) {
             const insertionParent = editor.context.insertionParent;
             const bitmapImage = await editor.loadBitmapImage(blob);
-            let { width, height } = size;
-            if (!width || !height) {
-                width = bitmapImage.width;
-                height = bitmapImage.height;
-            }
-            const mediaContainerNode = editor.createImageContainer(bitmapImage, { initialSize: { width, height } });
-            insertionParent.children.append(mediaContainerNode);
+            await editor.queueAsyncEdit(() => {
+                let { width, height } = size;
+                if (!width || !height) {
+                    width = bitmapImage.width;
+                    height = bitmapImage.height;
+                }
+                const mediaContainerNode = editor.createImageContainer(bitmapImage, { initialSize: { width, height } });
+                insertionParent.children.append(mediaContainerNode);
+            });
             return "**** Image created successfully ****"
         }
     }
