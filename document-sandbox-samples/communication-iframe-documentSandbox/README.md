@@ -1,6 +1,6 @@
 ## About
 
-This Add-on demonstrates how to get started using the script runtime add-ons and communicate between the iframe (index.html) running your add-on and the script runtime (code.js). 
+This Add-on demonstrates how to get started using the document sandbox based add-ons and communicate between the iframe (index.html) running your add-on and the document sandbox (code.js). 
 
 ## Tools
 

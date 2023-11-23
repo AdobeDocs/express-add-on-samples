@@ -1,6 +1,6 @@
 ## About
 
-This add-on sample demonstrates how to get started using the Editor APIs provided with the script runtime.
+This add-on sample demonstrates how to get started using the Editor APIs provided with the document sandbox runtime.
 
 ## Tools
 
