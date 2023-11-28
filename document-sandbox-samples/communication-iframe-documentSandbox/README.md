@@ -1,6 +1,6 @@
 ## About
 
-This Add-on demonstrates how to get started using the document sandbox based add-ons and communicate between the iframe (index.html) running your add-on and the document sandbox (code.js). 
+This Add-on demonstrates how to communicate between code in the UI iframe (index.html) and the document model sandbox (code.js).
 
 ## Tools
 

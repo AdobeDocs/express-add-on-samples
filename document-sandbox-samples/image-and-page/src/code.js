@@ -60,6 +60,7 @@ async function start() {
         createImage: async function(blob, size = {}) {
             const insertionParent = editor.context.insertionParent;
             const bitmapImage = await editor.loadBitmapImage(blob);
+            // Edits following an asynchronous wait need to be queued to run at a safe time
             await editor.queueAsyncEdit(() => {
                 let { width, height } = size;
                 if (!width || !height) {

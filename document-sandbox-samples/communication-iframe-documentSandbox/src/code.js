@@ -30,16 +30,12 @@ async function start() {
     // APIs to be exposed to the UI runtime
     const sandboxApi = {
         performWorkOnDocument: function (data, someFlag) {
-            // call the Document APIs
+            // Call Express document APIs here
         },
         getDataFromDocument: async function() {
-            let resolver = undefined;
-            const promise = new Promise(resolve => {
-                resolver = resolve;
-            });
             await callUIApis();
-            resolver("Page Title: XYZ");
-            return await promise;
+            // Return data from document to our UI code in index.html
+            return "Page Title: XYZ";
         }
     }
 

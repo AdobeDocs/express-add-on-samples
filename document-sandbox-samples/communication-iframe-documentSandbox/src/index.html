@@ -83,10 +83,10 @@ governing permissions and limitations under the License.
                         // Do some ui operation
                     },
                     getDataFromUI: async function() {
-                        const promise = new Promise(resolve => {
+                        return new Promise(resolve => {
+                            // Example of returning a user choice from hypothetical UI
                             resolve("button_color_blue");
                         });
-                        return await promise;
                     }
                 }
 
