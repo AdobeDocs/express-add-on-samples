@@ -10,4 +10,4 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-import { editor, utils, Constants } from "express";
+import { editor, utils, constants } from "express-document-sdk";

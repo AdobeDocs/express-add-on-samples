@@ -10,7 +10,7 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-import addOnSandboxSdk from "AddOnScriptSdk";
+import addOnSandboxSdk from "add-on-sdk-document-sandbox";
 const { runtime } = addOnSandboxSdk.instance;
 
 function start() {

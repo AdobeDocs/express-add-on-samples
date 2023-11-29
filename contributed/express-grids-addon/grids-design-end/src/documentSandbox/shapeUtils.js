@@ -10,7 +10,7 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-import { editor, utils, Constants } from "express";
+import { editor, utils, constants } from "express-document-sdk";
 
 /**
  * Convert a hex color string to an instance of the Color class
@@ -73,7 +73,7 @@ const addRows = (rowsNumber, gutter, color) => {
   // Create the rectangles
   for (let i = 0; i < rowsNumber; i++) {
     let r = createRect(page.width, rowHeight, color);
-    r.translateY = gutter + (gutter + rowHeight) * i;
+    r.translation = { x: 0, y: gutter + (gutter + rowHeight) * i };
     rows.push(r);
   }
   // Append the rectangles to the document
@@ -85,7 +85,7 @@ const addRows = (rowsNumber, gutter, color) => {
   // Populate the group with the rectangles
   rowsGroup.children.append(...rows);
   // Edit the group's properties
-  rowsGroup.blendMode = Constants.BlendModeValue.multiply;
+  rowsGroup.blendMode = constants.BlendMode.multiply;
   rowsGroup.locked = true;
   return rowsGroup;
 };
@@ -106,7 +106,7 @@ const addColumns = (columsNumber, gutter, color) => {
   // Create the rectangles
   for (let i = 0; i < columsNumber; i++) {
     let r = createRect(colWidth, page.height, color);
-    r.translateX = gutter + (gutter + colWidth) * i;
+    r.translation = { x: gutter + (gutter + colWidth) * i, y: 0 };
     cols.push(r);
   }
   // Append the rectangles to the document
@@ -118,7 +118,7 @@ const addColumns = (columsNumber, gutter, color) => {
   // Populate the group with the rectangles
   columnsGroup.children.append(...cols);
   // Edit the group's properties
-  columnsGroup.blendMode = Constants.BlendModeValue.multiply;
+  columnsGroup.blendMode = constants.BlendMode.multiply;
   columnsGroup.locked = true;
   return columnsGroup;
 };

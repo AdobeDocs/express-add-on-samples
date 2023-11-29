@@ -33,8 +33,8 @@ module.exports = {
   externalsType: "module",
   externalsPresets: { web: true },
   externals: {
-    AddOnScriptSdk: "AddOnScriptSdk",
-    express: "express",
+    "add-on-sdk-document-sandbox": "add-on-sdk-document-sandbox",
+    "express-document-sdk": "express-document-sdk",
   },
   plugins: [
     new HtmlWebpackPlugin({
