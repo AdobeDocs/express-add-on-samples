@@ -32,19 +32,16 @@ async function start() {
             const rectangle = editor.createRectangle();
             rectangle.width = 200;
             rectangle.height = 150;
-            rectangle.translateX = 100;
-            rectangle.translateY = 20;
+            rectangle.translation = { x: 100, y: 20 };
 
             const ellipse = editor.createEllipse();
             ellipse.rx = 150;
             ellipse.ry = 70;
-            ellipse.translateX = 10;
-            ellipse.translateY = 200;
+            ellipse.translation = { x: 10, y: 200 };
 
             const text = editor.createText();
             text.text = "A Text Node";
-            text.translateX = 20;
-            text.translateY = 400;
+            text.translation = { x: 20, y: 400 };
             text.textAlignment = constants.TextAlignment.right;
 
             const rectFill = editor.createColorFill(utils.createColor(Math.random(), Math.random(), Math.random(), Math.random()));
