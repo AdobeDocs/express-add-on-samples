@@ -26,7 +26,7 @@ addOnUISdk.ready.then(async () => {
 
   // Get the Authoring Sandbox.
   const { runtime } = addOnUISdk.instance;
-  const sandboxProxy = await runtime.apiProxy("script");
+  const sandboxProxy = await runtime.apiProxy("documentSandbox");
 
   const docApiButton = document.getElementById("docApi");
   docApiButton.addEventListener("click", () => {
