@@ -27,6 +27,11 @@ governing permissions and limitations under the License.
                 font-size: 1.25em;
                 background-color: rgb(250, 250, 250);
             }
+            img {
+                margin-bottom: 10px;
+                width: 75px;
+                height: 75px;
+            }
             span {
                 font-size: 16px;
                 color: rgb(0, 0, 0);
@@ -64,9 +69,10 @@ governing permissions and limitations under the License.
         </style>
     </head>
     <body>
+        <img src="./smiley.png" id="smileyImg"></img>
         <div class="flexContainer">
-            <button id="startCommunication" disabled>
-                <span class="buttonText">Start Communication</span>
+            <button id="createShapesButton" disabled>
+                <span class="buttonText">Create Shapes</span>
             </button>
         </div>
         <script type="module">
@@ -74,43 +80,19 @@ governing permissions and limitations under the License.
 
             AddOnSdk.ready.then(async () => {
                 console.log("AddOnSdk is ready for use.");
-
                 const { runtime } = AddOnSdk.instance;
-                const uiApi = {
-                    performWorkOnUI: function(data, someFlag) {
-                        // Do some ui operation
-                    },
-                    getDataFromUI: async function() {
-                        let resolver = undefined;
-                        const promise = new Promise(resolve => {
-                            resolver = resolve;
-                        });
-                        setTimeout(() => {
-                            resolver("button_color_blue");
-                        }, 10);
-                        return await promise;
-                    }
-                }
-
-                // Expose the UI Apis
-                runtime.exposeApi(uiApi);
     
-                let startCommunication = document.getElementById("startCommunication");
-                startCommunication.addEventListener("click", async (_e) => {
-                    const scriptApis = await runtime.apiProxy("script");
-
-                    await scriptApis.performWorkOnDocument({
-                        pageNumber: 1,
-                        op: "change_background_color",
-                        data: {
-                            toColor: "blue"
-                        }
-                    }, true);
-
-                    const result = await scriptApis.getDataFromDocument();
-                    console.log("Data from document: " + result);
+                let createShapesButton = document.getElementById("createShapesButton");
+                createShapesButton.addEventListener("click", async (e) => {
+                    const sandboxProxy = await runtime.apiProxy("documentSandbox");
+                    try {
+                        let result = await sandboxProxy.createShapes();
+                        console.log(result);
+                    } catch (exc) {
+                        console.error(exc.message, exc.stack);
+                    }
                 });
-                startCommunication.disabled = false;
+                createShapesButton.disabled = false;
             });
         </script>
     </body>

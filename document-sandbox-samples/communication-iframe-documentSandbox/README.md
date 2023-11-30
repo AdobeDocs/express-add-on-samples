@@ -1,6 +1,6 @@
 ## About
 
-This add-on sample demonstrates how to get started using the Editor APIs provided with the script runtime.
+This Add-on demonstrates how to communicate between code in the UI iframe (index.html) and the document model sandbox (code.js).
 
 ## Tools
 
