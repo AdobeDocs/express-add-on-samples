@@ -1,6 +1,6 @@
 ## About
 
-This project has been created with _@adobe/create-ccweb-add-on_. As an example, this Add-on demonstrates how to get started with Add-on development using JavaScript with Script Runtime.
+This project has been created with _@adobe/create-ccweb-add-on_. As an example, this Add-on demonstrates how to get started with Add-on development using JavaScript with the Document Sandbox.
 
 ## Tools
 

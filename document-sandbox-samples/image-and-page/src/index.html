@@ -96,7 +96,7 @@ governing permissions and limitations under the License.
                 const { runtime } = AddOnSdk.instance;
                 const sandboxProxy = await runtime.apiProxy("documentSandbox");
 
-                const callScriptApi = async (id) => {
+                const callSandboxApi = async (id) => {
                     let result;
                     try {
                         switch (id) {
@@ -136,7 +136,7 @@ governing permissions and limitations under the License.
 
                 [clearArtboardButton, addPageButton, createShapesButton, createImageButton].forEach(button => {
                     button.addEventListener("click", async (e) => {
-                        await callScriptApi(e.currentTarget.id);
+                        await callSandboxApi(e.currentTarget.id);
                     });
                     button.disabled = false;
                 });
