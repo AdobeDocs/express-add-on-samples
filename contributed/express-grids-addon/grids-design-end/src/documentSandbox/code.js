@@ -9,9 +9,9 @@ the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTA
 OF ANY KIND, either express or implied. See the License for the specific language
 governing permissions and limitations under the License.
 */
+import addOnSandboxSdk from "add-on-sdk-document-sandbox";
+import { editor, utils } from "express-document-sdk";
 
-import addOnSandboxSdk from "AddOnScriptSdk";
-import { editor } from "express";
 import { addColumns, addRows } from "./shapeUtils";
 
 // Get the Authoring Sandbox.
@@ -37,8 +37,11 @@ function start() {
       // Get the document and page.
       const doc = editor.documentRoot;
       const page = doc.pages.first;
+      console.log(utils, "UTILS");
+
       // Create the grid.
       const rowGroup = addRows(rows, gutter, rowColor);
+      console.log("Group ready", rowGroup);
       const columnGroup = addColumns(columns, gutter, columnColor);
 
       // Create the grid's group.
