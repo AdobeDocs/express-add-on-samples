@@ -17,7 +17,7 @@
             "type": "panel",
             "id": "panel1",
             "main": "index.html",
-            "script": "code.js"
+            "documentSandbox": "code.js"
         }
     ]
 }
