@@ -10,7 +10,7 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 import addOnSandboxSdk from "add-on-sdk-document-sandbox";
-import { editor, utils } from "express-document-sdk";
+import { editor } from "express-document-sdk";
 
 import { addColumns, addRows } from "./shapeUtils";
 
@@ -37,7 +37,6 @@ function start() {
       // Get the document and page.
       const doc = editor.documentRoot;
       const page = doc.pages.first;
-      console.log(utils, "UTILS");
 
       // Create the grid.
       const rowGroup = addRows(rows, gutter, rowColor);
