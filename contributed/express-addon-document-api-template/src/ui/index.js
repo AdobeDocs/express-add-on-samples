@@ -30,7 +30,7 @@ addOnUISdk.ready.then(async () => {
 
   const docApiButton = document.getElementById("docApi");
   docApiButton.addEventListener("click", () => {
-    sandboxProxy.log("Script runtime up and running.");
+    sandboxProxy.log("Document sandbox up and running.");
   });
 
   // Enabling CTA elements only when the addOnUISdk is ready

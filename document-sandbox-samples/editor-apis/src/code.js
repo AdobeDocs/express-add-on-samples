@@ -9,32 +9,29 @@ the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTA
 OF ANY KIND, either express or implied. See the License for the specific language
 governing permissions and limitations under the License.
 */
-import AddOnScriptSdk from "AddOnScriptSdk";
-import { editor, utils } from "express";
+import addOnSandboxSdk from "add-on-sdk-document-sandbox";
+import { editor, utils } from "express-document-sdk";
 
-const { runtime } = AddOnScriptSdk.instance;
+const { runtime } = addOnSandboxSdk.instance;
 
 async function start() {
-    const scriptApi = {
+    const sandboxApi = {
         createShapes: function() {
             const insertionParent = editor.context.insertionParent;
 
             const rectangle = editor.createRectangle();
             rectangle.width = 200;
             rectangle.height = 150;
-            rectangle.translateX = 100;
-            rectangle.translateY = 20;
+            rectangle.translation = { x: 100, y: 20 };
 
             const ellipse = editor.createEllipse();
             ellipse.rx = 150;
             ellipse.ry = 70;
-            ellipse.translateX = 10;
-            ellipse.translateY = 200;
+            ellipse.translation = { x: 10, y: 200 };
 
             const text = editor.createText();
             text.text = "A Text Node";
-            text.translateX = 20;
-            text.translateY = 400;
+            text.translation = { x: 20, y: 400 };
             text.textAlignment = 2;
 
             const rectFill = editor.createColorFill(utils.createColor(Math.random(), Math.random(), Math.random(), Math.random()));
@@ -49,8 +46,8 @@ async function start() {
         }
     }
 
-    // expose the script apis 
-    runtime.exposeApi(scriptApi);
+    // Expose `sandboxApi` to the UI runtime.
+    runtime.exposeApi(sandboxApi);
 }
 
 start();

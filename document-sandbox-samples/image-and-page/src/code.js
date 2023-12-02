@@ -9,13 +9,13 @@ the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTA
 OF ANY KIND, either express or implied. See the License for the specific language
 governing permissions and limitations under the License.
 */
-import AddOnScriptSdk from "AddOnScriptSdk";
-import { editor, utils, Constants } from "express";
+import addOnSandboxSdk from "add-on-sdk-document-sandbox";
+import { editor, utils, constants } from "express-document-sdk";
 
-const { runtime } = AddOnScriptSdk.instance;
+const { runtime } = addOnSandboxSdk.instance;
 
 async function start() {
-    const scriptApi = {
+    const sandboxApi = {
         addPage: function (size = { width: 400, height: 600 }) {
             editor.documentRoot.pages.addPage(size);
         },
@@ -32,20 +32,17 @@ async function start() {
             const rectangle = editor.createRectangle();
             rectangle.width = 200;
             rectangle.height = 150;
-            rectangle.translateX = 100;
-            rectangle.translateY = 20;
+            rectangle.translation = { x: 100, y: 20 };
 
             const ellipse = editor.createEllipse();
             ellipse.rx = 150;
             ellipse.ry = 70;
-            ellipse.translateX = 10;
-            ellipse.translateY = 200;
+            ellipse.translation = { x: 10, y: 200 };
 
             const text = editor.createText();
             text.text = "A Text Node";
-            text.translateX = 20;
-            text.translateY = 400;
-            text.textAlignment = Constants.TextAlignmentValue.right;
+            text.translation = { x: 20, y: 400 };
+            text.textAlignment = constants.TextAlignment.right;
 
             const rectFill = editor.createColorFill(utils.createColor(Math.random(), Math.random(), Math.random(), Math.random()));
             const ellipseFill = editor.createColorFill(utils.createColor(Math.random(), Math.random(), Math.random(), Math.random()));
@@ -60,19 +57,22 @@ async function start() {
         createImage: async function(blob, size = {}) {
             const insertionParent = editor.context.insertionParent;
             const bitmapImage = await editor.loadBitmapImage(blob);
-            let { width, height } = size;
-            if (!width || !height) {
-                width = bitmapImage.width;
-                height = bitmapImage.height;
-            }
-            const mediaContainerNode = editor.createImageContainer(bitmapImage, { initialSize: { width, height } });
-            insertionParent.children.append(mediaContainerNode);
+            // Edits following an asynchronous wait need to be queued to run at a safe time
+            await editor.queueAsyncEdit(() => {
+                let { width, height } = size;
+                if (!width || !height) {
+                    width = bitmapImage.width;
+                    height = bitmapImage.height;
+                }
+                const mediaContainerNode = editor.createImageContainer(bitmapImage, { initialSize: { width, height } });
+                insertionParent.children.append(mediaContainerNode);
+            });
             return "**** Image created successfully ****"
         }
     }
 
-    // expose the script apis 
-    runtime.exposeApi(scriptApi);
+    // Expose `sandboxApi` to the UI runtime.
+    runtime.exposeApi(sandboxApi);
 }
 
 start();
