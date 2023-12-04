@@ -10,7 +10,7 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 import addOnSandboxSdk from "add-on-sdk-document-sandbox";
-import { editor, utils } from "express-document-sdk";
+import { editor, colorUtils } from "express-document-sdk";
 
 const { runtime } = addOnSandboxSdk.instance;
 
@@ -34,10 +34,10 @@ async function start() {
             text.translation = { x: 20, y: 400 };
             text.textAlignment = 2;
 
-            const rectFill = editor.createColorFill(utils.createColor(Math.random(), Math.random(), Math.random(), Math.random()));
-            const ellipseFill = editor.createColorFill(utils.createColor(Math.random(), Math.random(), Math.random(), Math.random()));
-            rectangle.fills.append(rectFill);
-            ellipse.fills.append(ellipseFill);
+            const rectFill = editor.createColorFill(colorUtils.fromRGB(Math.random(), Math.random(), Math.random(), Math.random()));
+            const ellipseFill = editor.createColorFill(colorUtils.fromRGB(Math.random(), Math.random(), Math.random(), Math.random()));
+            rectangle.fill = rectFill;
+            ellipse.fill = ellipseFill;
             insertionParent.children.append(rectangle);
             insertionParent.children.append(ellipse);
             insertionParent.children.append(text);
