@@ -25,7 +25,7 @@ const createRect = (width, height, color) => {
   const rect = editor.createRectangle();
   rect.width = width;
   rect.height = height;
-  const rectangleFill = editor.createColorFill(colorUtils.fromHex(color));
+  const rectangleFill = editor.makeColorFill(colorUtils.fromHex(color));
   rect.fill = rectangleFill;
   return rect;
 };
