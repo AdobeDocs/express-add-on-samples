@@ -34,8 +34,8 @@ async function start() {
             text.translation = { x: 20, y: 400 };
             text.textAlignment = 2;
 
-            const rectFill = editor.createColorFill(colorUtils.fromRGB(Math.random(), Math.random(), Math.random(), Math.random()));
-            const ellipseFill = editor.createColorFill(colorUtils.fromRGB(Math.random(), Math.random(), Math.random(), Math.random()));
+            const rectFill = editor.makeColorFill(colorUtils.fromRGB(Math.random(), Math.random(), Math.random(), Math.random()));
+            const ellipseFill = editor.makeColorFill(colorUtils.fromRGB(Math.random(), Math.random(), Math.random(), Math.random()));
             rectangle.fill = rectFill;
             ellipse.fill = ellipseFill;
             insertionParent.children.append(rectangle);
