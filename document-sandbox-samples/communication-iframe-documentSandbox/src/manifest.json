@@ -9,8 +9,7 @@
                 "name": "Express",
                 "apiVersion": 1
             }
-        ],
-        "experimentalApis": true
+        ]
     },
     "entryPoints": [
         {
