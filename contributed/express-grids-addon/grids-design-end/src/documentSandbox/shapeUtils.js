@@ -10,33 +10,7 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-import { editor, utils, constants } from "express-document-sdk";
-
-/**
- * Convert a hex color string to an instance of the Color class
- * Private utility of the shapeUtils module.
- *
- * @param {string} hex - The hex color value to convert.
- * @returns {Color} A color instance with RGB values in the (0..1) range.
- */
-const hexToColor = (hex) => {
-  // Ensure the hex value doesn't have a "#" at the beginning
-  if (hex.startsWith("#")) {
-    hex = hex.slice(1);
-  }
-
-  // Extract red, green, and blue hex values
-  const redHex = hex.slice(0, 2);
-  const greenHex = hex.slice(2, 4);
-  const blueHex = hex.slice(4, 6);
-
-  // Convert hex values to decimal values
-  const red = parseInt(redHex, 16) / 255;
-  const green = parseInt(greenHex, 16) / 255;
-  const blue = parseInt(blueHex, 16) / 255;
-
-  return utils.createColor(red, green, blue);
-};
+import { editor, colorUtils, constants } from "express-document-sdk";
 
 /**
  * Create a rectangle with the specified width, height, and color.
@@ -51,8 +25,8 @@ const createRect = (width, height, color) => {
   const rect = editor.createRectangle();
   rect.width = width;
   rect.height = height;
-  const rectangleFill = editor.createColorFill(hexToColor(color));
-  rect.fills.append(rectangleFill);
+  const rectangleFill = editor.makeColorFill(colorUtils.fromHex(color));
+  rect.fill = rectangleFill;
   return rect;
 };
 
