@@ -5,10 +5,13 @@
 
 # npm yarn
 node_modules
+dist
 package.lock
+package-lock.json
 yarn-error.log
 .pnp.*
 .yarn/*
+*.zip
 
 # keep in repo
 !.gitignore
