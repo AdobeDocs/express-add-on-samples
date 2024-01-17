@@ -34,9 +34,16 @@ function start() {
      * @returns {Group} The group containing the grid.
      */
     addGrid({ columns, rows, gutter, columnColor, rowColor }) {
-      // Get the document and page.
-      const doc = editor.documentRoot;
-      const page = doc.pages.first;
+      let currentNode = editor.context.insertionParent;
+      let page = null;
+
+      while (currentNode) {
+        if (currentNode.type === "Page") {
+          page = currentNode;
+          break;
+        }
+        currentNode = currentNode.parent;
+      }
 
       // Create the grid.
       const rowGroup = addRows(rows, gutter, rowColor);

@@ -1,0 +1,10 @@
+{
+    "extends": "../../tsconfig.json",
+    "compilerOptions": {
+        "lib": ["ES2020"],
+        "module": "ES2020",
+        "target": "ES2020",
+        "typeRoots": ["@adobe/ccweb-add-on-sdk-types/add-on-sandbox-sdk"]
+    },
+    "include": ["./**/*"]
+}
