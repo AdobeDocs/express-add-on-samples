@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="description" content="Get started with Add-on development using JavaScript" />
+        <meta name="keywords" content="Adobe, Express, Add-On, JavaScript" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Get Started</title>
+        <style>
+            .container {
+                margin: 24px;
+                display: flex;
+                flex-direction: column;
+            }
+
+            .uploadButton {
+                position: absolute; 
+                top: 70%; 
+                left: 30%; 
+                padding: 10px;
+            }
+
+            button {
+                background-color: rgb(82, 88, 228);
+                border-color: rgb(82, 88, 228);
+                border-radius: 16px;
+                border-style: solid;
+                color: rgb(255, 255, 255);
+                font-family: sans-serif;
+                height: 32px;
+            }
+
+            button:disabled {
+                background-color: rgb(177, 177, 177);
+                border-color: rgb(177, 177, 177);
+            }
+
+            button:not([disabled]):hover {
+                background-color: rgb(64, 70, 202);
+                cursor: pointer;
+            }
+            iframe {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 65%;
+            }
+        </style>
+    </head>
+    <body>
+        <button id="btn1"  class="uploadButton">Enable addOn</button>
+        <div class="container">
+            <iframe id="innerIframe1" style="display: none"></iframe>
+        </div>
+
+
+        <script type="module">
+            let currentIframe = 1;
+            let unregisterIframe;
+
+            import AddOnSDKAPI from "https://localhost.adobe.com:8080/static/add-on-sdk/sdk.js";
+                
+                AddOnSDKAPI.ready.then(async () => {
+                console.log("AddOnSdk is ready for use.");
+
+                function setAddOn() {
+                    const innerIframe1 = document.getElementById("innerIframe1");
+                    innerIframe1.style.display = "block";
+                    innerIframe1.src = "iframe1/index.html";
+                    unregisterIframe = AddOnSDKAPI.app.registerIframe(innerIframe1);
+                    currentIframe = 0;
+                }
+
+                function unsetAddOn() {
+                    const innerIframe1 = document.getElementById("innerIframe1");
+                    innerIframe1.style.display = "none";
+                    unregisterIframe();
+                    currentIframe = 1;
+                }
+
+                const btn = document.getElementById("btn1");
+                btn.addEventListener("click", () => {
+                    if(currentIframe === 1) {
+                        btn.textContent = "Disable addOn"
+                        setAddOn();
+                    }
+                    else{
+                        btn.textContent = "Enable addOn"
+                        unsetAddOn();
+                    }
+                });
+            });
+
+        </script>
+    </body>
+</html>
