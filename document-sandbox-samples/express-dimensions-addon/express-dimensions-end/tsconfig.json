@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+        "allowJs": true,
+        "allowSyntheticDefaultImports": true,
+        "experimentalDecorators": true,
+        "module": "ESNext",
+        "moduleResolution": "node",
+        "outDir": "dist",
+        "target": "ESNext",
+        "useDefineForClassFields": false
+    },
+    "exclude": ["node_modules"],
+    "include": ["src/**/*"]
+}
