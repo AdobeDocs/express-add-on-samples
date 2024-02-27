@@ -11,7 +11,7 @@ governing permissions and limitations under the License.
 */
 
 import addOnScriptSdk from "add-on-sdk-document-sandbox";
-import { BaseNode, ContainerNode, Node, PageNode, editor } from "express-document-sdk";
+import { BaseNode, ContainerNode, PageNode, editor } from "express-document-sdk";
 import { SandboxApi } from "../models";
 
 const { runtime } = addOnScriptSdk.instance;
@@ -37,7 +37,9 @@ function start(): void {
                 const width = currentPage.width;
                 const height = currentPage.height;
 
-                const mediaContainerNode = editor.createImageContainer(bitmapImage, { initialSize: { width, height } });
+                const mediaContainerNode = editor.createImageContainer(bitmapImage, {
+                    initialSize: { width, height }
+                });
                 mediaContainerNode.translation = { x: 0, y: 0 };
 
                 insertionParent.children.append(mediaContainerNode);

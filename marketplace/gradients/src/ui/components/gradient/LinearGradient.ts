@@ -10,87 +10,24 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-import "@spectrum-web-components/field-label/sp-field-label.js";
+import "../card/PreviewCardGrid";
 
-import { LitElement, html } from "lit";
-import { customElement, property, state } from "lit/decorators.js";
-import { ACTIVE_BORDER, ACTIVE_FONT_WEIGHT, DEFAULT_FONT_WEIGHT, INACTIVE_BORDER, MAX_RANGE } from "../../constants";
-import { style } from "./Gradient.css";
-
-enum FillDirection {
-    Diagonal = "Diagonal",
-    Horizontal = "Horizontal",
-    Vertical = "Vertical"
-}
+import { customElement } from "lit/decorators.js";
+import { MAX_RANGE } from "../../constants";
+import { GradientBase } from "./GradientBase";
+import { LinearFillDirection } from "./GradientType";
 
 @customElement("add-on-linear-gradient")
-export class LinearGradient extends LitElement {
-    @property({ type: String })
-    initialColor!: string;
-
-    @property({ type: String })
-    finalColor!: string;
-
-    @property({ type: Number })
-    width!: number;
-
-    @property({ type: Number })
-    height!: number;
-
-    @property({ type: Number })
-    stop1!: number;
-
-    @property({ type: Number })
-    stop2!: number;
-
-    @property({ type: Boolean })
-    active!: boolean;
-
-    @state()
-    private _fillDirection: FillDirection = FillDirection.Diagonal;
-
-    @state()
-    private _gradientImageUrl: string;
-
-    static get styles() {
-        return style;
+export class LinearGradient extends GradientBase<LinearFillDirection> {
+    constructor() {
+        super(LinearFillDirection.Diagonal);
     }
 
-    updated(): void {
-        if (!this.active) {
-            return;
-        }
-
-        this._generatePreviews();
-
-        this._gradientImageUrl = this._getGradientImage(this._fillDirection);
-        this._dispatchGradientEvent(this._gradientImageUrl);
+    protected override getAllDirections(): string[] {
+        return Object.keys(LinearFillDirection);
     }
 
-    private _generatePreviews() {
-        this._generatePreview(FillDirection.Diagonal);
-        this._generatePreview(FillDirection.Horizontal);
-        this._generatePreview(FillDirection.Vertical);
-    }
-
-    private _generatePreview(fillDirection: FillDirection) {
-        const previewImageUrl = this._getGradientImage(fillDirection);
-
-        const previewImage = this.shadowRoot.getElementById(`preview${fillDirection}`);
-        previewImage.setAttribute("src", previewImageUrl);
-
-        const previewLabel = this.shadowRoot.getElementById(`label${fillDirection}`);
-
-        if (fillDirection === this._fillDirection) {
-            previewImage.style.border = ACTIVE_BORDER;
-            previewLabel.style.fontWeight = ACTIVE_FONT_WEIGHT;
-        } else {
-            previewImage.style.border = INACTIVE_BORDER;
-            previewLabel.style.fontWeight = DEFAULT_FONT_WEIGHT;
-        }
-    }
-
-    private _getGradientImage(fillDirection: FillDirection): string {
+    protected override getGradientImage(fillDirection: LinearFillDirection): string {
         const canvas = document.createElement("canvas");
         canvas.width = this.width;
         canvas.height = this.height;
@@ -101,8 +38,8 @@ export class LinearGradient extends LitElement {
         const stop1 = Number((this.stop1 / MAX_RANGE).toFixed(1));
         const stop2 = Number((this.stop2 / MAX_RANGE).toFixed(1));
 
-        canvasGradient.addColorStop(stop1, this.initialColor);
-        canvasGradient.addColorStop(stop2, this.finalColor);
+        canvasGradient.addColorStop(stop1, this.startingColor);
+        canvasGradient.addColorStop(stop2, this.endingColor);
 
         canvasContext.fillStyle = canvasGradient;
         canvasContext.fillRect(0, 0, this.width, this.height);
@@ -110,14 +47,14 @@ export class LinearGradient extends LitElement {
         return canvas.toDataURL("image/png");
     }
 
-    private _getGradient(canvasContext: CanvasRenderingContext2D, fillDirection: FillDirection): CanvasGradient {
+    private _getGradient(canvasContext: CanvasRenderingContext2D, fillDirection: LinearFillDirection): CanvasGradient {
         let x0: number;
         let y0: number;
         let x1: number;
         let y1: number;
 
         switch (fillDirection) {
-            case FillDirection.Diagonal: {
+            case LinearFillDirection.Diagonal: {
                 x0 = 0;
                 y0 = 0;
                 x1 = this.width;
@@ -125,7 +62,7 @@ export class LinearGradient extends LitElement {
 
                 break;
             }
-            case FillDirection.Vertical: {
+            case LinearFillDirection.Vertical: {
                 x0 = 0;
                 y0 = 0;
                 x1 = this.width;
@@ -133,7 +70,7 @@ export class LinearGradient extends LitElement {
 
                 break;
             }
-            case FillDirection.Horizontal: {
+            case LinearFillDirection.Horizontal: {
                 x0 = 0;
                 y0 = 0;
                 x1 = 0;
@@ -147,48 +84,5 @@ export class LinearGradient extends LitElement {
         }
 
         return canvasContext.createLinearGradient(x0, y0, x1, y1);
-    }
-
-    private _handleFillDirectionChange(fillDirection: FillDirection): void {
-        this._fillDirection = fillDirection;
-    }
-
-    private _dispatchGradientEvent(gradientImageUrl: string) {
-        const options = {
-            detail: { gradientImageUrl },
-            bubbles: true,
-            composed: true
-        };
-
-        this.dispatchEvent(new CustomEvent("change", options));
-    }
-
-    render() {
-        return html`<div class="gradient-control-container">
-            <sp-field-label class="text-label" size="l">Fill Direction</sp-field-label>
-            <div class="preview-container">
-                <div class="image-group">
-                    <img id=${`preview${FillDirection.Diagonal}`} style="margin: 0 8px 8px 0" @click=${() =>
-                        this._handleFillDirectionChange(FillDirection.Diagonal)}></img>
-                    <label id=${`label${FillDirection.Diagonal}`} style="text-align: center; margin: 0 8px 0 0;">${
-                        FillDirection.Diagonal
-                    }</label>
-                </div>
-                <div class="image-group">
-                    <img id=${`preview${FillDirection.Vertical}`} style="margin: 0 8px 8px 8px" @click=${() =>
-                        this._handleFillDirectionChange(FillDirection.Vertical)}></img>
-                    <label id=${`label${FillDirection.Vertical}`} style="text-align: center; margin: 0 8px 0 8px">${
-                        FillDirection.Vertical
-                    }</label>
-                </div>
-                <div class="image-group">
-                    <img id=${`preview${FillDirection.Horizontal}`} style="margin: 0 0 8px 8px" @click=${() =>
-                        this._handleFillDirectionChange(FillDirection.Horizontal)}></img>
-                    <label id=${`label${FillDirection.Horizontal}`} style="text-align: center; margin: 0 0 0 8px">${
-                        FillDirection.Horizontal
-                    }</label>
-                </div>
-            </div>
-        </div>`;
     }
 }

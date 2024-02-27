@@ -10,22 +10,18 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-export const MIN_RANGE = 0;
-export const MAX_RANGE = 100;
+import { css } from "lit";
 
-export const COLOR_REGEX = /^#(?:[0-9A-F]{3}){1,2}$/i;
+export const style = css`
+    .label-group {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 8px;
+    }
 
-export const STARTING_COLOR = "#00FFFD";
-export const ENDING_COLOR = "#FF00FA";
-
-export const PREVIEW_IMAGE_WIDTH = 250;
-
-export const DEFAULT_COLOR = "#000000";
-export const INACTIVE_COLOR = "#B1B1B1";
-export const ACTIVE_COLOR = "#555BE7";
-
-export const DEFAULT_FONT_WEIGHT = "400";
-export const ACTIVE_FONT_WEIGHT = "600";
-
-export const ACTIVE_BORDER = `3px solid ${ACTIVE_COLOR}`;
-export const INACTIVE_BORDER = `3px solid ${INACTIVE_COLOR}`;
+    .text-label {
+        font-size: 1.18em;
+        font-weight: 600;
+        margin-bottom: -8px;
+    }
+`;

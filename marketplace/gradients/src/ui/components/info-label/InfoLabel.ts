@@ -10,31 +10,28 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-import "@spectrum-web-components/theme/express/scale-medium.js";
-import "@spectrum-web-components/theme/express/theme-light.js";
-import "@spectrum-web-components/theme/scale-medium.js";
-import "@spectrum-web-components/theme/sp-theme.js";
-import "@spectrum-web-components/theme/theme-light.js";
-import "../gradient/GradientForm";
+import "@spectrum-web-components/field-label/sp-field-label.js";
 
 import { LitElement, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
-import { style } from "./App.css";
+import { style } from "./InfoLabel.css";
 
-import { AddOnSDKAPI } from "https://new.express.adobe.com/static/add-on-sdk/sdk.js";
+@customElement("add-on-info-label")
+export class InfoLabel extends LitElement {
+    @property({ type: String })
+    text!: string;
 
-@customElement("add-on-app")
-export class App extends LitElement {
-    @property({ type: Object })
-    addOnUISdk!: AddOnSDKAPI;
+    @property({ type: String })
+    infoText!: string;
 
     static get styles() {
         return style;
     }
 
     render() {
-        return html`<sp-theme theme="express" color="light" scale="medium">
-            <add-on-gradient-form .addOnUISdk=${this.addOnUISdk}></add-on-gradient-form>
-        </sp-theme>`;
+        return html`<div class="label-group">
+            <sp-field-label class="text-label">${this.text}</sp-field-label>
+            <sp-field-label size="s">${this.infoText}</sp-field-label>
+        </div>`;
     }
 }

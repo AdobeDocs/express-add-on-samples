@@ -16,14 +16,14 @@ export const style = css`
     .range-container {
         display: flex;
         flex-direction: column;
-        margin: 0 0 32px 0;
+        margin: 0 0 36px 0;
     }
 
     .sliders-control {
         position: relative;
     }
 
-    #initialSlider::-webkit-slider-thumb {
+    #startingSlider::-webkit-slider-thumb {
         -webkit-appearance: none;
         pointer-events: all;
         width: 24px;
@@ -34,7 +34,7 @@ export const style = css`
         cursor: move;
     }
 
-    #initialSlider::-moz-range-thumb {
+    #startingSlider::-moz-range-thumb {
         -webkit-appearance: none;
         pointer-events: all;
         width: 24px;
@@ -45,7 +45,7 @@ export const style = css`
         cursor: move;
     }
 
-    #finalSlider::-webkit-slider-thumb {
+    #endingSlider::-webkit-slider-thumb {
         -webkit-appearance: none;
         pointer-events: all;
         width: 24px;
@@ -56,7 +56,7 @@ export const style = css`
         cursor: move;
     }
 
-    #finalSlider::-moz-range-thumb {
+    #endingSlider::-moz-range-thumb {
         -webkit-appearance: none;
         pointer-events: all;
         width: 24px;
@@ -76,7 +76,7 @@ export const style = css`
         pointer-events: none;
     }
 
-    #initialSlider {
+    #startingSlider {
         height: 0;
         z-index: 1;
         top: 8px;
