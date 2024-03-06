@@ -10,12 +10,28 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-export interface PageSize {
-    readonly width: number;
-    readonly height: number;
+export enum GradientType {
+    Linear = "Linear",
+    Radial = "Radial",
+    Conic = "Conic"
 }
 
-export interface GradientColor {
-    readonly initial: string;
-    readonly final: string;
+export enum LinearFillDirection {
+    Diagonal = "Diagonal",
+    Vertical = "Vertical",
+    Horizontal = "Horizontal"
 }
+
+export enum RadialFillDirection {
+    Center = "Center",
+    Top = "Top",
+    Right = "Right",
+    Bottom = "Bottom",
+    Left = "Left"
+}
+
+export enum ConicFillDirection {
+    Center = "Center"
+}
+
+export type FillDirection = LinearFillDirection | RadialFillDirection | ConicFillDirection;
