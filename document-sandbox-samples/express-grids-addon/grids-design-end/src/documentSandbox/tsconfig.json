@@ -4,7 +4,7 @@
         "lib": ["ES2020"],
         "module": "ES2020",
         "target": "ES2020",
-        "typeRoots": ["@adobe/ccweb-add-on-sdk-types/add-on-sandbox-sdk"]
+        "types": ["@types/adobe__ccweb-add-on-sdk"]
     },
     "include": ["./**/*"]
 }
