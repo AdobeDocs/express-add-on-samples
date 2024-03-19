@@ -1,0 +1,20 @@
+{
+    "name": "audio-recording-add-on",
+    "version": "1.0.0",
+    "description": "Adobe CCWeb Add-on",
+    "scripts": {
+        "clean": "ccweb-add-on-scripts clean",
+        "build": "ccweb-add-on-scripts build",
+        "start": "ccweb-add-on-scripts start"
+    },
+    "keywords": [
+        "adobe",
+        "ccweb",
+        "add-on",
+        "panel"
+    ],
+    "devDependencies": {
+        "@adobe/ccweb-add-on-scripts": "^1.0.0",
+        "prettier": "2.6.0"
+    }
+}
