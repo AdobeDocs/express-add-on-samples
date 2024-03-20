@@ -1,5 +1,5 @@
 /*
-Copyright 2023 Adobe. All rights reserved.
+Copyright 2024 Adobe. All rights reserved.
 This file is licensed to you under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License. You may obtain a copy
 of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -9,11 +9,11 @@ the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTA
 OF ANY KIND, either express or implied. See the License for the specific language
 governing permissions and limitations under the License.
 */
-import AddOnSdk from "https://new.express.adobe.com/static/add-on-sdk/sdk.js";
+import addOnUISdk from "https://new.express.adobe.com/static/add-on-sdk/sdk.js";
 import { WavBlobUtil } from "./utils/WavBlobUtil.js";
 
 // Wait for the SDK to be ready before rendering elements in the DOM.
-AddOnSdk.ready.then(async () => {
+addOnUISdk.ready.then(async () => {
     
     let audioChunks = [];
     let mediaRecorder;
@@ -65,6 +65,6 @@ AddOnSdk.ready.then(async () => {
   }
     
   function addToDoc() {
-    AddOnSdk.app.document.addAudio(blob, { title : 'test.wav'});
+    addOnUISdk.app.document.addAudio(blob, { title : 'test.wav'});
   }
 });

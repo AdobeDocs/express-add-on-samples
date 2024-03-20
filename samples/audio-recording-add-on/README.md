@@ -5,9 +5,8 @@ This project has been created with _@adobe/create-ccweb-add-on_. As an example, 
 ## Technology Used
 
 -   HTML
--   TypeScript
 -   CSS
--   Webpack
+-   Javascript
 
 ## Setup
 
