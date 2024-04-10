@@ -14,19 +14,18 @@ import { WavBlobUtil } from "./utils/WavBlobUtil.js";
 
 // Wait for the SDK to be ready before rendering elements in the DOM.
 addOnUISdk.ready.then(async () => {
-    
     let audioChunks = [];
     let mediaRecorder;
     let blob = undefined;
 
-    const startRecordButton = document.getElementById('startRecord');
-    const stopRecordButton = document.getElementById('stopRecord');
-    const recordedAudio = document.getElementById('recordedAudio');
-    const addToDocButton = document.getElementById('addToDoc');
+    const startRecordButton = document.getElementById("startRecord");
+    const stopRecordButton = document.getElementById("stopRecord");
+    const recordedAudio = document.getElementById("recordedAudio");
+    const addToDocButton = document.getElementById("addToDoc");
 
-    startRecordButton.addEventListener('click', startRecording);
-    stopRecordButton.addEventListener('click', stopRecording);
-    addToDocButton.addEventListener('click', addToDoc);
+    startRecordButton.addEventListener("click", startRecording);
+    stopRecordButton.addEventListener("click", stopRecording);
+    addToDocButton.addEventListener("click", addToDoc);
 
     async function startRecording() {
         audioChunks = [];
@@ -34,12 +33,12 @@ addOnUISdk.ready.then(async () => {
             const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
             mediaRecorder = new MediaRecorder(stream);
 
-            mediaRecorder.addEventListener('dataavailable', event => {
+            mediaRecorder.addEventListener("dataavailable", event => {
                 audioChunks.push(event.data);
             });
 
-            mediaRecorder.addEventListener('stop', async () => {
-                const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+            mediaRecorder.addEventListener("stop", async () => {
+                const audioBlob = new Blob(audioChunks, { type: "audio/wav" });
                 recordedAudio.src = URL.createObjectURL(audioBlob);
                 // Convert raw blob to wav blob with hpc codec
                 const hpcBlob = await WavBlobUtil.getHpcBlob(audioBlob);
@@ -51,20 +50,20 @@ addOnUISdk.ready.then(async () => {
             stopRecordButton.disabled = false;
             addToDocButton.disabled = true;
         } catch (err) {
-            console.error('Error starting recording:', err);
+            console.error("Error starting recording:", err);
         }
     }
 
-  function stopRecording() {
-    if (mediaRecorder && mediaRecorder.state !== 'inactive') {
-      mediaRecorder.stop();
-      startRecordButton.disabled = false;
-      stopRecordButton.disabled = true;
-      addToDocButton.disabled = false;
+    function stopRecording() {
+        if (mediaRecorder && mediaRecorder.state !== "inactive") {
+            mediaRecorder.stop();
+            startRecordButton.disabled = false;
+            stopRecordButton.disabled = true;
+            addToDocButton.disabled = false;
+        }
     }
-  }
-    
-  function addToDoc() {
-    addOnUISdk.app.document.addAudio(blob, { title : 'test.wav'});
-  }
+
+    function addToDoc() {
+        addOnUISdk.app.document.addAudio(blob, { title: "test.wav" });
+    }
 });

@@ -1,11 +1,13 @@
 {
     "name": "audio-recording-add-on",
     "version": "1.0.0",
-    "description": "Adobe CCWeb Add-on",
+    "description": "This Add-on demonstrates how to use the Add-on SDK's import audio using the media Recorder api of the browser.",
     "scripts": {
         "clean": "ccweb-add-on-scripts clean",
         "build": "ccweb-add-on-scripts build",
-        "start": "ccweb-add-on-scripts start"
+        "start": "ccweb-add-on-scripts start",
+        "lint": "prettier --check .",
+        "lint:fix": "prettier --write ."
     },
     "keywords": [
         "adobe",
