@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<!--
+/*
+Copyright 2023 Adobe. All rights reserved.
+This file is licensed to you under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License. You may obtain a copy
+of the License at http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under
+the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
+OF ANY KIND, either express or implied. See the License for the specific language
+governing permissions and limitations under the License.
+*/
+-->
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="description" content="ToDo List with in-memory storage." />
+        <meta name="keywords" content="Adobe, Express, Add-on, ToDo" />
+        <meta name="author" content="Adobe" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <style>
+            @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+            * {
+                font-family: "Poppins", sans-serif;
+                margin: 0;
+                padding: 0;
+            }
+
+            body {
+                font-size: small;
+            }
+
+            header {
+                margin: 5px;
+                font-size: medium;
+                font-style: 500;
+            }
+
+            .gallery {
+                display: grid;
+                align-items: center;
+                justify-content: center;
+            }
+
+            img {
+                margin: 3px;
+                display: block;
+                width: 95%;
+                height: auto;
+            }
+
+            title {
+                padding-top: 40px;
+            }
+
+            button {
+                bottom: 1px;
+                margin: 5px 5px 10px 5px;
+                padding: 5px 10px;
+                width: 50%;
+                vertical-align: middle;
+                border: 0;
+                border-radius: 25px;
+                color: #fff;
+                background-color: #06d6df;
+                cursor: pointer;
+            }
+
+            button:disabled {
+                cursor: not-allowed;
+                opacity: 0.2;
+                pointer-events: all !important;
+            }
+
+            h3 {
+                margin-left: 10px;
+                padding: 8px 16px;
+            }
+
+            audio {
+                margin: 5px 5px 10px 5px;
+            }
+        </style>
+    </head>
+    <body>
+        <script type="module" src="./index.js"></script>
+        <title>Audio Recorder</title>
+        <button id="startRecord">Start Recording</button>
+        <button id="stopRecord" disabled>Stop Recording</button>
+        <h3>Preview Audio</h3>
+        <audio controls id="recordedAudio"></audio>
+        <button id="addToDoc" disabled>Add to Document</button>
+    </body>
+</html>
