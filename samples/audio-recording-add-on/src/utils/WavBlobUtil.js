@@ -13,7 +13,7 @@ governing permissions and limitations under the License.
  * A utility function to convert the raw blob coming from the media Recorder
  * web API
  *  from browser to a wav blob that we connect into wav blob with an
- * HPC codec. 
+ * HPC codec.
  */
 export class WavBlobUtil {
     //Takes the rawBlob of media Recorder as input and convert it into hpc codec wav blob.
@@ -23,11 +23,11 @@ export class WavBlobUtil {
         const arrayBuffer = await response.arrayBuffer();
         const audioContext = new AudioContext();
         const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
-        return this.getWavBlob(audioBuffer); // Changed to use "this" to refer to the static method
+        return this.#getWavBlob(audioBuffer); // Changed to use "this" to refer to the static method
     }
 
     // Returns Uint8Array of WAV bytes
-    static getWavBlob(audioBuffer, as32BitFloat = false) {
+    static #getWavBlob(audioBuffer, as32BitFloat = false) {
         // Changed to static method
         // Encoding setup.
         const frameLength = audioBuffer.length;
@@ -45,50 +45,50 @@ export class WavBlobUtil {
         const subChunk2Size = wavDataByteLength;
         const chunkSize = 4 + (8 + subChunk1Size) + (8 + subChunk2Size);
 
-        this.writeStringToArray("RIFF", waveFileData, 0); // Changed to use "this" to refer to the static method
-        this.writeInt32ToArray(chunkSize, waveFileData, 4); // Changed to use "this" to refer to the static method
-        this.writeStringToArray("WAVE", waveFileData, 8); // Changed to use "this" to refer to the static method
-        this.writeStringToArray("fmt ", waveFileData, 12); // Changed to use "this" to refer to the static method
+        this.#writeStringToArray("RIFF", waveFileData, 0); // Changed to use "this" to refer to the static method
+        this.#writeInt32ToArray(chunkSize, waveFileData, 4); // Changed to use "this" to refer to the static method
+        this.#writeStringToArray("WAVE", waveFileData, 8); // Changed to use "this" to refer to the static method
+        this.#writeStringToArray("fmt ", waveFileData, 12); // Changed to use "this" to refer to the static method
 
         // SubChunk1Size (4)
-        this.writeInt32ToArray(subChunk1Size, waveFileData, 16); // Changed to use "this" to refer to the static method
+        this.#writeInt32ToArray(subChunk1Size, waveFileData, 16); // Changed to use "this" to refer to the static method
         // AudioFormat (2): 3 means 32-bit float, 1 means integer PCM.
-        this.writeInt16ToArray(as32BitFloat ? 3 : 1, waveFileData, 20); // Changed to use "this" to refer to the static method
+        this.#writeInt16ToArray(as32BitFloat ? 3 : 1, waveFileData, 20); // Changed to use "this" to refer to the static method
         // NumChannels (2)
-        this.writeInt16ToArray(numberOfChannels, waveFileData, 22); // Changed to use "this" to refer to the static method
+        this.#writeInt16ToArray(numberOfChannels, waveFileData, 22); // Changed to use "this" to refer to the static method
         // SampleRate (4)
-        this.writeInt32ToArray(sampleRate, waveFileData, 24); // Changed to use "this" to refer to the static method
+        this.#writeInt32ToArray(sampleRate, waveFileData, 24); // Changed to use "this" to refer to the static method
         // ByteRate (4)
-        this.writeInt32ToArray(byteRate, waveFileData, 28); // Changed to use "this" to refer to the static method
+        this.#writeInt32ToArray(byteRate, waveFileData, 28); // Changed to use "this" to refer to the static method
         // BlockAlign (2)
-        this.writeInt16ToArray(blockAlign, waveFileData, 32); // Changed to use "this" to refer to the static method
+        this.#writeInt16ToArray(blockAlign, waveFileData, 32); // Changed to use "this" to refer to the static method
         // BitsPerSample (4)
-        this.writeInt32ToArray(bitsPerSample, waveFileData, 34); // Changed to use "this" to refer to the static method
-        this.writeStringToArray("data", waveFileData, 36); // Changed to use "this" to refer to the static method
+        this.#writeInt32ToArray(bitsPerSample, waveFileData, 34); // Changed to use "this" to refer to the static method
+        this.#writeStringToArray("data", waveFileData, 36); // Changed to use "this" to refer to the static method
         // SubChunk2Size (4)
-        this.writeInt32ToArray(subChunk2Size, waveFileData, 40); // Changed to use "this" to refer to the static method
+        this.#writeInt32ToArray(subChunk2Size, waveFileData, 40); // Changed to use "this" to refer to the static method
 
         // Write actual audio data starting at offset 44.
-        this.writeAudioBufferToArray(audioBuffer, waveFileData, 44, bitsPerSample); // Changed to use "this" to refer to the static method
+        this.#writeAudioBufferToArray(audioBuffer, waveFileData, 44, bitsPerSample); // Changed to use "this" to refer to the static method
 
         return new Blob([waveFileData], {
             type: "audio/wav"
         });
     }
 
-    static writeStringToArray(aString, targetArray, offset) {
+    static #writeStringToArray(aString, targetArray, offset) {
         // Changed to static method
         for (let i = 0; i < aString.length; ++i) targetArray[offset + i] = aString.charCodeAt(i);
     }
 
-    static writeInt16ToArray(aNumber, targetArray, offset) {
+    static #writeInt16ToArray(aNumber, targetArray, offset) {
         // Changed to static method
         const num = Math.floor(aNumber);
         targetArray[offset] = num & 255; // byte 1
         targetArray[offset + 1] = (num >> 8) & 255; // byte 2
     }
 
-    static writeInt32ToArray(aNumber, targetArray, offset) {
+    static #writeInt32ToArray(aNumber, targetArray, offset) {
         // Changed to static method
         const num = Math.floor(aNumber);
         targetArray[offset] = num & 255; // byte 1
@@ -98,7 +98,7 @@ export class WavBlobUtil {
     }
 
     // Returns the number of bits for a float as a 32-bit integer value.
-    static getFloatBits(f) {
+    static #getFloatBits(f) {
         const buf = new ArrayBuffer(4);
         new Float32Array(buf)[0] = f;
         const bits = new Uint32Array(buf)[0];
@@ -106,7 +106,7 @@ export class WavBlobUtil {
         return bits | 0;
     }
 
-    static writeAudioBufferToArray(audioBuffer, targetArray, offset, bitDepth) {
+    static #writeAudioBufferToArray(audioBuffer, targetArray, offset, bitDepth) {
         let channel = 0;
         const length = audioBuffer.length;
         const channels = audioBuffer.numberOfChannels;
@@ -123,12 +123,12 @@ export class WavBlobUtil {
                     sample = channelData[index] * 32768.0;
                     if (sample < -32768) sample = -32768;
                     else if (sample > 32767) sample = 32767;
-                    this.writeInt16ToArray(sample, targetArray, position); // Changed to use "this" to refer to the static method
+                    this.#writeInt16ToArray(sample, targetArray, position); // Changed to use "this" to refer to the static method
                     position += 2;
                 } else if (bitDepth === 32) {
                     // This assumes we're going to output 32-float, not 32-bit linear.
-                    sample = this.getFloatBits(channelData[index]); // Changed to use "this" to refer to the static method
-                    this.writeInt32ToArray(sample, targetArray, position); // Changed to use "this" to refer to the static method
+                    sample = this.#getFloatBits(channelData[index]); // Changed to use "this" to refer to the static method
+                    this.#writeInt32ToArray(sample, targetArray, position); // Changed to use "this" to refer to the static method
                     position += 4;
                 } else {
                     Logger.error("Invalid bit depth for PCM encoding.");
