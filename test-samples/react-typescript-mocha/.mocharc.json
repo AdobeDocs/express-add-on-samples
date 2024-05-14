@@ -1,0 +1,11 @@
+{
+    "extensions": ["tsx"],
+    "node-option": [
+        "loader=ts-node/esm",
+        "experimental-specifier-resolution=node",
+        "experimental-network-imports",
+        "no-warnings"
+    ],
+    "require": ["global-jsdom/register"],
+    "spec": ["src/**/*.spec.tsx"]
+}
