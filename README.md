@@ -9,9 +9,14 @@ This Add-on allows users to connect to their Dropbox account. Once connected, th
 ### Giphy
 
 This Add-on allows users to search for popular gifs and add them to their Express pages.
+
 ### QR Code
 
 This Add-on allows users to generate QR codes from texts and add them to their Express pages.
+
+### Image Gallery
+
+This Add-on allows users to utilize image assets within the editor.
 
 ## Sample Add-ons
 
@@ -29,9 +34,9 @@ This Add-on demonstrates how to use the Add-on SDK's OAuth API to allow its user
 
 Besides the OAuth API, this Add-On also makes use of the other Add-on SDK APIs, such as the:
 
--   Import API: To add images from the Add-on to the document.
--   Drag and Drop API: To support dragging and dropping images to the document.
--   Client Storage API: To store the `access_token` in the IndexedDB store of the browser and reusing the same for the requests made to the Dropbox APIs.
+- Import API: To add images from the Add-on to the document.
+- Drag and Drop API: To support dragging and dropping images to the document.
+- Client Storage API: To store the `access_token` in the IndexedDB store of the browser and reusing the same for the requests made to the Dropbox APIs.
 
 ### Use client storage
 
