@@ -1,0 +1,24 @@
+{
+    "testId": "connect-to-google-photos",
+    "name": "Connect to Google Photos",
+    "version": "1.0.0",
+    "manifestVersion": 2,
+    "requirements": {
+        "apps": [
+            {
+                "name": "Express",
+                "apiVersion": 1
+            }
+        ]
+    },
+    "entryPoints": [
+        {
+            "type": "panel",
+            "id": "panel1",
+            "main": "index.html",
+            "permissions": {
+                "oauth": ["accounts.google.com"]
+            }
+        }
+    ]
+}
