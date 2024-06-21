@@ -8,6 +8,8 @@ Besides the OAuth API, this Add-On also makes use of the other Add-on SDK APIs, 
 -   Drag and Drop API: To support dragging and dropping images to the document.
 -   Client Storage API: To store the `access_token` in the IndexedDB store of the browser and reusing the same for the requests made to the Dropbox APIs.
 
+> **IMPORTANT NOTE:** The `generateAccessToken()` implementation inside the `OAuthUtils.js` file might vary depending on the **OAuth Provider** you are using. Please follow the instructions in your specific OAuth Provider's docs to modify `OAuthUtils.js`.
+
 ## Technology Used
 
 -   HTML
