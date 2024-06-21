@@ -1,0 +1,48 @@
+{
+    "name": "connect-to-google-photos",
+    "version": "1.0.0",
+    "description": "Adobe CCWeb Add-on",
+    "scripts": {
+        "clean": "ccweb-add-on-scripts clean",
+        "build": "ccweb-add-on-scripts build --use webpack",
+        "start": "ccweb-add-on-scripts start --use webpack",
+        "package": "ccweb-add-on-scripts package --use webpack"
+    },
+    "keywords": [
+        "adobe",
+        "ccweb",
+        "add-on",
+        "google",
+        "photos"
+    ],
+    "dependencies": {
+        "@spectrum-web-components/theme": "0.39.4",
+        "@swc-react/button": "0.39.4",
+        "@swc-react/menu": "0.39.4",
+        "@swc-react/picker": "0.39.4",
+        "@swc-react/progress-circle": "0.39.4",
+        "@swc-react/theme": "0.39.4",
+        "react": "18.2.0",
+        "react-dom": "18.2.0",
+        "react-infinite-scroller": "1.2.6",
+        "react-masonry-css": "1.0.16"
+    },
+    "devDependencies": {
+        "@adobe/ccweb-add-on-scripts": "^2.0.0",
+        "@babel/core": "7.23.3",
+        "@babel/eslint-parser": "7.24.7",
+        "@babel/preset-env": "7.23.3",
+        "@babel/preset-react": "7.23.3",
+        "@types/react-infinite-scroller": "1.2.5",
+        "babel-loader": "9.1.3",
+        "copy-webpack-plugin": "11.0.0",
+        "css-loader": "6.8.1",
+        "eslint-plugin-import": "2.29.1",
+        "eslint-plugin-react": "7.34.3",
+        "eslint-webpack-plugin": "4.2.0",
+        "html-webpack-plugin": "5.5.3",
+        "style-loader": "3.3.3",
+        "webpack": "5.89.0",
+        "webpack-cli": "5.1.4"
+    }
+}

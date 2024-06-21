@@ -23,7 +23,7 @@
         "@spectrum-web-components/theme": "^0.14.9"
     },
     "devDependencies": {
-        "@adobe/ccweb-add-on-scripts": "^1.0.0",
+        "@adobe/ccweb-add-on-scripts": "^2.0.0",
         "@babel/core": "7.18.13",
         "@babel/preset-env": "7.18.10",
         "babel-loader": "8.2.5",

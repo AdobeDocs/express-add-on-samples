@@ -28,7 +28,7 @@
         "panel"
     ],
     "devDependencies": {
-        "@adobe/ccweb-add-on-scripts": "^1.0.0",
+        "@adobe/ccweb-add-on-scripts": "^2.0.0",
         "copy-webpack-plugin": "^9.1.0",
         "css-loader": "^6.5.1",
         "html-webpack-plugin": "5.5.0",
