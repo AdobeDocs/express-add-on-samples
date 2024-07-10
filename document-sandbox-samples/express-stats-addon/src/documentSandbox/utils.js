@@ -19,13 +19,17 @@ const increaseCount = (obj, type) => {
   }
 };
 
+const hasChildren = (node) => {
+  return ([...node.allChildren] && [...node.allChildren].length > 0);
+}
+
 const getNodeData = (node, nodeData = {}) => {
   if (node.type === "MediaContainer") {
     return nodeData;
   }
 
   // Check if the current node has children and if they are not an empty array
-  if (node.allChildren && node.allChildren.length > 0) {
+if (hasChildren(node)) {
     // Iterate over all children using for..of
     for (const child of node.allChildren) {
       // Increase the count for the current type
@@ -35,14 +39,12 @@ const getNodeData = (node, nodeData = {}) => {
       // ... unless it's a MediaContainer
       if (
         child.type !== "MediaContainer" &&
-        child.allChildren &&
-        child.allChildren.length > 0
+        hasChildren(child)
       ) {
         getNodeData(child, nodeData);
       }
     }
   }
-
   return nodeData;
 };
 
