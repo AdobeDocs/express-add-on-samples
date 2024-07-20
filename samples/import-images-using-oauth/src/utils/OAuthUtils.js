@@ -83,6 +83,7 @@ export class OAuthUtils {
         formData.append("refresh_token", tokenResponse.refreshToken);
 
         const { accessToken } = await saveTokenResponse(
+            this._store,
             id,
             tokenResponse.clientId,
             formData,
