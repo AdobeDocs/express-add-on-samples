@@ -1,0 +1,6 @@
+.container {
+    margin: 16px;
+    display: flex;
+    flex-direction: column;
+    word-wrap: break-word;
+}
