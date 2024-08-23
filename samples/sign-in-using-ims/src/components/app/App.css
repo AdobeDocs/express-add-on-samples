@@ -4,3 +4,11 @@
     flex-direction: column;
     word-wrap: break-word;
 }
+
+.container .section {
+    margin-bottom: 16px;
+}
+
+.center {
+    text-align: center;
+}

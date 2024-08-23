@@ -1,7 +1,7 @@
 {
     "testId": "sign-in-using-ims",
     "name": "Sign In Using IMS",
-    "version": "1.0.0",
+    "version": "1.2.0",
     "manifestVersion": 2,
     "requirements": {
         "apps": [

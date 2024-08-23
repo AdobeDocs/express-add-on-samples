@@ -1,20 +1,24 @@
+// Add-on package created from running `npm run package`
+// has `process.env.NODE_ENV` set to `production`.
+// While package created from running `npm run build/start`
+// does not set `process.env.NODE_ENV`.
+export const IS_ENV_PRODUCTION = process.env.NODE_ENV === "production";
+
 export const OAUTH_HASH_ALGORITHM = "SHA-256";
 
-export const OAUTH_AUTHORIZATION_URL = "https://ims-na1.adobelogin.com/ims/authorize/v2";
+export const OAUTH_AUTHORIZATION_URL = "https://ims-na1.adobelogin.com/ims/authorize/v3";
 
-export const OAUTH_CLIENT_ID = "";
-// ToDo: Use a different client id for production.
-// Also check if `process.env.NODE_ENV` environment variable can be used to set this constant during build.
-// export const OAUTH_CLIENT_ID = "<client-id-configured-with-production-redirect-uri>";
+// Use different Client Ids for development and production.
+export const OAUTH_CLIENT_ID = IS_ENV_PRODUCTION ? "<production-ims-client-id>" : "<development-ims-client-id>";
 
-export const OAUTH_REDIRECT_URI = "https://localhost:5241/sign-in-using-ims/authorized.html";
-// ToDo: Use the below URI for production.
-// Also check if `process.env.NODE_ENV` environment variable can be used to set this constant during build.
-// export const OAUTH_REDIRECT_URI = "https://<add-on-sub-domain>.wxp.adobe-addons.com/<distribution-package-path>/authorized.html";
+// Use different Redirect URIs for development and production.
+export const OAUTH_REDIRECT_URI = IS_ENV_PRODUCTION
+    ? "https://<production-redirect-uri>"
+    : "https://<development-redirect-uri>";
 
 export const OAUTH_RESPONSE_TYPE = "code";
 export const OAUTH_SCOPE = "openid email";
-export const OAUTH_TOKEN_URL = "https://ims-na1.adobelogin.com/ims/token/v3";
+export const OAUTH_TOKEN_URL = "https://ims-na1.adobelogin.com/ims/token/v4";
 
 // ToDo: Generate the state variable per request instead.
 // Every authorization request must have a unique state.
@@ -30,3 +34,8 @@ export const OAUTH_WINDOW_MIN_WIDTH = 480;
 export const OAUTH_WINDOW_MAX_WIDTH = 800;
 
 export const OAUTH_WINDOW_MIN_HEIGHT = 480;
+
+export const USER_PROFILE_API_URL = "https://ims-na1.adobelogin.com/ims/profile";
+
+export const CANNOT_GET_USER_FROM_LOCAL_ADD_ON =
+    "Cannot get user information from IMS from locally hosted add-on. Please try with private link.";
