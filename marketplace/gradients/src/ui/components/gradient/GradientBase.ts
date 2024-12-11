@@ -43,6 +43,8 @@ export abstract class GradientBase<T extends FillDirection> extends LitElement {
     @state()
     private _fillDirection: T;
 
+    protected _canvas: HTMLCanvasElement;
+
     static get styles() {
         return style;
     }
@@ -50,6 +52,7 @@ export abstract class GradientBase<T extends FillDirection> extends LitElement {
     constructor(defaultFillDirection: T) {
         super();
         this._fillDirection = defaultFillDirection;
+        this._canvas = document.createElement("canvas");
     }
 
     protected abstract getAllDirections(): string[];

@@ -28,11 +28,10 @@ export class LinearGradient extends GradientBase<LinearFillDirection> {
     }
 
     protected override getGradientImage(fillDirection: LinearFillDirection): string {
-        const canvas = document.createElement("canvas");
-        canvas.width = this.width;
-        canvas.height = this.height;
+        this._canvas.width = this.width;
+        this._canvas.height = this.height;
 
-        const canvasContext = canvas.getContext("2d");
+        const canvasContext = this._canvas.getContext("2d");
         const canvasGradient = this._getGradient(canvasContext, fillDirection);
 
         const stop1 = Number((this.stop1 / MAX_RANGE).toFixed(1));
@@ -44,7 +43,7 @@ export class LinearGradient extends GradientBase<LinearFillDirection> {
         canvasContext.fillStyle = canvasGradient;
         canvasContext.fillRect(0, 0, this.width, this.height);
 
-        return canvas.toDataURL("image/png");
+        return this._canvas.toDataURL("image/png");
     }
 
     private _getGradient(canvasContext: CanvasRenderingContext2D, fillDirection: LinearFillDirection): CanvasGradient {

@@ -65,8 +65,15 @@ export class GradientForm extends LitElement {
     @state()
     private _gradientImageUrl: string;
 
+    private _previewImage: HTMLImageElement;
+
     static get styles() {
         return style;
+    }
+
+    constructor() {
+        super();
+        this._previewImage = document.createElement("img");
     }
 
     async firstUpdated(): Promise<void> {
@@ -120,21 +127,20 @@ export class GradientForm extends LitElement {
     }
 
     private _previewGradient(): Promise<void> {
-        if (this._pageSize === undefined) {
+        if (this._pageSize === undefined || this._gradientImageUrl === undefined) {
             return;
         }
 
-        const previewImage = document.createElement("img");
-        previewImage.setAttribute("src", this._gradientImageUrl);
+        this._previewImage.setAttribute("src", this._gradientImageUrl);
 
         const previewImageScale = Number((this._pageSize.width / PREVIEW_IMAGE_WIDTH).toFixed(2));
         const previewImageHeight = Math.round(this._pageSize.height / previewImageScale);
 
-        previewImage.style.width = `${PREVIEW_IMAGE_WIDTH}px`;
-        previewImage.style.height = `${previewImageHeight}px`;
+        this._previewImage.style.width = `${PREVIEW_IMAGE_WIDTH}px`;
+        this._previewImage.style.height = `${previewImageHeight}px`;
 
         const previewContainer = this.shadowRoot.getElementById("preview-container");
-        previewContainer.replaceChildren(previewImage);
+        previewContainer.replaceChildren(this._previewImage);
     }
 
     private _reset() {
