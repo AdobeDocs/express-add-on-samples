@@ -28,10 +28,10 @@ export class RadialGradient extends GradientBase<RadialFillDirection> {
     }
 
     protected override getGradientImage(fillDirection: RadialFillDirection): string {
-        this._canvas.width = this.width;
-        this._canvas.height = this.height;
+        this.canvas.width = this.width;
+        this.canvas.height = this.height;
 
-        const canvasContext = this._canvas.getContext("2d");
+        const canvasContext = this.canvas.getContext("2d");
         const canvasGradient = this._getGradient(canvasContext, fillDirection);
 
         const stop1 = Number((this.stop1 / MAX_RANGE).toFixed(1));
@@ -43,7 +43,7 @@ export class RadialGradient extends GradientBase<RadialFillDirection> {
         canvasContext.fillStyle = canvasGradient;
         canvasContext.fillRect(0, 0, this.width, this.height);
 
-        return this._canvas.toDataURL("image/png");
+        return this.canvas.toDataURL("image/png");
     }
 
     private _getGradient(canvasContext: CanvasRenderingContext2D, fillDirection: RadialFillDirection): CanvasGradient {
