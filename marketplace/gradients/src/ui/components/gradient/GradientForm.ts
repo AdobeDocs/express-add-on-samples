@@ -65,11 +65,17 @@ export class GradientForm extends LitElement {
     @state()
     private _gradientImageUrl: string;
 
+    private _previewImage: HTMLImageElement;
+    protected _canvas: HTMLCanvasElement;
+
     static get styles() {
         return style;
     }
 
     async firstUpdated(): Promise<void> {
+        this._previewImage = document.createElement("img");
+        this._canvas = document.createElement("canvas");
+
         const { runtime } = this.addOnUISdk.instance;
         this._sandboxApi = await runtime.apiProxy(RuntimeType.documentSandbox);
 
@@ -120,21 +126,20 @@ export class GradientForm extends LitElement {
     }
 
     private _previewGradient(): Promise<void> {
-        if (this._pageSize === undefined) {
+        if (this._pageSize === undefined || this._gradientImageUrl === undefined) {
             return;
         }
 
-        const previewImage = document.createElement("img");
-        previewImage.setAttribute("src", this._gradientImageUrl);
+        this._previewImage.setAttribute("src", this._gradientImageUrl);
 
         const previewImageScale = Number((this._pageSize.width / PREVIEW_IMAGE_WIDTH).toFixed(2));
         const previewImageHeight = Math.round(this._pageSize.height / previewImageScale);
 
-        previewImage.style.width = `${PREVIEW_IMAGE_WIDTH}px`;
-        previewImage.style.height = `${previewImageHeight}px`;
+        this._previewImage.style.width = `${PREVIEW_IMAGE_WIDTH}px`;
+        this._previewImage.style.height = `${previewImageHeight}px`;
 
         const previewContainer = this.shadowRoot.getElementById("preview-container");
-        previewContainer.replaceChildren(previewImage);
+        previewContainer.replaceChildren(this._previewImage);
     }
 
     private _reset() {
@@ -169,6 +174,7 @@ export class GradientForm extends LitElement {
         switch (this._activeGradientType) {
             case GradientType.Linear: {
                 activeGradient = html`<add-on-linear-gradient
+                    .canvas=${this._canvas}
                     .startingColor=${this._startingColor}
                     .endingColor=${this._endingColor}
                     .width=${this._pageSize.width}
@@ -182,6 +188,7 @@ export class GradientForm extends LitElement {
             }
             case GradientType.Radial: {
                 activeGradient = html`<add-on-radial-gradient
+                    .canvas=${this._canvas}
                     .startingColor=${this._startingColor}
                     .endingColor=${this._endingColor}
                     .width=${this._pageSize.width}
@@ -195,6 +202,7 @@ export class GradientForm extends LitElement {
             }
             case GradientType.Conic: {
                 activeGradient = html`<add-on-conic-gradient
+                    .canvas=${this._canvas}
                     .startingColor=${this._startingColor}
                     .endingColor=${this._endingColor}
                     .width=${this._pageSize.width}

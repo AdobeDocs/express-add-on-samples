@@ -19,6 +19,9 @@ import { style } from "./Gradient.css";
 import { FillDirection } from "./GradientType";
 
 export abstract class GradientBase<T extends FillDirection> extends LitElement {
+    @property({ type: HTMLCanvasElement })
+    canvas!: HTMLCanvasElement;
+
     @property({ type: String })
     startingColor!: string;
 
