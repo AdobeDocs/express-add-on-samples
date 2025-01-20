@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Started</title>
+    <style>
+        .container {
+            margin: 24px;
+			margin-top: 10px;
+            display: flex;
+            flex-direction: column;
+            padding: 0; /* Remove padding */
+        }
+
+        button {
+            background-color: rgb(82, 88, 228);
+            border-color: rgb(82, 88, 228);
+            border-radius: 16px;
+            border-style: solid;
+            color: rgb(255, 255, 255);
+            font-family: sans-serif;
+            height: 32px;
+        }
+
+        button:disabled {
+            background-color: rgb(177, 177, 177);
+            border-color: rgb(177, 177, 177);
+        }
+
+        button:not([disabled]):hover {
+            background-color: rgb(64, 70, 202);
+            cursor: pointer;
+        }
+
+        .node-options {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+
+        .node-options label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        #text {
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            padding: 10px;
+            width: 100%;
+            height: 100px;
+            resize: none; /* Prevent resizing */
+        }
+    </style>
+</head>
+<body>
+    <!-- 
+        Please note that this document does not use the spectrum web components theme for Express.
+        You may use "addOnUISdk.app.ui.theme" to get the current theme and style accordingly.
+    -->
+    <div class="container">
+		<fieldset class="node-options">
+			<legend>Node Options</legend>
+			<label>
+				<input type="radio" name="nodeOption" value="selected" id="useSelectedNode" checked />
+				Use Selected Node
+			</label>
+			<label>
+				<input type="radio" name="nodeOption" value="currentPage" id="useCurrentPageNode" />
+				Use Current Page Node
+			</label>
+			<label>
+				<input type="radio" name="nodeOption" value="root" id="useRootNode" />
+				Use Root Node
+			</label>
+		</fieldset>
+        <label for="key">Metadata Key:</label>
+        <input id="key" placeholder="key" />
+        <br />
+        <label for="value">Metadata Value:</label>
+        <input id="value" placeholder="value" />
+        <br />
+        <button id="add" disabled>Add Metadata</button>
+        <br />
+        <button id="remove" disabled>Remove Metadata</button>
+        <br />
+        <button id="clear" disabled>Clear Metadata</button>
+        <br />
+        <br />
+        <textarea id="text" placeholder="output" readonly></textarea>
+        <br />
+        <button id="get" disabled>Get Item</button>
+        <br />
+        <button id="getall" disabled>Get All Metadata</button>
+        <br />
+        <button id="remainingQuota" disabled>Remaining Quota</button>
+    </div>
+
+    <script type="module" src="ui/index.js"></script>
+</body>
+</html>

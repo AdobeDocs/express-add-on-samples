@@ -1,0 +1,23 @@
+{
+    "testId": "per-element-add-on-id-3",
+    "name": "Per Element Metadata",
+    "version": "1.0.0",
+    "manifestVersion": 2,
+    "requirements": {
+        "experimentalApis": true,
+        "apps": [
+            {
+                "name": "Express",
+                "apiVersion": 1
+            }
+        ]
+    },
+    "entryPoints": [
+        {
+            "type": "panel",
+            "id": "panel1",
+            "main": "index.html",
+            "documentSandbox": "sandbox/code.js"
+        }
+    ]
+}
