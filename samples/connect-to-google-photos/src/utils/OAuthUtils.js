@@ -86,6 +86,7 @@ export class OAuthUtils {
         };
 
         const { accessToken } = await saveTokenResponse(
+            this._store,
             id,
             tokenResponse.clientId,
             requestData,
