@@ -52,6 +52,25 @@
             height: 100px;
             resize: none; /* Prevent resizing */
         }
+
+        .toast {
+            display: none;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            font-weight: 700;
+            text-align: center;
+            padding: 10px;
+        }
+        #addSuccess {
+            background-color: #73b973e3;
+            color: #000080;
+        }
+        #removeSuccess {
+            background-color: #df7b7be3;
+            color: #000080;
+        }
+
     </style>
 </head>
 <body>
@@ -59,6 +78,12 @@
         Please note that this document does not use the spectrum web components theme for Express.
         You may use "addOnUISdk.app.ui.theme" to get the current theme and style accordingly.
     -->
+    <div id="addSuccess" class="toast">
+        Added metadata 🎉
+    </div>
+    <div id="removeSuccess" class="toast">
+        Removed metadata.
+    </div>
     <div class="container">
 		<fieldset class="node-options">
 			<legend>Node Options</legend>

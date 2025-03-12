@@ -16,6 +16,7 @@ addOnUISdk.ready.then(async () => {
 });
 
 function initializeUI(sandboxProxy) {
+    resetFieldsOnClick();
 	setupOptionChange(sandboxProxy);
     setupAddButton(sandboxProxy);
     setupRemoveButton(sandboxProxy);
@@ -23,6 +24,23 @@ function initializeUI(sandboxProxy) {
     setupGetButton(sandboxProxy);
     setupClearButton(sandboxProxy);
     setupRemainingQuota(sandboxProxy);
+}
+
+function resetFieldsOnClick() {
+    // Clear text fields when button is clicked
+    let buttons = document.querySelectorAll('button');
+    const key = document.getElementById("key");
+    const value = document.getElementById("value");
+    const text = document.getElementById("text");
+
+    for (const button of buttons) {
+        button.addEventListener('click', function() {
+            key.value = '';
+            value.value = '';
+            text.value = '';
+            text.style.border = "0px";
+        })
+    }
 }
 
 function setupOptionChange(sandboxProxy) {
@@ -42,7 +60,22 @@ function setupAddButton(sandboxProxy) {
         const key = document.getElementById("key");
         const value = document.getElementById("value");
 
-        await sandboxProxy.setItem(key.value, value.value);
+        try {
+            await sandboxProxy.setItem(key.value, value.value);
+
+            // Display success message for 2 seconds
+            const addedToast = document.getElementById("addSuccess");
+            addedToast.style.display = "block";
+            setTimeout(function() {
+                addedToast.style.display = "none";
+            }, 2000);
+
+        } catch (error) {
+            const text = document.getElementById("text");
+            text.value = error;
+            text.style.border = "2px solid red";
+        }
+        
     });
     addBtn.disabled = false;
 }
@@ -51,8 +84,15 @@ function setupRemoveButton(sandboxProxy) {
     const removeBtn = document.getElementById("remove");
     removeBtn.addEventListener("click", async (event) => {
         const key = document.getElementById("key");
-
+        
         await sandboxProxy.removeItem(key.value);
+
+        // Display success message for 2 seconds
+        const removedToast = document.getElementById("removeSuccess");
+        removedToast.style.display = "block";
+        setTimeout(function() {
+            removedToast.style.display = "none";
+        }, 2000);
     });
     removeBtn.disabled = false;
 }
