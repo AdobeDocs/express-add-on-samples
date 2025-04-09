@@ -4,9 +4,9 @@ A sample Adobe Express Add-on that demonstrates how to build an add-on using Vue
 
 ## What This App Does
 
-This starter template demonstrates a best practice approach for integrating Vue.js with the Adobe Express Add-on SDK:
+This starter sample demonstrates a best practice approach for integrating Vue.js with the Adobe Express Add-on SDK:
 
-1. **SDK Integration via Dependency Injection**: The app uses Vue's provide/inject pattern to make the Adobe Express SDK available throughout the component tree without relying on global variables.
+1. **SDK Integration via Dependency Injection**: The app uses Vue's provide/inject pattern to make the Adobe Express SDK available throughout the component tree.
 
 2. **Asynchronous SDK Loading**: The Add-on UI SDK is loaded asynchronously and initialized before the Vue app is mounted, ensuring that the SDK is ready for use when components need it.
 
@@ -25,6 +25,7 @@ The application implements the following pattern:
 ## Overview
 
 This project showcases:
+
 - Vue.js integration with Adobe Express Add-ons
 - Single-file component (SFC) architecture
 - Proper SDK injection pattern using Vue's dependency injection
