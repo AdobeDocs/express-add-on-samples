@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="description" content="Get started with Add-on development using Vue.js" />
+        <meta name="keywords" content="Adobe, Express, Add-On, Vue.js" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Get Started with Vue</title>
+    </head>
+    <body>
+        <!-- 
+            Please note that this document does not use the spectrum web components theme for Express.
+            You may use "addOnUISdk.app.ui.theme" to get the current theme and style accordingly.
+        -->
+        
+        <!-- 
+            This is the mounting point for our Vue application.
+            The <div id="app"></div> element is where Vue will render everything.
+            
+            When our index.js file runs app.mount('#app'), Vue attaches to this div
+            and replaces its contents with the rendered components.
+            
+            In single-page applications (SPAs) like this one, Vue manages the entire UI
+            from this single mounting point.
+        -->
+        <div id="app"></div>
+        
+        <!-- 
+            The main JavaScript entry point for our application.
+            This script is processed by webpack, which bundles all our JavaScript
+            including Vue components into a single file.
+            
+            The "type="module"" attribute enables ES modules syntax (import/export)
+            in the browser.
+        -->
+        <script type="module" src="index.js"></script>
+    </body>
+</html>
