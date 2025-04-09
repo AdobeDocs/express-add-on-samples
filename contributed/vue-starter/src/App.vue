@@ -3,6 +3,11 @@
     This is the template section where we define the HTML structure of our component.
     In Vue, we use a single-file component (SFC) approach that combines template, logic, and styles.
   -->
+    <!-- 
+            Please note that this document does not use the spectrum web components theme for Express.
+            You may use "addOnUISdk.app.ui.theme" to get the current theme and style accordingly.
+        -->
+        
   <div class="container">
     <!-- 
       Vue directives start with ':' or 'v-' and provide special functionality:

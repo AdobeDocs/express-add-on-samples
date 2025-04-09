@@ -16,7 +16,14 @@ export default (env, argv) => {
         output: {
             filename: "index.js",
             path: path.resolve(__dirname, "dist"),
-            clean: true
+            clean: true,
+            module: true,
+            library: {
+                type: 'module'
+            },
+            environment: {
+                module: true
+            }
         },        
         externalsType: "module",
         experiments: {
@@ -34,7 +41,11 @@ export default (env, argv) => {
                     use: {
                         loader: 'babel-loader',
                         options: {
-                            presets: ['@babel/preset-env']
+                            presets: [
+                                ['@babel/preset-env', {
+                                    modules: false
+                                }]
+                            ]
                         }
                     }
                 },
@@ -48,7 +59,8 @@ export default (env, argv) => {
             new VueLoaderPlugin(),
             new HtmlWebpackPlugin({
                 template: './src/index.html',
-                inject: true
+                inject: 'head',
+                scriptLoading: 'module'
             }),
             new CopyWebpackPlugin({
                 patterns: [
@@ -62,7 +74,7 @@ export default (env, argv) => {
         resolve: {
             extensions: ['.js', '.vue', '.json'],
             alias: {
-                'vue': '@vue/runtime-dom'
+                'vue': 'vue/dist/vue.esm-browser.js'
             }
         },
         devServer: {
