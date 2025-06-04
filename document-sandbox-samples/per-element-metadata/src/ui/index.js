@@ -16,7 +16,6 @@ addOnUISdk.ready.then(async () => {
 });
 
 function initializeUI(sandboxProxy) {
-    resetFieldsOnClick();
 	setupOptionChange(sandboxProxy);
     setupAddButton(sandboxProxy);
     setupRemoveButton(sandboxProxy);
@@ -24,23 +23,6 @@ function initializeUI(sandboxProxy) {
     setupGetButton(sandboxProxy);
     setupClearButton(sandboxProxy);
     setupRemainingQuota(sandboxProxy);
-}
-
-function resetFieldsOnClick() {
-    // Clear text fields when button is clicked
-    let buttons = document.querySelectorAll('button');
-    const key = document.getElementById("key");
-    const value = document.getElementById("value");
-    const text = document.getElementById("text");
-
-    for (const button of buttons) {
-        button.addEventListener('click', function() {
-            key.value = '';
-            value.value = '';
-            text.value = '';
-            text.style.border = "0px";
-        })
-    }
 }
 
 function setupOptionChange(sandboxProxy) {
@@ -57,8 +39,8 @@ function setupOptionChange(sandboxProxy) {
 function setupAddButton(sandboxProxy) {
     const addBtn = document.getElementById("add");
     addBtn.addEventListener("click", async (event) => {
-        const key = document.getElementById("key");
-        const value = document.getElementById("value");
+        const key = document.getElementById("metadata-key");
+        const value = document.getElementById("metadata-value");
 
         try {
             await sandboxProxy.setItem(key.value, value.value);
@@ -83,9 +65,17 @@ function setupAddButton(sandboxProxy) {
 function setupRemoveButton(sandboxProxy) {
     const removeBtn = document.getElementById("remove");
     removeBtn.addEventListener("click", async (event) => {
-        const key = document.getElementById("key");
+        const key = document.getElementById("metadata-key");
         
         await sandboxProxy.removeItem(key.value);
+
+        // Clear inputs after removal
+        const value = document.getElementById("metadata-value");
+        const text = document.getElementById("text");
+        key.value = '';
+        value.value = '';
+        text.value = '';
+        text.style.border = "0px";
 
         // Display success message for 2 seconds
         const removedToast = document.getElementById("removeSuccess");
@@ -117,7 +107,7 @@ function setupGetAllButton(sandboxProxy) {
 function setupGetButton(sandboxProxy) {
     const getBtn = document.getElementById("get");
     getBtn.addEventListener("click", async (event) => {
-        const key = document.getElementById("key");
+        const key = document.getElementById("metadata-key");
         const value = await sandboxProxy.getItem(key.value);
 
         const text = document.getElementById("text");
@@ -130,6 +120,23 @@ function setupClearButton(sandboxProxy) {
     const clearBtn = document.getElementById("clear");
     clearBtn.addEventListener("click", async (event) => {
         await sandboxProxy.clearItems();
+
+        // Clear inputs after metadata cleared
+        const key = document.getElementById("metadata-key");
+        const value = document.getElementById("metadata-value");
+        const text = document.getElementById("text");
+        key.value = '';
+        value.value = '';
+        text.value = '';
+        text.style.border = "0px";
+
+        // Display success message for 2 seconds
+        const removedToast = document.getElementById("removeSuccess");
+        removedToast.style.display = "block";
+        setTimeout(function() {
+            removedToast.style.display = "none";
+        }, 2000);
+
     });
     clearBtn.disabled = false;
 }

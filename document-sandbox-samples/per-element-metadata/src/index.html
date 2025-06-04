@@ -33,6 +33,17 @@
             cursor: pointer;
         }
 
+        .secondary-button {
+            background-color: #A6C1FF;
+            border-color: #A6C1FF;
+            color: black;
+        }
+
+        .secondary-button:not([disabled]):hover {
+            background-color: #849BE4;
+            border-color: #849BE4;
+        }
+
         .node-options {
             border: 1px solid #ccc;
             padding: 10px;
@@ -100,26 +111,26 @@
 				Use Root Node
 			</label>
 		</fieldset>
-        <label for="key">Metadata Key:</label>
-        <input id="key" placeholder="key" />
+        <label for="metadata-key">Metadata Key:</label>
+        <input id="metadata-key" placeholder="key" />
         <br />
-        <label for="value">Metadata Value:</label>
-        <input id="value" placeholder="value" />
+        <label for="metadata-value">Metadata Value:</label>
+        <input id="metadata-value" placeholder="value" />
         <br />
         <button id="add" disabled>Add Metadata</button>
         <br />
-        <button id="remove" disabled>Remove Metadata</button>
+        <button id="get" disabled>Get Metadata</button>
         <br />
-        <button id="clear" disabled>Clear Metadata</button>
+        <button id="remove" disabled>Remove Metadata</button>
         <br />
         <br />
         <textarea id="text" placeholder="output" readonly></textarea>
         <br />
-        <button id="get" disabled>Get Item</button>
+        <button id="getall" class="secondary-button" disabled>Get All Metadata</button>
         <br />
-        <button id="getall" disabled>Get All Metadata</button>
+        <button id="clear" class="secondary-button" disabled>Clear All Metadata</button>
         <br />
-        <button id="remainingQuota" disabled>Remaining Quota</button>
+        <button id="remainingQuota" class="secondary-button" disabled>See Remaining Quota</button>
     </div>
 
     <script type="module" src="ui/index.js"></script>
