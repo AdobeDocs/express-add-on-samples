@@ -1,0 +1,21 @@
+{
+    "testId": "6c9f9198-6f36-47f0-9786-5f811002987e",
+    "name": "Vue Starter",
+    "version": "1.0.0",
+    "manifestVersion": 2,
+    "requirements": {
+        "apps": [
+            {
+                "name": "Express",
+                "apiVersion": 1
+            }
+        ]
+    },
+    "entryPoints": [
+        {
+            "type": "panel",
+            "id": "panel1",
+            "main": "index.html"
+        }
+    ]
+}
