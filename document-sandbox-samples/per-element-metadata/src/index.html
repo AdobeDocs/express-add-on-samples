@@ -1,140 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Get Started</title>
+    <script type="importmap">
+    {
+      "imports": {
+        "@spectrum-web-components/": "https://jspm.dev/@spectrum-web-components/"
+      }
+    }
+    </script>
+    <script type="module">
+        // import "@spectrum-web-components/styles/typography.css";
+
+        // import "@spectrum-web-components/theme/src/themes.js";
+        import "@spectrum-web-components/theme/theme-light.js";
+        import "@spectrum-web-components/theme/express/theme-light.js";
+        import "@spectrum-web-components/theme/express/scale-medium.js";
+        import "@spectrum-web-components/theme/sp-theme.js";
+
+        import "@spectrum-web-components/button/sp-button.js";
+        import "@spectrum-web-components/button-group/sp-button-group.js";
+        import "@spectrum-web-components/field-label/sp-field-label.js";
+        import "@spectrum-web-components/textfield/sp-textfield.js";
+        import "@spectrum-web-components/field-group/sp-field-group.js";
+        import "@spectrum-web-components/field-label/sp-field-label.js";
+        import '@spectrum-web-components/radio/sp-radio.js';
+        import '@spectrum-web-components/radio/sp-radio-group.js';
+        import '@spectrum-web-components/toast/sp-toast.js';
+    </script>
+
     <style>
         .container {
             margin: 24px;
-			margin-top: 10px;
+            margin-top: 10px;
             display: flex;
             flex-direction: column;
             font-family: sans-serif;
-            padding: 0; /* Remove padding */
+            padding: 0;
+            height: 100vh;
+            /* Remove padding */
         }
 
-        button {
-            background-color: rgb(82, 88, 228);
-            border-color: rgb(82, 88, 228);
-            border-radius: 16px;
-            border-style: solid;
-            color: rgb(255, 255, 255);
-            /* font-family: sans-serif; */
-            height: 32px;
+        sp-button-group {
+            margin: 20px 0;
         }
 
-        button:disabled {
-            background-color: rgb(177, 177, 177);
-            border-color: rgb(177, 177, 177);
-        }
-
-        button:not([disabled]):hover {
-            background-color: rgb(64, 70, 202);
-            cursor: pointer;
-        }
-
-        .secondary-button {
-            background-color: #A6C1FF;
-            border-color: #A6C1FF;
-            color: black;
-        }
-
-        .secondary-button:not([disabled]):hover {
-            background-color: #849BE4;
-            border-color: #849BE4;
-        }
-
-        .node-options {
-            border: 1px solid #ccc;
-            padding: 10px;
-            margin-bottom: 20px;
-        }
-
-        .node-options label {
-            display: block;
-            margin-bottom: 5px;
+        sp-textfield {
+            margin: 0;
         }
 
         #text {
-            background-color: #f0f0f0;
-            border: 1px solid #ccc;
-            padding: 10px;
-            width: auto;
             height: 100px;
-            resize: none; /* Prevent resizing */
         }
 
-        .toast {
-            display: none;
-            position: fixed;
-            top: 0;
-            width: 100%;
-            font-weight: 700;
-            font-family: sans-serif;
-            text-align: center;
-            padding: 10px;
+        sp-toast {
+            margin: 5px;
+            width: 250px;
         }
-        #addSuccess {
-            background-color: #73b973e3;
-            color: #000080;
-        }
-        #removeSuccess {
-            background-color: #df7b7be3;
-            color: #000080;
-        }
-
     </style>
 </head>
+
 <body>
     <!-- 
         Please note that this document does not use the spectrum web components theme for Express.
         You may use "addOnUISdk.app.ui.theme" to get the current theme and style accordingly.
     -->
-    <div id="addSuccess" class="toast">
-        Added metadata 🎉
-    </div>
-    <div id="removeSuccess" class="toast">
-        Removed metadata.
-    </div>
-    <div class="container">
-		<fieldset class="node-options">
-			<legend>Node Options</legend>
-			<label>
-				<input type="radio" name="nodeOption" value="selected" id="useSelectedNode" checked />
-				Use Selected Node
-			</label>
-			<label>
-				<input type="radio" name="nodeOption" value="currentPage" id="useCurrentPageNode" />
-				Use Current Page Node
-			</label>
-			<label>
-				<input type="radio" name="nodeOption" value="root" id="useRootNode" />
-				Use Root Node
-			</label>
-		</fieldset>
-        <label for="metadata-key">Metadata Key:</label>
-        <input id="metadata-key" placeholder="key" />
-        <br />
-        <label for="metadata-value">Metadata Value:</label>
-        <input id="metadata-value" placeholder="value" />
-        <br />
-        <button id="add" disabled>Add Metadata</button>
-        <br />
-        <button id="get" disabled>Get Metadata</button>
-        <br />
-        <button id="remove" disabled>Remove Metadata</button>
-        <br />
-        <br />
-        <textarea id="text" placeholder="output" readonly></textarea>
-        <br />
-        <button id="getall" class="secondary-button" disabled>Get All Metadata</button>
-        <br />
-        <button id="clear" class="secondary-button" disabled>Clear All Metadata</button>
-        <br />
-        <button id="remainingQuota" class="secondary-button" disabled>See Remaining Quota</button>
-    </div>
+    <sp-theme scale="medium" color="light" theme="express">
+        <div class="container">
+            <div role="region" aria-label="Toast Notifications" style="position: fixed; bottom:0; z-index: 1000;">
+                <sp-toast id="notification-toast" variant="positive" timeout="6000">
+                    <!-- Content will be set programmatically -->
+                </sp-toast>
+            </div>
+            <sp-field-label for="node-options" size="m">Node Options</sp-field-label>
+            <sp-radio-group id="node-options">
+                <sp-radio id="useSelectedNode" value="selected" name="nodeOption" checked>Use Selected Node</sp-radio>
+                <sp-radio id="useCurrentPageNode" value="currentPage" name="nodeOption">Use Current Page Node</sp-radio>
+                <sp-radio id="useRootNode" value="root" name="nodeOption">Use Root Node</sp-radio>
+            </sp-radio-group>
+
+            <sp-field-label for="metadata-key">Metadata Key:</sp-field-label>
+            <sp-textfield id="metadata-key" placeholder="key"></sp-textfield>
+
+            <sp-field-label for="metadata-value">Metadata Value:</sp-field-label>
+            <sp-textfield id="metadata-value" placeholder="value"></sp-textfield>
+
+            <sp-button-group vertical>
+                <sp-button id="add" disabled>Add Metadata</sp-button>
+                <sp-button id="get" disabled>Get Metadata</sp-button>
+                <sp-button id="remove" disabled>Remove Metadata</sp-button>
+            </sp-button-group>
+
+            <sp-textfield id="text" placeholder="output" multiline grows="false" rows="5"></sp-textfield>
+
+            <sp-button-group vertical>
+                <sp-button id="getall" variant="secondary" disabled>Get All Metadata</sp-button>
+                <sp-button id="clear" variant="secondary" disabled>Clear All Metadata</sp-button>
+                <sp-button id="remainingQuota" variant="secondary" disabled>See Remaining Quota</sp-button>
+            </sp-button-group>
+        </div>
+    </sp-theme>
 
     <script type="module" src="ui/index.js"></script>
 </body>
+
 </html>
