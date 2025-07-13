@@ -140,12 +140,24 @@ function setupGetAllButton(sandboxProxy) {
   getAllBtn.addEventListener("click", async (event) => {
     const text = document.getElementById("text");
 
-    const metadata = await sandboxProxy.getAll();
-    let value = "";
-    metadata.forEach((element) => {
-      value += `${element.key}\t${element.value}\n`;
-    });
-    text.value = value;
+    try {
+      const metadata = await sandboxProxy.getAll();
+      let value = "";
+
+      if (metadata.length === 0) {
+        value = "No metadata found";
+      } else {
+        metadata.forEach((element) => {
+          value += `${element.key}\t${element.value}\n`;
+        });
+      }
+
+      text.value = value;
+      text.style.border = "0px";
+    } catch (error) {
+      text.value = `Error: ${error.message}`;
+      text.style.border = "2px solid red";
+    }
   });
   getAllBtn.disabled = false;
 }
@@ -154,10 +166,22 @@ function setupGetButton(sandboxProxy) {
   const getBtn = document.getElementById("get");
   getBtn.addEventListener("click", async (event) => {
     const key = document.getElementById("metadata-key");
-    const value = await sandboxProxy.getItem(key.value);
-
     const text = document.getElementById("text");
-    text.value = value;
+
+    if (!key.value.trim()) {
+      text.value = "Please enter a metadata key";
+      text.style.border = "2px solid orange";
+      return;
+    }
+
+    try {
+      const value = await sandboxProxy.getItem(key.value);
+      text.value = value;
+      text.style.border = "0px";
+    } catch (error) {
+      text.value = `Error: ${error.message}`;
+      text.style.border = "2px solid red";
+    }
   });
   getBtn.disabled = false;
 }
@@ -185,9 +209,22 @@ function setupClearButton(sandboxProxy) {
 function setupRemainingQuota(sandboxProxy) {
   const remainingQuotaBtn = document.getElementById("remainingQuota");
   remainingQuotaBtn.addEventListener("click", async (event) => {
-    const remainingQuota = await sandboxProxy.remainingQuota();
     const text = document.getElementById("text");
-    text.value = `Remaining quota\nsizeInBytes:${remainingQuota.sizeInBytes}\nnumKeys:${remainingQuota.numKeys}`;
+
+    try {
+      const remainingQuota = await sandboxProxy.remainingQuota();
+
+      if (remainingQuota.error) {
+        text.value = `Error getting quota: ${remainingQuota.error}`;
+        text.style.border = "2px solid red";
+      } else {
+        text.value = `Remaining quota\nsizeInBytes: ${remainingQuota.sizeInBytes}\nnumKeys: ${remainingQuota.numKeys}`;
+        text.style.border = "0px";
+      }
+    } catch (error) {
+      text.value = `Error: ${error.message}`;
+      text.style.border = "2px solid red";
+    }
   });
   remainingQuotaBtn.disabled = false;
 }

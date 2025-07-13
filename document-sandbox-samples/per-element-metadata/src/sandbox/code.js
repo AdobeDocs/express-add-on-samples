@@ -11,37 +11,103 @@ function start() {
   // i.e., to the `index.html` file of this add-on.
   const sandboxApi = {
     setItem: (key, value) => {
-      console.log("Sandbox: setItem called with option:", option);
-      node = getNodeByOption(option);
-      node.addOnData.setItem(key, value);
+      try {
+        console.log("Sandbox: setItem called with option:", option);
+        node = getNodeByOption(option);
+        node.addOnData.setItem(key, value);
+        console.log(`Sandbox: Successfully set metadata ${key} = ${value}`);
+      } catch (error) {
+        console.error("Sandbox: Error setting metadata:", error);
+        throw error; // Re-throw to show error in UI
+      }
     },
     removeItem: (key) => {
-      node = getNodeByOption(option);
-      node.addOnData.removeItem(key);
+      try {
+        node = getNodeByOption(option);
+        const existingValue = node.addOnData.getItem(key);
+
+        if (existingValue === undefined || existingValue === null) {
+          console.log(`Sandbox: No metadata found to remove for key: ${key}`);
+          return; // Don't throw error, just log it
+        }
+
+        node.addOnData.removeItem(key);
+        console.log(`Sandbox: Successfully removed metadata for key: ${key}`);
+      } catch (error) {
+        console.error("Sandbox: Error removing metadata:", error);
+        throw error; // Re-throw to show error in UI
+      }
     },
     getAll: () => {
-      node = getNodeByOption(option);
-      let keys,
-        items = [];
-      keys = node.addOnData.keys();
-      keys.forEach((key) => {
-        // push the key and value to items
-        items.push({ key: key, value: node.addOnData.getItem(key) });
-      });
-      return items;
+      try {
+        node = getNodeByOption(option);
+        let keys = node.addOnData.keys();
+        let items = [];
+
+        if (keys.length === 0) {
+          console.log("Sandbox: No metadata found for current node");
+          return [
+            {
+              key: "No metadata",
+              value: "No metadata found for the current node",
+            },
+          ];
+        }
+
+        keys.forEach((key) => {
+          // push the key and value to items
+          items.push({ key: key, value: node.addOnData.getItem(key) });
+        });
+        return items;
+      } catch (error) {
+        console.error("Sandbox: Error getting all metadata:", error);
+        return [{ key: "Error", value: error.message }];
+      }
     },
     getItem: (key) => {
-      node = getNodeByOption(option);
-      return node.addOnData.getItem(key);
+      try {
+        node = getNodeByOption(option);
+        const value = node.addOnData.getItem(key);
+
+        if (value === undefined || value === null) {
+          console.log(`Sandbox: No metadata found for key: ${key}`);
+          return `No metadata found for key: ${key}`;
+        }
+
+        return value;
+      } catch (error) {
+        console.error("Sandbox: Error getting metadata:", error);
+        return `Error: ${error.message}`;
+      }
     },
     clearItems: () => {
-      node = getNodeByOption(option);
-      node.addOnData.clear();
+      try {
+        node = getNodeByOption(option);
+        const keys = node.addOnData.keys();
+
+        if (keys.length === 0) {
+          console.log("Sandbox: No metadata to clear");
+          return; // Don't throw error, just log it
+        }
+
+        node.addOnData.clear();
+        console.log(
+          `Sandbox: Successfully cleared ${keys.length} metadata items`
+        );
+      } catch (error) {
+        console.error("Sandbox: Error clearing metadata:", error);
+        throw error; // Re-throw to show error in UI
+      }
     },
 
     remainingQuota: () => {
-      node = getNodeByOption(option);
-      return node.addOnData.remainingQuota;
+      try {
+        node = getNodeByOption(option);
+        return node.addOnData.remainingQuota;
+      } catch (error) {
+        console.error("Sandbox: Error getting remaining quota:", error);
+        return { sizeInBytes: 0, numKeys: 0, error: error.message };
+      }
     },
 
     selectedOption: (selectedOption) => {
