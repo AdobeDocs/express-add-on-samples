@@ -25,7 +25,10 @@ import "@spectrum-web-components/number-field/sp-number-field.js";
 import "@spectrum-web-components/slider/sp-slider.js";
 import "@spectrum-web-components/swatch/sp-swatch.js";
 
-import addOnUISdk from "https://new.express.adobe.com/static/add-on-sdk/sdk.js";
+import addOnUISdk, {
+  ColorPickerEvent,
+  ColorPickerPlacement,
+} from "https://new.express.adobe.com/static/add-on-sdk/sdk.js";
 
 addOnUISdk.ready.then(async () => {
   console.log("addOnUISdk is ready for use.");
@@ -46,30 +49,56 @@ addOnUISdk.ready.then(async () => {
 
   // Color pickers ------------------------------------------
 
-  const colsColorPicker = document.getElementById("colsColorPicker");
   const colsColorSwatch = document.getElementById("colsColorSwatch");
-  const rowsColorPicker = document.getElementById("rowsColorPicker");
   const rowsColorSwatch = document.getElementById("rowsColorSwatch");
 
-  colsColorPicker.value = "#ffcccc";
-  colsColorSwatch.color = "#ffcccc";
-  rowsColorPicker.value = "#ccccff";
-  rowsColorSwatch.color = "#ccccff";
+  // Initialize colors and store current values
+  let colsColor = "#ffcccc";
+  let rowsColor = "#ccccff";
 
+  colsColorSwatch.color = colsColor;
+  rowsColorSwatch.color = rowsColor;
+
+  // Setup color picker for columns
   colsColorSwatch.addEventListener("click", function () {
-    colsColorPicker.click();
-  });
-  colsColorPicker.addEventListener("input", function (event) {
-    const selectedColor = event.target.value;
-    colsColorSwatch.setAttribute("color", selectedColor);
+    addOnUISdk.app.showColorPicker(colsColorSwatch, {
+      title: "Column Grid Color",
+      initialColor: colsColor,
+      placement: ColorPickerPlacement.right,
+    });
   });
 
-  rowsColorSwatch.addEventListener("click", function () {
-    rowsColorPicker.click();
+  colsColorSwatch.addEventListener(
+    ColorPickerEvent.colorChange,
+    function (event) {
+      colsColor = event.detail.color;
+      colsColorSwatch.setAttribute("color", colsColor);
+    }
+  );
+
+  colsColorSwatch.addEventListener(ColorPickerEvent.close, function (event) {
+    console.log("Columns color picker closed");
   });
-  rowsColorPicker.addEventListener("input", function (event) {
-    const selectedColor = event.target.value;
-    rowsColorSwatch.setAttribute("color", selectedColor);
+
+  // Setup color picker for rows
+  rowsColorSwatch.addEventListener("click", function () {
+    addOnUISdk.app.showColorPicker(rowsColorSwatch, {
+      title: "Row Grid Color",
+      initialColor: rowsColor,
+      placement: ColorPickerPlacement.right,
+    });
+  });
+
+  rowsColorSwatch.addEventListener(
+    ColorPickerEvent.colorChange,
+    function (event) {
+      rowsColor = event.detail.color;
+      rowsColorSwatch.setAttribute("color", rowsColor);
+    }
+  );
+
+  rowsColorSwatch.addEventListener(ColorPickerEvent.close, function (event) {
+    console.log("Rows color picker closed");
   });
 
   // CTA Buttons --------------------------------------------
@@ -90,8 +119,8 @@ addOnUISdk.ready.then(async () => {
       columns: colsInput.value,
       rows: rowsInput.value,
       gutter: gutterInput.value,
-      columnColor: colsColorPicker.value,
-      rowColor: rowsColorPicker.value,
+      columnColor: colsColor,
+      rowColor: rowsColor,
     });
     deleteGridBtn.disabled = false;
   };
