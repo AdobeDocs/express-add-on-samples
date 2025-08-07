@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Hello World widget." />
+    <meta name="keywords" content="Adobe, Spice, Add-In, Widget, Hello World" />
+    <meta name="author" content="Adobe" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      * {
+        background-color: #fff;
+        font-family: "Poppins", sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-size: small;
+        padding: 8px;
+      }
+
+      .button {
+        margin: 5px 0 10px;
+        padding: 5px;
+        width: 25%;
+        vertical-align: middle;
+        outline: none !important;
+        border: 0;
+        box-shadow: 0 0 10px #cbd1cf;
+        cursor: pointer;
+      }
+    </style>
+    <script type="module" defer>
+        import AddOnSDKAPI from "https://localhost.adobe.com:8080/static/add-on-sdk/sdk.js";
+
+      try {
+        await AddOnSDKAPI.ready;
+      } catch (e) {
+        console.log(e);
+        console.log("SDK init failed!");
+      }
+
+      window.addImage = () => {
+        fetch("https://picsum.photos/400/400")
+          .then((response) => response.blob())
+          .then(async (blob) => {
+            try {
+              console.log(blob);
+              await AddOnSDKAPI.app.document.addImage(blob);
+            } catch (error) {
+              console.log("Failed to add the image to the Page:", error);
+            }
+          });
+      };
+
+      window.addVideo = () => {
+        fetch(
+          "https://localhost:5241/b09fb955-c212-439f-b23a-6cd1d127b230/iframe//Big_Buck_Bunny_1080_10s_1MB.mp4"
+        )
+          .then((response) => response.blob())
+          .then(async (blob) => {
+            try {
+              console.log(blob);
+              await AddOnSDKAPI.app.document.addVideo(blob);
+            } catch (error) {
+              console.log("Failed to add the video to the Page:", error);
+            }
+          });
+      };
+    </script>
+  </head>
+  <body>
+    <button class="button" onclick="addImage()">Add Image</button>
+    <button class="button" onclick="addVideo()">Add Video</button>
+    <hr />
+    <img id="image" />
+    <video id="video"></video>
+  </body>
+</html>

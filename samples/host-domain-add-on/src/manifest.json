@@ -1,0 +1,25 @@
+{
+    "testId": "b09fb955-c212-439f-b23a-6cd1d127b230",
+    "name": "Host Domain Js Modified",
+    "version": "1.0.0",
+    "manifestVersion": 2,
+    "requirements": {
+        "apps": [
+            {
+                "name": "Express",
+                "apiVersion": 1
+            }
+        ]
+    },
+    "entryPoints": [
+        {
+            "type": "panel",
+            "id": "panel1",
+            "main": "index.html",
+            "permissions": {
+                "sandbox": [ "allow-popups", "allow-popups-to-escape-sandbox", "allow-downloads", "allow-presentation" ]
+            },
+            "hostDomain": "https://localhost:5241/"
+        }
+    ]
+}
