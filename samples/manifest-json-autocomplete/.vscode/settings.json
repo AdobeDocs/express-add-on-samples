@@ -1,0 +1,8 @@
+{
+  "json.schemas": [
+    {
+      "fileMatch": ["src/manifest.json"],
+      "url": "./.vscode/express-add-on-manifest.schema.json"
+    }
+  ]
+}

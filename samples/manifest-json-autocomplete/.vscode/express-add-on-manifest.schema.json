@@ -1,0 +1,152 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Adobe Express Add-on Manifest",
+  "description": "Manifest file that defines the metadata for your add-on and how it should behave",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "testId": {
+      "type": "string",
+      "description": "Used to uniquely identify an add-on among other add-ons during development workflows only. This is auto-generated and inserted into the manifest by the CLI when an add-on is created. This is mandatory in the development workflow and ignored in add-ons submitted to the marketplace."
+    },
+    "name": {
+      "type": "string",
+      "description": "Add-on name for development workflow only. The name provided in the UI during submission is used in all other workflows."
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
+      "description": "Add-on version in 'major.minor.patch' format (e.g. '1.2.0')"
+    },
+    "manifestVersion": {
+      "type": "number",
+      "description": "Version of the manifest schema (e.g. 2)"
+    },
+    "requirements": {
+      "type": "object",
+      "description": "Specify the apps the add-on is applicable for",
+      "additionalProperties": false,
+      "properties": {
+        "apps": {
+          "type": "array",
+          "description": "Add-on authors can specify the apps that the add-on is intended for",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "name": {
+                "type": "string",
+                "enum": ["Express"],
+                "description": "Currently supported values: 'Express'"
+              },
+              "apiVersion": {
+                "type": "number",
+                "enum": [1],
+                "description": "API version that the add-on uses. Currently supported values: 1"
+              },
+              "supportedDeviceClass": {
+                "type": "array",
+                "description": "Supported platforms by the add-on. If not specified, the default value assumed is: ['desktop']",
+                "items": {
+                  "type": "string",
+                  "enum": ["desktop"],
+                  "description": "Browser on desktop"
+                }
+              }
+            },
+            "required": ["name", "apiVersion"]
+          }
+        },
+        "experimentalApis": {
+          "type": "boolean",
+          "description": "Add-ons can opt to use experimental apis by specifying this flag. This flag is only allowed during development and needs to be removed during submission."
+        },
+        "supportsTouch": {
+          "type": "boolean",
+          "description": "Whether the add-on supports touch-only devices. If not specified, the default value assumed is false."
+        },
+        "renditionPreview": {
+          "type": "boolean",
+          "description": "Ensure premium content preview is properly handled for free users when add-ons create renditions."
+        }
+      },
+      "required": ["apps"]
+    },
+    "entryPoints": {
+      "type": "array",
+      "description": "An entry point for your add-on. At least one is required.",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": ["panel"],
+            "description": "The type of the entry point. Currently supported values: 'panel'"
+          },
+          "id": {
+            "type": "string",
+            "description": "Identifier for the entry point. Must be unique within the add-on."
+          },
+          "main": {
+            "type": "string",
+            "description": "Main file for this entry point when launched."
+          },
+          "documentSandbox": {
+            "type": "string",
+            "description": "File containing the JavaScript code to use with the document sandbox SDK and Adobe Express Document APIs."
+          },
+          "permissions": {
+            "type": "object",
+            "description": "The permissions defined for this entry point",
+            "additionalProperties": false,
+            "properties": {
+              "sandbox": {
+                "type": "array",
+                "description": "List of iframe sandbox permissions",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "allow-popups",
+                    "allow-popups-to-escape-sandbox",
+                    "allow-presentation",
+                    "allow-downloads"
+                  ],
+                  "description": "allow-popups: Allows popups (such as window.open(), target='_blank', or showModalDialog()). Note: If this permission is not set and you're using popups, the popup will silently fail to open. \n allow-popups-to-escape-sandbox: Allows a sandboxed document to open new windows without forcing the sandboxing flags upon them \n allow-presentation: Lets the add-on start a presentation session \n allow-downloads: Allows downloading files through an <a> or <area> element with the download attribute, as well as through the navigation that leads to a download of a file"
+                }
+              },
+              "oauth": {
+                "type": "array",
+                "description": "List of 3rd party auth server domains for which OAuth workflow may be requested. eg. [\"www.dropbox.com\"]",
+                "items": {
+                  "type": "string",
+                  "format": "hostname"
+                }
+              },
+              "clipboard": {
+                "type": "array",
+                "description": "The allowed values for the list of clipboard permissions. Currently, clipboard-write is supported and allows an add-on to write arbitrary data to the clipboard",
+                "items": {
+                  "type": "string",
+                  "enum": ["clipboard-write"]
+                }
+              },
+              "microphone": {
+                "type": ["string", "boolean"],
+                "description": "The allowlists value used in iframe 'allow' attribute. Enables the add-on to access the user's microphone for audio input."
+              },
+              "camera": {
+                "type": ["string", "boolean"],
+                "description": "The allowlists value used in iframe 'allow' attribute. Enables the add-on to access the user's camera for video input."
+              }
+            }
+          }
+        },
+        "required": ["type", "id", "main"]
+      }
+    }
+  },
+  "required": ["version", "manifestVersion", "requirements", "entryPoints"]
+}
