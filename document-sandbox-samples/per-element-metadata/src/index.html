@@ -10,6 +10,7 @@
 			margin-top: 10px;
             display: flex;
             flex-direction: column;
+            font-family: sans-serif;
             padding: 0; /* Remove padding */
         }
 
@@ -19,7 +20,7 @@
             border-radius: 16px;
             border-style: solid;
             color: rgb(255, 255, 255);
-            font-family: sans-serif;
+            /* font-family: sans-serif; */
             height: 32px;
         }
 
@@ -31,6 +32,17 @@
         button:not([disabled]):hover {
             background-color: rgb(64, 70, 202);
             cursor: pointer;
+        }
+
+        .secondary-button {
+            background-color: #A6C1FF;
+            border-color: #A6C1FF;
+            color: black;
+        }
+
+        .secondary-button:not([disabled]):hover {
+            background-color: #849BE4;
+            border-color: #849BE4;
         }
 
         .node-options {
@@ -48,10 +60,30 @@
             background-color: #f0f0f0;
             border: 1px solid #ccc;
             padding: 10px;
-            width: 100%;
+            width: auto;
             height: 100px;
             resize: none; /* Prevent resizing */
         }
+
+        .toast {
+            display: none;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            font-weight: 700;
+            font-family: sans-serif;
+            text-align: center;
+            padding: 10px;
+        }
+        #addSuccess {
+            background-color: #73b973e3;
+            color: #000080;
+        }
+        #removeSuccess {
+            background-color: #df7b7be3;
+            color: #000080;
+        }
+
     </style>
 </head>
 <body>
@@ -59,6 +91,12 @@
         Please note that this document does not use the spectrum web components theme for Express.
         You may use "addOnUISdk.app.ui.theme" to get the current theme and style accordingly.
     -->
+    <div id="addSuccess" class="toast">
+        Added metadata 🎉
+    </div>
+    <div id="removeSuccess" class="toast">
+        Removed metadata.
+    </div>
     <div class="container">
 		<fieldset class="node-options">
 			<legend>Node Options</legend>
@@ -75,26 +113,26 @@
 				Use Root Node
 			</label>
 		</fieldset>
-        <label for="key">Metadata Key:</label>
-        <input id="key" placeholder="key" />
+        <label for="metadata-key">Metadata Key:</label>
+        <input id="metadata-key" placeholder="key" />
         <br />
-        <label for="value">Metadata Value:</label>
-        <input id="value" placeholder="value" />
+        <label for="metadata-value">Metadata Value:</label>
+        <input id="metadata-value" placeholder="value" />
         <br />
         <button id="add" disabled>Add Metadata</button>
         <br />
-        <button id="remove" disabled>Remove Metadata</button>
+        <button id="get" disabled>Get Metadata</button>
         <br />
-        <button id="clear" disabled>Clear Metadata</button>
+        <button id="remove" disabled>Remove Metadata</button>
         <br />
         <br />
         <textarea id="text" placeholder="output" readonly></textarea>
         <br />
-        <button id="get" disabled>Get Item</button>
+        <button id="getall" class="secondary-button" disabled>Get All Metadata</button>
         <br />
-        <button id="getall" disabled>Get All Metadata</button>
+        <button id="clear" class="secondary-button" disabled>Clear All Metadata</button>
         <br />
-        <button id="remainingQuota" disabled>Remaining Quota</button>
+        <button id="remainingQuota" class="secondary-button" disabled>See Remaining Quota</button>
     </div>
 
     <script type="module" src="ui/index.js"></script>
