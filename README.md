@@ -45,3 +45,7 @@ This Add-on demonstrates how to use the client storage to persist user generated
 ### Export Sample
 
 This Add-on demonstrates how to use the Export APIs to export content in various formats including jpeg, png, pdf and mp4.
+
+### Add-on with Backend
+
+This sample demonstrates how to connect an Adobe Express add-on to a Node.js / Express backend. It includes a React panel with document sandbox support, CORS configuration, and a text-rewrite flow powered by Google Gemini on the server (API key never exposed in the add-on). For local development, the README explains forwarding the backend port to an HTTPS URL (mixed-content safe); for production, deploy the backend and use the deployed HTTPS API URL.
