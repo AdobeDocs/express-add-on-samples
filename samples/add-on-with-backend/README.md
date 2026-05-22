@@ -30,11 +30,9 @@ sequenceDiagram
   DS->>DS: editor.createText
 ```
 
-
-
 ## Folder structure
 
-```
+```text
 add-on-with-backend/
 ├── README.md          ← you are here
 ├── add-on/            ← React + document sandbox
@@ -43,12 +41,10 @@ add-on-with-backend/
 
 ## Local development vs production
 
-
 | Environment    | Backend                                          | `API_BASE_URL` in add-on                                   |
 | -------------- | ------------------------------------------------ | ---------------------------------------------------------- |
 | **Local**      | Run Express on `http://localhost:PORT`           | **HTTPS tunnel URL** that forwards to that port (required) |
 | **Production** | Deploy Express with HTTPS (Render, Fly.io, etc.) | Your **deployed** `https://api.example.com` URL            |
-
 
 The add-on panel always uses **HTTPS** (`https://localhost:5241` locally, or `https://abc123.wxp.adobe-addons.com` when distributed). The browser **blocks** `fetch("http://localhost:...")` from that page (mixed content). Opening CORS with `*` does not fix this.
 
@@ -131,13 +127,11 @@ If Chrome asks for **Local Network Access**, click **Allow**.
 
 ## Configuration
 
-
 | File                           | Purpose                                                                |
 | ------------------------------ | ---------------------------------------------------------------------- |
 | `backend/.env`                 | `GEMINI_API_KEY`, `PORT`, `CORS_ORIGINS`                               |
 | `add-on/src/config.js`         | `API_BASE_URL` — **HTTPS** tunnel (local) or deployed API (production) |
 | `add-on/src/config.example.js` | Example values                                                         |
-
 
 **Never** put `GEMINI_API_KEY` in the add-on. Anyone can read client-side source.
 
@@ -157,7 +151,6 @@ even when the request URL is your ngrok/tunnel address. This sample allows that 
 
 ### Troubleshooting
 
-
 | Symptom                                    | Likely cause                      | Fix                                     |
 | ------------------------------------------ | --------------------------------- | --------------------------------------- |
 | Mixed content / blocked `http://localhost` | HTTPS add-on calling HTTP API     | Use HTTPS tunnel URL in `config.js`     |
@@ -165,7 +158,6 @@ even when the request URL is your ngrok/tunnel address. This sample allows that 
 | `CORS origin not allowed`                  | Origin not in allow list          | Add to `CORS_ORIGINS` in `backend/.env` |
 | Chrome Local Network Access                | Chrome 142+                       | Click **Allow**                         |
 | Tunnel URL changed                         | Free ngrok/cloudflare URL rotated | Update `config.js` and rebuild          |
-
 
 ### Verify in DevTools
 
@@ -182,12 +174,10 @@ even when the request URL is your ngrok/tunnel address. This sample allows that 
 
 ## API reference
 
-
 | Method | Path           | Body                | Response                     |
 | ------ | -------------- | ------------------- | ---------------------------- |
 | GET    | `/health`      | —                   | `{ "status": "ok" }`         |
 | POST   | `/api/rewrite` | `{ "text": "..." }` | `{ "rewrittenText": "..." }` |
-
 
 ## Technology used
 
@@ -200,4 +190,3 @@ even when the request URL is your ngrok/tunnel address. This sample allows that 
 - [import-images-using-oauth](../import-images-using-oauth) — OAuth to third-party APIs
 - [licensed-addon](../licensed-addon) — HTTP calls to external licensing APIs
 - [use-client-storage](../use-client-storage) — persist UI state in the panel
-
