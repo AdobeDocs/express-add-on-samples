@@ -27,6 +27,7 @@ function start() {
             const textNode = editor.createText();
             textNode.text = text;
             textNode.translation = { x: 500, y: 600 };
+            textNode.fullContent.applyCharacterStyles({ fontSize: 28 });
             insertionParent.children.append(textNode);
         }
     };

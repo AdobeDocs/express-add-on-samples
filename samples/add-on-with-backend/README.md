@@ -50,7 +50,7 @@ add-on-with-backend/
 | **Production** | Deploy Express with HTTPS (Render, Fly.io, etc.) | Your **deployed** `https://api.example.com` URL            |
 
 
-The add-on dev server always uses **HTTPS** (`https://localhost:5241`). The browser **blocks** `fetch("http://localhost:...")` from that page (mixed content). Opening CORS with `*` does not fix this.
+The add-on dev server always uses **HTTPS** (`https://localhost:5241` in local and `https://abc123.wxp.adobe-addons.com` when distributed) The browser **blocks** `fetch("http://localhost:...")` from that page (mixed content). Opening CORS with `*` does not fix this.
 
 You need a **tunnel** (or IDE port forward) that exposes your local backend as a **public HTTPS URL**.
 
@@ -175,7 +175,7 @@ even when the request URL is your ngrok/tunnel address. This sample allows that 
 
 ## Production
 
-1. Deploy the Express app to a host with **HTTPS** (Railway, Render, Fly.io, Vercel serverless adapter, etc.).
+1. Deploy the Express app to a host with **HTTPS** (AWS, Railway, Render, Fly.io, Vercel serverless adapter, etc.).
 2. Set environment variables on the host (`GEMINI_API_KEY`, `CORS_ORIGINS` with your `*.wxp.adobe-addons.com` subdomain).
 3. Set `API_BASE_URL` in `add-on/src/config.js` to your production API URL.
 4. Package and distribute the add-on.

@@ -21,7 +21,7 @@ import "./App.css";
 
 const App = ({ sandboxProxy }) => {
     const [inputText, setInputText] = useState("");
-    const [rewrittenText, setRewrittenText] = useState("cdcdc dcdsc dcs ");
+    const [rewrittenText, setRewrittenText] = useState("");
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
 
