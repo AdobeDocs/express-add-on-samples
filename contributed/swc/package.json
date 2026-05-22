@@ -14,24 +14,24 @@
         "panel"
     ],
     "dependencies": {
-        "@spectrum-web-components/action-button": "^0.10.9",
-        "@spectrum-web-components/action-group": "^0.12.5",
-        "@spectrum-web-components/button": "^0.19.9",
-        "@spectrum-web-components/field-label": "^0.10.4",
-        "@spectrum-web-components/tabs": "^0.10.5",
-        "@spectrum-web-components/textfield": "^0.13.9",
-        "@spectrum-web-components/theme": "^0.14.9"
+        "@spectrum-web-components/action-button": "^1.12.1",
+        "@spectrum-web-components/action-group": "^1.12.1",
+        "@spectrum-web-components/button": "^1.12.1",
+        "@spectrum-web-components/field-label": "^1.12.1",
+        "@spectrum-web-components/tabs": "^1.12.1",
+        "@spectrum-web-components/textfield": "^1.12.1",
+        "@spectrum-web-components/theme": "^1.12.1"
     },
     "devDependencies": {
-        "@adobe/ccweb-add-on-scripts": "^2.0.0",
-        "@babel/core": "7.18.13",
-        "@babel/preset-env": "7.18.10",
-        "babel-loader": "8.2.5",
-        "copy-webpack-plugin": "11.0.0",
-        "css-loader": "6.7.1",
-        "html-webpack-plugin": "5.5.0",
-        "style-loader": "3.3.1",
-        "webpack": "5.77.0",
-        "webpack-cli": "5.0.1"
+        "@adobe/ccweb-add-on-scripts": "^3.9.0",
+        "@babel/core": "7.29.0",
+        "@babel/preset-env": "7.29.5",
+        "babel-loader": "10.1.1",
+        "copy-webpack-plugin": "14.0.0",
+        "css-loader": "7.1.4",
+        "html-webpack-plugin": "5.6.7",
+        "style-loader": "4.0.0",
+        "webpack": "5.107.1",
+        "webpack-cli": "7.0.2"
     }
 }
