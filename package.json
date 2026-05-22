@@ -1,10 +1,10 @@
 {
-  "name": "dev-docs-template",
+  "name": "express-add-on-samples",
   "version": "1.0.0",
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/AdobeDocs/dev-docs-template"
+    "url": "https://github.com/AdobeDocs/express-add-on-samples"
   },
   "author": {
     "name": "Tim Kim",
