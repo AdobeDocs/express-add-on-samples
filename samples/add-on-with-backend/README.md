@@ -50,7 +50,7 @@ add-on-with-backend/
 | **Production** | Deploy Express with HTTPS (Render, Fly.io, etc.) | Your **deployed** `https://api.example.com` URL            |
 
 
-The add-on dev server always uses **HTTPS** (`https://localhost:5241` in local and `https://abc123.wxp.adobe-addons.com` when distributed) The browser **blocks** `fetch("http://localhost:...")` from that page (mixed content). Opening CORS with `*` does not fix this.
+The add-on panel always uses **HTTPS** (`https://localhost:5241` locally, or `https://abc123.wxp.adobe-addons.com` when distributed). The browser **blocks** `fetch("http://localhost:...")` from that page (mixed content). Opening CORS with `*` does not fix this.
 
 You need a **tunnel** (or IDE port forward) that exposes your local backend as a **public HTTPS URL**.
 
@@ -99,7 +99,7 @@ Copy the generated `https://....trycloudflare.com` URL.
 
 ### Step 3 — Point the add-on at the HTTPS URL
 
-Edit `[add-on/src/config.js](add-on/src/config.js)`:
+Edit [add-on/src/config.js](add-on/src/config.js):
 
 ```js
 export const API_BASE_URL = "https://YOUR_TUNNEL_URL";  // no trailing slash
@@ -153,7 +153,7 @@ The browser sends:
 
 `Origin: https://localhost:5241`
 
-even when the request URL is your ngrok/tunnel address. This sample allows that origin in `[backend/src/cors.js](backend/src/cors.js)`.
+even when the request URL is your ngrok/tunnel address. This sample allows that origin in [backend/src/cors.js](backend/src/cors.js).
 
 ### Troubleshooting
 
@@ -197,7 +197,7 @@ even when the request URL is your ngrok/tunnel address. This sample allows that 
 
 ## Related samples
 
-- `[import-images-using-oauth](../import-images-using-oauth)` — OAuth to third-party APIs
-- `[licensed-addon](../licensed-addon)` — HTTP calls to external licensing APIs
-- `[use-client-storage](../use-client-storage)` — persist UI state in the panel
+- [import-images-using-oauth](../import-images-using-oauth) — OAuth to third-party APIs
+- [licensed-addon](../licensed-addon) — HTTP calls to external licensing APIs
+- [use-client-storage](../use-client-storage) — persist UI state in the panel
 

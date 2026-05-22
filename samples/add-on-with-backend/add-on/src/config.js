@@ -23,4 +23,4 @@ governing permissions and limitations under the License.
  *
  * Do not add a trailing slash.
  */
-export const API_BASE_URL = "https://thread-ministry-lou-skill.trycloudflare.com";
+export const API_BASE_URL = "https://YOUR_TUNNEL_OR_DEPLOYED_URL";
