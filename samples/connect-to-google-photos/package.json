@@ -28,7 +28,7 @@
         "react-masonry-css": "1.0.16"
     },
     "devDependencies": {
-        "@adobe/ccweb-add-on-scripts": "^2.0.0",
+        "@adobe/ccweb-add-on-scripts": "^3.6.0",
         "@babel/core": "7.23.3",
         "@babel/eslint-parser": "7.24.7",
         "@babel/preset-env": "7.23.3",
