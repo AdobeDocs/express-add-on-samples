@@ -39,8 +39,7 @@ const createRect = (width, height, color) => {
  * @returns {GroupNode} A group containing the created rows.
  */
 const addRows = (rowsNumber, gutter, color) => {
-  const doc = editor.documentRoot;
-  const page = doc.pages.first;
+  const page = editor.context.currentPage;
 
   var rows = [];
   const rowHeight = (page.height - (rowsNumber + 1) * gutter) / rowsNumber;
@@ -73,8 +72,7 @@ const addRows = (rowsNumber, gutter, color) => {
  * @returns {GroupNode} A group containing the created columns.
  */
 const addColumns = (columsNumber, gutter, color) => {
-  const doc = editor.documentRoot;
-  const page = doc.pages.first;
+  const page = editor.context.currentPage;
   var cols = [];
   const colWidth = (page.width - (columsNumber + 1) * gutter) / columsNumber;
   // Create the rectangles

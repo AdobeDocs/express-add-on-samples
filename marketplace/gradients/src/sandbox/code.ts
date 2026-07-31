@@ -31,19 +31,25 @@ function start(): void {
             const insertionParent = getInsertionParent();
             const currentPage = getCurrentPage(insertionParent) as PageNode;
 
+            // Load the new image first—loadBitmapImage() must not run inside
+            // keepContentActiveDuringAsync()'s async lambda.
             const bitmapImage = await editor.loadBitmapImage(image);
 
-            await editor.queueAsyncEdit(() => {
-                const width = currentPage.width;
-                const height = currentPage.height;
+            await editor.keepContentActiveDuringAsync(
+                insertionParent,
+                async () => {},
+                () => {
+                    const width = currentPage.width;
+                    const height = currentPage.height;
 
-                const mediaContainerNode = editor.createImageContainer(bitmapImage, {
-                    initialSize: { width, height }
-                });
-                mediaContainerNode.translation = { x: 0, y: 0 };
+                    const mediaContainerNode = editor.createImageContainer(bitmapImage, {
+                        initialSize: { width, height }
+                    });
+                    mediaContainerNode.translation = { x: 0, y: 0 };
 
-                insertionParent.children.append(mediaContainerNode);
-            });
+                    insertionParent.children.append(mediaContainerNode);
+                }
+            );
         }
     };
 

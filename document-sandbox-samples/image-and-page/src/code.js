@@ -56,17 +56,24 @@ async function start() {
         },
         createImage: async function(blob, size = {}) {
             const insertionParent = editor.context.insertionParent;
+            // Load the new image first—loadBitmapImage() must not run inside
+            // keepContentActiveDuringAsync()'s async lambda.
             const bitmapImage = await editor.loadBitmapImage(blob);
-            // Edits following an asynchronous wait need to be queued to run at a safe time
-            await editor.queueAsyncEdit(() => {
-                let { width, height } = size;
-                if (!width || !height) {
-                    width = bitmapImage.width;
-                    height = bitmapImage.height;
+            // Keep the insertion parent's page active, then create and append
+            // in the synchronous follow-up.
+            await editor.keepContentActiveDuringAsync(
+                insertionParent,
+                async () => {},
+                () => {
+                    let { width, height } = size;
+                    if (!width || !height) {
+                        width = bitmapImage.width;
+                        height = bitmapImage.height;
+                    }
+                    const mediaContainerNode = editor.createImageContainer(bitmapImage, { initialSize: { width, height } });
+                    insertionParent.children.append(mediaContainerNode);
                 }
-                const mediaContainerNode = editor.createImageContainer(bitmapImage, { initialSize: { width, height } });
-                insertionParent.children.append(mediaContainerNode);
-            });
+            );
             return "**** Image created successfully ****"
         }
     }
