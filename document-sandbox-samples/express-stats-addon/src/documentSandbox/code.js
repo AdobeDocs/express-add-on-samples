@@ -20,9 +20,10 @@ async function start() {
 
   runtime.exposeApi({
     async getDocumentData() {
-      const doc = editor.documentRoot;
+      const pages = editor.documentRoot.pages;
       let documentData = [];
-      for (const page of doc.pages) {
+      // Visit every page so its content (and allChildren) is accessible while we read it
+      await pages.visitPages([...pages], (page) => {
         console.log("Page", page);
         let pageData = {};
         pageData.dimensions = {
@@ -31,7 +32,7 @@ async function start() {
         };
         pageData.nodes = getNodeData(page);
         documentData.push(pageData);
-      }
+      });
       console.log("documentData", documentData);
       await panelUIProxy.createTable(documentData);
     },
