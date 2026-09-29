@@ -28,22 +28,29 @@ function start(): void {
             };
         },
         drawImage: async (image: Blob) => {
-            const insertionParent = getInsertionParent();
-            const currentPage = getCurrentPage(insertionParent) as PageNode;
-
+            // loadBitmapImage is itself doc-mutating, so it must resolve before
+            // keepContentActiveDuringAsync — never inside its asyncLambda.
             const bitmapImage = await editor.loadBitmapImage(image);
 
-            await editor.queueAsyncEdit(() => {
-                const width = currentPage.width;
-                const height = currentPage.height;
+            await editor.keepContentActiveDuringAsync(
+                getInsertionParent(),
+                async () => {}, // no further async work needed — bitmap is already loaded
+                () => {
+                    // Re-fetch after the await instead of reusing pre-await
+                    // references, which may now point at an inactive page.
+                    const insertionParent = getInsertionParent();
+                    const currentPage = getCurrentPage(insertionParent) as PageNode;
+                    const width = currentPage.width;
+                    const height = currentPage.height;
 
-                const mediaContainerNode = editor.createImageContainer(bitmapImage, {
-                    initialSize: { width, height }
-                });
-                mediaContainerNode.translation = { x: 0, y: 0 };
+                    const mediaContainerNode = editor.createImageContainer(bitmapImage, {
+                        initialSize: { width, height }
+                    });
+                    mediaContainerNode.translation = { x: 0, y: 0 };
 
-                insertionParent.children.append(mediaContainerNode);
-            });
+                    insertionParent.children.append(mediaContainerNode);
+                }
+            );
         }
     };
 
